@@ -23,20 +23,22 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String productName;
+    private String description;
     private int quantity;
     private double price;
 
-    public Product(Long id, String productName, int quantity, double price) {
+    public Product(Long id, String productName, int quantity, double price, String description) {
         this.id = id;
         this.productName = productName;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public Product(String productName, int quantity, double price) {
+    public Product(String productName, int quantity, double price, String description) {
         this.productName = productName;
         this.quantity = quantity;
         this.price = price;
+        this.description = description;
     }
 
     public Product() {
