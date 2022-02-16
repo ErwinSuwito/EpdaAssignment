@@ -16,6 +16,8 @@
         <form action="AddProduct" method="POST">
             <label for="productName">Product Name: </label><br>
             <input type="text" id="productName" name="productName"><br>
+            <label for="description">Product Description </label><br>
+            <input type="text" id="description" name="description"><br>
             <label for="price">Price: </label><br>
             <input type="number" id="price" name="price"><br><br>
             <label for="quantity">Price: </label><br>
