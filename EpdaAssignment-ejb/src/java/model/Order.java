@@ -32,7 +32,7 @@ public class Order implements Serializable {
     @OneToOne
     private User deliveryStaff;
     @OneToMany
-    private ArrayList<Product> productBasket;
+    private ArrayList<OrderProduct> basket;
     private String address;
     private OrderStatus status;
     private LocalDateTime deliveryTime;
@@ -40,11 +40,11 @@ public class Order implements Serializable {
     private LocalDateTime deliveredTime;
     private double totalAmount;
 
-    public Order(Long id, User customer, User deliveryStaff, ArrayList<Product> productBasket, String address, OrderStatus status, LocalDateTime deliveryTime, LocalDateTime actualDeliveryTime, LocalDateTime deliveredTime, double totalAmount) {
+    public Order(Long id, User customer, User deliveryStaff, ArrayList<OrderProduct> productBasket, String address, OrderStatus status, LocalDateTime deliveryTime, LocalDateTime actualDeliveryTime, LocalDateTime deliveredTime, double totalAmount) {
         this.id = id;
         this.customer = customer;
         this.deliveryStaff = deliveryStaff;
-        this.productBasket = productBasket;
+        this.basket = productBasket;
         this.address = address;
         this.status = status;
         this.deliveryTime = deliveryTime;
@@ -53,11 +53,20 @@ public class Order implements Serializable {
         this.totalAmount = totalAmount;
     }
 
-    public Order(User customer, ArrayList<Product> productBasket, String address, OrderStatus status, LocalDateTime deliveryTime, double totalAmount) {
+    public Order(User customer, ArrayList<OrderProduct> productBasket, String address, OrderStatus status, LocalDateTime deliveryTime, double totalAmount) {
         this.customer = customer;
-        this.productBasket = productBasket;
+        this.basket = productBasket;
         this.address = address;
         this.status = status;
+        this.deliveryTime = deliveryTime;
+        this.totalAmount = totalAmount;
+    }
+
+    public Order(User customer, User deliveryStaff, ArrayList<OrderProduct> basket, String address, LocalDateTime deliveryTime, double totalAmount) {
+        this.customer = customer;
+        this.deliveryStaff = deliveryStaff;
+        this.basket = basket;
+        this.address = address;
         this.deliveryTime = deliveryTime;
         this.totalAmount = totalAmount;
     }
@@ -81,12 +90,12 @@ public class Order implements Serializable {
         this.deliveryStaff = deliveryStaff;
     }
 
-    public ArrayList<Product> getProductBasket() {
-        return productBasket;
+    public ArrayList<OrderProduct> getProductBasket() {
+        return basket;
     }
 
-    public void setProductBasket(ArrayList<Product> productBasket) {
-        this.productBasket = productBasket;
+    public void setProductBasket(ArrayList<OrderProduct> productBasket) {
+        this.basket = productBasket;
     }
 
     public String getAddress() {
