@@ -25,11 +25,11 @@ public class Receipt implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne
-    private Order order;
+    private Orders order;
     private double amountPayed;
     private LocalDateTime generateDate;
 
-    public Receipt(Long id, Order order, double amountPayed, LocalDateTime generateDate) {
+    public Receipt(Long id, Orders order, double amountPayed, LocalDateTime generateDate) {
         this.id = id;
         this.order = order;
         this.amountPayed = amountPayed;
@@ -39,11 +39,11 @@ public class Receipt implements Serializable {
     public Receipt() {
     }
 
-    public Order getOrder() {
+    public Orders getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(Orders order) {
         this.order = order;
     }
 

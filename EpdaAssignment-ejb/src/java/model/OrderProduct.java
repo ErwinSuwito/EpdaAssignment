@@ -24,19 +24,19 @@ public class OrderProduct implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne
-    private Order order;
+    private Orders order;
     @OneToOne
     private Product product;
     private int quantityPurchased;
 
-    public OrderProduct(Long id, Order order, Product product, int quantityPurchased) {
+    public OrderProduct(Long id, Orders order, Product product, int quantityPurchased) {
         this.id = id;
         this.order = order;
         this.product = product;
         this.quantityPurchased = quantityPurchased;
     }
 
-    public OrderProduct(Order order, Product product, int quantityPurchased) {
+    public OrderProduct(Orders order, Product product, int quantityPurchased) {
         this.order = order;
         this.product = product;
         this.quantityPurchased = quantityPurchased;
@@ -45,11 +45,11 @@ public class OrderProduct implements Serializable {
     public OrderProduct() {
     }
 
-    public Order getOrder() {
+    public Orders getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(Orders order) {
         this.order = order;
     }
 

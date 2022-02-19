@@ -21,16 +21,16 @@ import model.Enums.OrderStatus;
  * @author erwin
  */
 @Entity
-public class Order implements Serializable {
+public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne
-    private User customer;
+    private AppUser customer;
     @OneToOne
-    private User deliveryStaff;
+    private AppUser deliveryStaff;
     @OneToMany
     private ArrayList<OrderProduct> basket;
     private String address;
@@ -40,7 +40,7 @@ public class Order implements Serializable {
     private LocalDateTime deliveredTime;
     private double totalAmount;
 
-    public Order(Long id, User customer, User deliveryStaff, ArrayList<OrderProduct> productBasket, String address, OrderStatus status, LocalDateTime deliveryTime, LocalDateTime actualDeliveryTime, LocalDateTime deliveredTime, double totalAmount) {
+    public Orders(Long id, AppUser customer, AppUser deliveryStaff, ArrayList<OrderProduct> productBasket, String address, OrderStatus status, LocalDateTime deliveryTime, LocalDateTime actualDeliveryTime, LocalDateTime deliveredTime, double totalAmount) {
         this.id = id;
         this.customer = customer;
         this.deliveryStaff = deliveryStaff;
@@ -53,7 +53,7 @@ public class Order implements Serializable {
         this.totalAmount = totalAmount;
     }
 
-    public Order(User customer, ArrayList<OrderProduct> productBasket, String address, OrderStatus status, LocalDateTime deliveryTime, double totalAmount) {
+    public Orders(AppUser customer, ArrayList<OrderProduct> productBasket, String address, OrderStatus status, LocalDateTime deliveryTime, double totalAmount) {
         this.customer = customer;
         this.basket = productBasket;
         this.address = address;
@@ -62,7 +62,7 @@ public class Order implements Serializable {
         this.totalAmount = totalAmount;
     }
 
-    public Order(User customer, User deliveryStaff, ArrayList<OrderProduct> basket, String address, LocalDateTime deliveryTime, double totalAmount) {
+    public Orders(AppUser customer, AppUser deliveryStaff, ArrayList<OrderProduct> basket, String address, LocalDateTime deliveryTime, double totalAmount) {
         this.customer = customer;
         this.deliveryStaff = deliveryStaff;
         this.basket = basket;
@@ -71,22 +71,22 @@ public class Order implements Serializable {
         this.totalAmount = totalAmount;
     }
 
-    public Order() {
+    public Orders() {
     }
 
-    public User getCustomer() {
+    public AppUser getCustomer() {
         return customer;
     }
 
-    public void setCustomer(User customer) {
+    public void setCustomer(AppUser customer) {
         this.customer = customer;
     }
 
-    public User getDeliveryStaff() {
+    public AppUser getDeliveryStaff() {
         return deliveryStaff;
     }
 
-    public void setDeliveryStaff(User deliveryStaff) {
+    public void setDeliveryStaff(AppUser deliveryStaff) {
         this.deliveryStaff = deliveryStaff;
     }
 
@@ -164,10 +164,10 @@ public class Order implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Order)) {
+        if (!(object instanceof Orders)) {
             return false;
         }
-        Order other = (Order) object;
+        Orders other = (Orders) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

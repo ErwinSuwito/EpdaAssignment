@@ -10,14 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import model.Enums.Role;
 
 /**
  *
  * @author erwin
  */
 @Entity
-public class User implements Serializable {
+public class AppUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -26,9 +25,9 @@ public class User implements Serializable {
     private String email;
     private String password;
     private String userName;
-    private Role role;
+    private Enums.Role role;
 
-    public User(Long id, String email, String password, String userName, Role role) {
+    public AppUser(Long id, String email, String password, String userName, Enums.Role role) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -36,14 +35,14 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    public User(String email, String password, String userName, Role role) {
+    public AppUser(String email, String password, String userName, Enums.Role role) {
         this.email = email;
         this.password = password;
         this.userName = userName;
         this.role = role;
     }
 
-    public User() {
+    public AppUser() {
     }
 
     public String getEmail() {
@@ -70,14 +69,14 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
-    public Role getRole() {
+    public Enums.Role getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(Enums.Role role) {
         this.role = role;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -96,10 +95,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof AppUser)) {
             return false;
         }
-        User other = (User) object;
+        AppUser other = (AppUser) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -108,7 +107,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "model.User[ id=" + id + " ]";
+        return "model.AppUser[ id=" + id + " ]";
     }
     
 }
