@@ -7,6 +7,7 @@ package controller.staffmanagement;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Enums;
 import model.Staff;
+import model.StaffFacade;
 
 /**
  *
@@ -22,6 +24,9 @@ import model.Staff;
  */
 @WebServlet(name = "AddStaff", urlPatterns = {"/AddStaff"})
 public class AddStaff extends HttpServlet {
+
+    @EJB
+    private StaffFacade staffFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
