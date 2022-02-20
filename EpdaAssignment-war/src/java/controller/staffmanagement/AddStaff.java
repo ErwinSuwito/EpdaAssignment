@@ -12,6 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Enums;
+import model.Staff;
 
 /**
  *
@@ -32,17 +35,33 @@ public class AddStaff extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        // Gets the current session to check if user is logged in
+        HttpSession session = request.getSession(false);
+        Staff staff = (Staff)session.getAttribute("login");
+        
+        if (staff == null) {
+            // TO-DO: Push to login page
+        }
+        
+        if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
+            // TO-DO: Show Unauthorized page
+        }
+        
+        String id = request.getParameter("id");
+        String password = request.getParameter("password");
+        String name = request.getParameter("name");
+        Boolean isMale = Boolean.parseBoolean("isMale");
+        Boolean isDeliveryStaff = Boolean.parseBoolean("isDeliveryStaff");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String icNumber = request.getParameter("icNumber");
+        Enums.StaffRole role = 
+                isDeliveryStaff ? Enums.StaffRole.DeliveryStaff : Enums.StaffRole.ManagingStaff;
+        
+        Staff newStaff = new Staff(id, password, name, role, isMale, phoneNumber, icNumber);
+        staffFacade.create(staff);
+        
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddStaff</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddStaff at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            // TO-DO: Redirect to staff list
         }
     }
 
