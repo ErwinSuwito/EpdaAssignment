@@ -21,8 +21,7 @@ public class Staff implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String email;
+    private String id;
     private String password;
     private String name;
     private Enums.StaffRole role;
@@ -30,19 +29,8 @@ public class Staff implements Serializable {
     private String phoneNumber;
     private String icNumber;
 
-    public Staff(Long id, String email, String password, String name, Enums.StaffRole role, Boolean isMale, String phoneNumber, String icNumber) {
+    public Staff(String id, String password, String name, Enums.StaffRole role, Boolean isMale, String phoneNumber, String icNumber) {
         this.id = id;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.role = role;
-        this.isMale = isMale;
-        this.phoneNumber = phoneNumber;
-        this.icNumber = icNumber;
-    }
-
-    public Staff(String email, String password, String name, Enums.StaffRole role, Boolean isMale, String phoneNumber, String icNumber) {
-        this.email = email;
         this.password = password;
         this.name = name;
         this.role = role;
@@ -52,22 +40,6 @@ public class Staff implements Serializable {
     }
 
     public Staff() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {
@@ -118,6 +90,14 @@ public class Staff implements Serializable {
         this.icNumber = icNumber;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -140,7 +120,7 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "model.AppUser[ id=" + id + " ]";
+        return "model.Staff[ id=" + id + " ]";
     }
     
 }
