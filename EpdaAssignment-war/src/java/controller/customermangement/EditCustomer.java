@@ -7,11 +7,16 @@ package controller.customermangement;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Customer;
+import model.CustomerFacade;
+import model.Staff;
 
 /**
  *
@@ -19,6 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "EditCustomer", urlPatterns = {"/EditCustomer"})
 public class EditCustomer extends HttpServlet {
+
+    @EJB
+    private CustomerFacade customerFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +40,42 @@ public class EditCustomer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        HttpSession session = request.getSession(false);
+        Customer customer = (Customer)session.getAttribute("customerLogin");        
+        Staff staff = (Staff)session.getAttribute("customerLogin");
+        
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditCustomer</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditCustomer at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            if ((customer == null) && (staff == null)) {
+                // TO-DO: Push to homepage
+            } else {
+                String id = request.getParameter("id");
+                if ((customer != null && customer.getId().equals(id)) || staff != null) {
+                    String email = request.getParameter("email");
+                    String name = request.getParameter("name");
+                    String password = request.getParameter("password");
+                    String phoneNumber = request.getParameter("phoneNumber");
+                    
+                    Customer customerToEdit = customerFacade.find(id);
+                    customerToEdit.setId(email);
+                    customerToEdit.setName(name);
+                    customerToEdit.setPassword(password);
+                    customerToEdit.setPhoneNumber(phoneNumber);
+                    
+                    customerFacade.edit(customerToEdit);
+                    
+                    if (customer != null)
+                    {
+                        session.invalidate();
+                        // TO-DO: Redirect to home page
+                    } else {
+                        // TO-DO: Show to customer list
+                    }
+                    
+                } else {
+                    // TO-DO: Show Unauthorized error message
+                }
+            }
         }
     }
 
