@@ -7,11 +7,16 @@ package controller.authentication;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Enums;
+import model.Staff;
+import model.StaffFacade;
 
 /**
  *
@@ -19,6 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "StaffLogin", urlPatterns = {"/StaffLogin"})
 public class StaffLogin extends HttpServlet {
+
+    @EJB
+    private StaffFacade staffFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +40,24 @@ public class StaffLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        Staff staff = staffFacade.find(email);
+        
+        if (staff == null) {
+            // TO-DO: Push back to staff login page
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("login", staff);
+        }
+        
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet StaffLogin</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet StaffLogin at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
+                // TO-DO: Push to delivery staff home
+            } else {
+                // TO-DO: Push to managing staff home
+            }
         }
     }
 
