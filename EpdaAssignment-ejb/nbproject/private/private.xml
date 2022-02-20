@@ -3,21 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/AbstractFacade.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/OrdersFacade.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/OrderProduct.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/Orders.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/Feedback.java</file>
             <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/Customer.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/FeedbackFacade.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/StaffFacade.java</file>
+            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/OrderProduct.java</file>
             <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/Receipt.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/CustomerFacade.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/ReceiptFacade.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/ProductFacade.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/Enums.java</file>
+            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/Feedback.java</file>
+            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/Orders.java</file>
+            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/Product.java</file>
             <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/Staff.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-ejb/src/java/model/OrderProductFacade.java</file>
         </group>
     </open-files>
 </project-private>
