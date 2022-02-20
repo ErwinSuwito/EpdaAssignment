@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Enums;
 import model.Product;
 import model.ProductFacade;
 import model.Staff;
@@ -47,6 +48,10 @@ public class AddProduct extends HttpServlet {
         
         if (staff == null) {
             // TO-DO: Redirect to staff login page
+        }
+        
+        if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
+            // TO-DO: Show Unauthorized page
         }
         
         String productName = request.getParameter("productName");

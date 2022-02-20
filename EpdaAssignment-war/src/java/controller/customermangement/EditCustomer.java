@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Customer;
 import model.CustomerFacade;
+import model.Enums;
 import model.Staff;
 
 /**
@@ -50,7 +51,7 @@ public class EditCustomer extends HttpServlet {
                 // TO-DO: Push to homepage
             } else {
                 String id = request.getParameter("id");
-                if ((customer != null && customer.getId().equals(id)) || staff != null) {
+                if (customer.getId().equals(id) || staff.getRole() == Enums.StaffRole.ManagingStaff) {
                     String email = request.getParameter("email");
                     String name = request.getParameter("name");
                     String password = request.getParameter("password");

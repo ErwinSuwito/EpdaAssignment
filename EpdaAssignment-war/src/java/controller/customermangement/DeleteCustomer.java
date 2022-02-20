@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Customer;
 import model.CustomerFacade;
+import model.Enums;
 import model.Staff;
 
 /**
@@ -45,19 +46,25 @@ public class DeleteCustomer extends HttpServlet {
         HttpSession session = request.getSession(false);
         Staff staff = (Staff)session.getAttribute("login");
         
+        if (staff == null) {
+            // TO-DO: Push to login page
+        }
+        
+        if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
+            // TO-DO: Show Unauthorized page
+        }
+        
+        long customerId = Long.parseLong(request.getParameter("id"));
+        Customer customerToDelete = customerFacade.find(customerId);
+        
+        if (customerToDelete == null) {
+            // TO-DO: Show 404 Not Found page
+        } else {
+            customerFacade.remove(customerToDelete);
+        }
+        
         try (PrintWriter out = response.getWriter()) {
-            if (staff == null) {
-                // TO-DO: Push to login page
-            }
-        
-            long customerId = Long.parseLong(request.getParameter("id"));
-            Customer customerToDelete = customerFacade.find(customerId);
-        
-            if (customerToDelete == null) {
-                // TO-DO: Show 404 Not Found page
-            } else {
-                customerFacade.remove(customerToDelete);
-            }
+            
         }
     }
 
