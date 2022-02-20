@@ -7,11 +7,19 @@ package controller.orders;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Customer;
+import model.Feedback;
+import model.FeedbackFacade;
+import model.Orders;
+import model.OrdersFacade;
 
 /**
  *
@@ -19,6 +27,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "RateOrder", urlPatterns = {"/RateOrder"})
 public class RateOrder extends HttpServlet {
+
+    @EJB
+    private FeedbackFacade feedbackFacade;
+
+    @EJB
+    private OrdersFacade ordersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +46,29 @@ public class RateOrder extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        HttpSession session = request.getSession(false);
+        Customer customer = (Customer)session.getAttribute("customerLogin");
+
+        if (customer == null) {
+            // TO-DO: Redirect to login page
+        } 
+        
+        Orders order = ordersFacade.find(request.getParameter("orderId"));
+        
+        if (order == null) {
+            // TO-DO: Show Not Found error
+        }
+        
+        int starCount = Integer.parseInt(request.getParameter("stars"));
+        String comment = request.getParameter("comment");
+        LocalDateTime submittedOn = LocalDateTime.now();
+        
+        Feedback feedback = new Feedback(order, submittedOn, starCount, comment);
+        feedbackFacade.create(feedback);
+        
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RateOrder</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RateOrder at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            // TO-DO: Redirect to orders page
         }
     }
 
