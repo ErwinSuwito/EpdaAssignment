@@ -16,7 +16,7 @@ import javax.persistence.Id;
  * @author erwin
  */
 @Entity
-public class AppUser implements Serializable {
+public class Staff implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -24,25 +24,42 @@ public class AppUser implements Serializable {
     private Long id;
     private String email;
     private String password;
-    private String userName;
-    private Enums.Role role;
+    private String name;
+    private Enums.StaffRole role;
+    private Boolean isMale;
+    private String phoneNumber;
+    private String icNumber;
 
-    public AppUser(Long id, String email, String password, String userName, Enums.Role role) {
+    public Staff(Long id, String email, String password, String name, Enums.StaffRole role, Boolean isMale, String phoneNumber, String icNumber) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.userName = userName;
+        this.name = name;
         this.role = role;
+        this.isMale = isMale;
+        this.phoneNumber = phoneNumber;
+        this.icNumber = icNumber;
     }
 
-    public AppUser(String email, String password, String userName, Enums.Role role) {
+    public Staff(String email, String password, String name, Enums.StaffRole role, Boolean isMale, String phoneNumber, String icNumber) {
         this.email = email;
         this.password = password;
-        this.userName = userName;
+        this.name = name;
         this.role = role;
+        this.isMale = isMale;
+        this.phoneNumber = phoneNumber;
+        this.icNumber = icNumber;
     }
 
-    public AppUser() {
+    public Staff() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -61,28 +78,44 @@ public class AppUser implements Serializable {
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Enums.Role getRole() {
+    public Enums.StaffRole getRole() {
         return role;
     }
 
-    public void setRole(Enums.Role role) {
+    public void setRole(Enums.StaffRole role) {
         this.role = role;
     }
 
-    public Long getId() {
-        return id;
+    public Boolean getIsMale() {
+        return isMale;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIsMale(Boolean isMale) {
+        this.isMale = isMale;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getIcNumber() {
+        return icNumber;
+    }
+
+    public void setIcNumber(String icNumber) {
+        this.icNumber = icNumber;
     }
 
     @Override
@@ -95,10 +128,10 @@ public class AppUser implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof AppUser)) {
+        if (!(object instanceof Staff)) {
             return false;
         }
-        AppUser other = (AppUser) object;
+        Staff other = (Staff) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

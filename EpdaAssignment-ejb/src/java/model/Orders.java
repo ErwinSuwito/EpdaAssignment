@@ -28,9 +28,9 @@ public class Orders implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne
-    private AppUser customer;
+    private Customer customer;
     @OneToOne
-    private AppUser deliveryStaff;
+    private Staff deliveryStaff;
     @OneToMany
     private ArrayList<OrderProduct> basket;
     private String address;
@@ -40,7 +40,7 @@ public class Orders implements Serializable {
     private LocalDateTime deliveredTime;
     private double totalAmount;
 
-    public Orders(Long id, AppUser customer, AppUser deliveryStaff, ArrayList<OrderProduct> productBasket, String address, OrderStatus status, LocalDateTime deliveryTime, LocalDateTime actualDeliveryTime, LocalDateTime deliveredTime, double totalAmount) {
+    public Orders(Long id, Customer customer, Staff deliveryStaff, ArrayList<OrderProduct> productBasket, String address, OrderStatus status, LocalDateTime deliveryTime, LocalDateTime actualDeliveryTime, LocalDateTime deliveredTime, double totalAmount) {
         this.id = id;
         this.customer = customer;
         this.deliveryStaff = deliveryStaff;
@@ -53,7 +53,7 @@ public class Orders implements Serializable {
         this.totalAmount = totalAmount;
     }
 
-    public Orders(AppUser customer, ArrayList<OrderProduct> productBasket, String address, OrderStatus status, LocalDateTime deliveryTime, double totalAmount) {
+    public Orders(Customer customer, ArrayList<OrderProduct> productBasket, String address, OrderStatus status, LocalDateTime deliveryTime, double totalAmount) {
         this.customer = customer;
         this.basket = productBasket;
         this.address = address;
@@ -62,7 +62,7 @@ public class Orders implements Serializable {
         this.totalAmount = totalAmount;
     }
 
-    public Orders(AppUser customer, AppUser deliveryStaff, ArrayList<OrderProduct> basket, String address, LocalDateTime deliveryTime, double totalAmount) {
+    public Orders(Customer customer, Staff deliveryStaff, ArrayList<OrderProduct> basket, String address, LocalDateTime deliveryTime, double totalAmount) {
         this.customer = customer;
         this.deliveryStaff = deliveryStaff;
         this.basket = basket;
@@ -74,19 +74,19 @@ public class Orders implements Serializable {
     public Orders() {
     }
 
-    public AppUser getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(AppUser customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public AppUser getDeliveryStaff() {
+    public Staff getDeliveryStaff() {
         return deliveryStaff;
     }
 
-    public void setDeliveryStaff(AppUser deliveryStaff) {
+    public void setDeliveryStaff(Staff deliveryStaff) {
         this.deliveryStaff = deliveryStaff;
     }
 

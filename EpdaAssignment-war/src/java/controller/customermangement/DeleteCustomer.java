@@ -3,28 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.customermangement;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Product;
-import model.ProductFacade;
 
 /**
  *
  * @author erwin
  */
-@WebServlet(name = "AddProduct", urlPatterns = {"/AddProduct"})
-public class AddProduct extends HttpServlet {
-
-    @EJB
-    private ProductFacade productFacade;
+@WebServlet(name = "DeleteCustomer", urlPatterns = {"/DeleteCustomer"})
+public class DeleteCustomer extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,19 +32,17 @@ public class AddProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String productName = request.getParameter("productName");
-        String description = request.getParameter("description");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        double price = Integer.parseInt(request.getParameter("price"));
-        
-        Product product = new Product(productName, quantity, price, description);
-        productFacade.create(product);
-        
-        request.getRequestDispatcher("addproduct.jsp").include(request, response);
-        
         try (PrintWriter out = response.getWriter()) {
-            out.println("<h5>Product added successfully!</h5>");
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DeleteCustomer</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DeleteCustomer at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
