@@ -13,8 +13,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Product;
 import model.ProductFacade;
+import model.Staff;
 
 /**
  *
@@ -39,6 +41,14 @@ public class AddProduct extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        // Gets the current session to check if user is logged in
+        HttpSession session = request.getSession(false);
+        Staff staff = (Staff)session.getAttribute("login");
+        
+        if (staff == null) {
+            // TO-DO: Redirect to staff login page
+        }
+        
         String productName = request.getParameter("productName");
         String description = request.getParameter("description");
         int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -47,11 +57,7 @@ public class AddProduct extends HttpServlet {
         Product product = new Product(productName, quantity, price, description);
         productFacade.create(product);
         
-        request.getRequestDispatcher("addproduct.jsp").include(request, response);
-        
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<h5>Product added successfully!</h5>");
-        }
+        // TO-DO: Redirect to product list page (admin)
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
