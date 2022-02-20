@@ -38,34 +38,23 @@ public class Orders implements Serializable {
     private LocalDateTime deliveredTime;
     private double totalAmount;
 
-    public Orders(Long id, Customer customer, Staff deliveryStaff, ArrayList<OrderProduct> productBasket, String address, OrderStatus status, LocalDateTime deliveryTime, LocalDateTime actualDeliveryTime, LocalDateTime deliveredTime, double totalAmount) {
+    public Orders(Long id, Customer customer, Staff deliveryStaff, ArrayList<OrderProduct> basket, String address, OrderStatus status, LocalDateTime deliveredTime, double totalAmount) {
         this.id = id;
-        this.customer = customer;
-        this.deliveryStaff = deliveryStaff;
-        this.basket = productBasket;
-        this.address = address;
-        this.status = status;
-        this.deliveryTime = deliveryTime;
-        this.actualDeliveryTime = actualDeliveryTime;
-        this.deliveredTime = deliveredTime;
-        this.totalAmount = totalAmount;
-    }
-
-    public Orders(Customer customer, ArrayList<OrderProduct> productBasket, String address, OrderStatus status, LocalDateTime deliveryTime, double totalAmount) {
-        this.customer = customer;
-        this.basket = productBasket;
-        this.address = address;
-        this.status = status;
-        this.deliveryTime = deliveryTime;
-        this.totalAmount = totalAmount;
-    }
-
-    public Orders(Customer customer, Staff deliveryStaff, ArrayList<OrderProduct> basket, String address, LocalDateTime deliveryTime, double totalAmount) {
         this.customer = customer;
         this.deliveryStaff = deliveryStaff;
         this.basket = basket;
         this.address = address;
-        this.deliveryTime = deliveryTime;
+        this.status = status;
+        this.deliveredTime = deliveredTime;
+        this.totalAmount = totalAmount;
+    }
+
+    public Orders(Customer customer, Staff deliveryStaff, ArrayList<OrderProduct> basket, String address, OrderStatus status, double totalAmount) {
+        this.customer = customer;
+        this.deliveryStaff = deliveryStaff;
+        this.basket = basket;
+        this.address = address;
+        this.status = status;
         this.totalAmount = totalAmount;
     }
 
@@ -110,22 +99,6 @@ public class Orders implements Serializable {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
-    }
-
-    public LocalDateTime getDeliveryTime() {
-        return deliveryTime;
-    }
-
-    public void setDeliveryTime(LocalDateTime deliveryTime) {
-        this.deliveryTime = deliveryTime;
-    }
-
-    public LocalDateTime getActualDeliveryTime() {
-        return actualDeliveryTime;
-    }
-
-    public void setActualDeliveryTime(LocalDateTime actualDeliveryTime) {
-        this.actualDeliveryTime = actualDeliveryTime;
     }
 
     public LocalDateTime getDeliveredTime() {
