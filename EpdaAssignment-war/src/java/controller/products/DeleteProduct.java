@@ -7,11 +7,17 @@ package controller.products;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Enums;
+import model.Product;
+import model.ProductFacade;
+import model.Staff;
 
 /**
  *
@@ -19,6 +25,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "DeleteProduct", urlPatterns = {"/DeleteProduct"})
 public class DeleteProduct extends HttpServlet {
+
+    @EJB
+    private ProductFacade productFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +41,30 @@ public class DeleteProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        // Gets the current session to check if user is logged in
+        HttpSession session = request.getSession(false);
+        Staff staff = (Staff)session.getAttribute("login");
+        
+        if (staff == null) {
+            // TO-DO: Push to login page
+        }
+        
+        if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
+            // TO-DO: Show Unauthorized page
+        }
+        
+        long productId = Long.parseLong(request.getParameter("productId"));
+        Product productToDelete = productFacade.find(productId);
+        
+        if (productToDelete == null) {
+            // TO-DO: Show Not Found page
+        } else {
+            productFacade.remove(productToDelete);
+        }
+        
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DeleteProduct</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DeleteProduct at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            // TO-DO: Redirect to products list page (admin)
         }
     }
 
