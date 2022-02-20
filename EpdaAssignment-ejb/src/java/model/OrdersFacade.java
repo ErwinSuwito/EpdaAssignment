@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author erwin
  */
 @Stateless
-public class OrderFacade extends AbstractFacade<Orders> {
+public class OrdersFacade extends AbstractFacade<Orders> {
 
     @PersistenceContext(unitName = "EpdaAssignment-ejbPU")
     private EntityManager em;
@@ -24,7 +24,7 @@ public class OrderFacade extends AbstractFacade<Orders> {
         return em;
     }
 
-    public OrderFacade() {
+    public OrdersFacade() {
         super(Orders.class);
     }
     
