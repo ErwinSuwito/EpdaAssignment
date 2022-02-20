@@ -49,7 +49,7 @@ public class StaffLogin extends HttpServlet {
             // TO-DO: Push back to staff login page
         } else {
             HttpSession session = request.getSession();
-            session.setAttribute("login", staff);
+            session.setAttribute("staffLogin", staff);
         }
         
         try (PrintWriter out = response.getWriter()) {
