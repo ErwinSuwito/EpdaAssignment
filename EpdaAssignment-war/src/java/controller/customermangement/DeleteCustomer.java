@@ -13,8 +13,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Customer;
 import model.CustomerFacade;
+import model.Staff;
 
 /**
  *
@@ -39,26 +41,23 @@ public class DeleteCustomer extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        long customerId = Long.parseLong(request.getParameter("id"));
-        Customer customerToDelete = customerFacade.find(customerId);
-        
-        if (customerToDelete == null) {
-            // TO-DO: Show 404 Not Found page
-        } else {
-            customerFacade.remove(customerToDelete);
-        }
+        // Gets the current session to check if user is logged in
+        HttpSession session = request.getSession(false);
+        Staff staff = (Staff)session.getAttribute("login");
         
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DeleteCustomer</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DeleteCustomer at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            if (staff == null) {
+                // TO-DO: Push to login page
+            }
+        
+            long customerId = Long.parseLong(request.getParameter("id"));
+            Customer customerToDelete = customerFacade.find(customerId);
+        
+            if (customerToDelete == null) {
+                // TO-DO: Show 404 Not Found page
+            } else {
+                customerFacade.remove(customerToDelete);
+            }
         }
     }
 

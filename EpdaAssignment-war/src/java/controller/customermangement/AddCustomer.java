@@ -7,11 +7,16 @@ package controller.customermangement;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Customer;
+import model.CustomerFacade;
+import model.Staff;
 
 /**
  *
@@ -19,6 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AddCustomer", urlPatterns = {"/AddCustomer"})
 public class AddCustomer extends HttpServlet {
+
+    @EJB
+    private CustomerFacade customerFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +40,16 @@ public class AddCustomer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        String customerName = request.getParameter("name");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String phoneNumber = request.getParameter("phoneNumber");
+        Customer customer = new Customer(email, password, customerName, phoneNumber);
+        customerFacade.create(customer);
+        
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddCustomer</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddCustomer at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            // TO-DO: Push to login page
         }
     }
 
