@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Customer;
 import model.CustomerFacade;
 /**
@@ -41,6 +42,13 @@ public class CustomerLogin extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         Customer customer = customerFacade.find(email);
+        
+        if (customer == null) {
+            // TO-DO: Push back to staff login page
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("customerLogin", customer);
+        }
         
         try (PrintWriter out = response.getWriter()) {
             if (customer == null) {
