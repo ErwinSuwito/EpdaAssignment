@@ -35,8 +35,6 @@ public class Orders implements Serializable {
     private ArrayList<OrderProduct> basket;
     private String address;
     private OrderStatus status;
-    private LocalDateTime deliveryTime;
-    private LocalDateTime actualDeliveryTime;
     private LocalDateTime deliveredTime;
     private double totalAmount;
 
