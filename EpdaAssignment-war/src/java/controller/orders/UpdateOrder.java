@@ -7,11 +7,19 @@ package controller.orders;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Customer;
+import model.Enums;
+import model.Orders;
+import model.OrdersFacade;
+import model.Staff;
 
 /**
  *
@@ -19,6 +27,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "UpdateOrder", urlPatterns = {"/UpdateOrder"})
 public class UpdateOrder extends HttpServlet {
+
+    @EJB
+    private OrdersFacade ordersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +43,26 @@ public class UpdateOrder extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        HttpSession session = request.getSession(false);
+        Customer customer = (Customer)session.getAttribute("customerLogin");
+
+        if (customer == null) {
+            // TO-DO: Redirect to login page
+        } 
+        
+        Orders order = ordersFacade.find(request.getParameter("orderId"));
+        
+        if (order == null) {
+            // TO-DO: Show Not Found error
+        } else {
+            String address = request.getParameter("address");
+            order.setAddress(address);
+            ordersFacade.edit(order);
+        }
+        
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdateOrder</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdateOrder at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            // TO-DO: Redirect to orders page
         }
     }
 
