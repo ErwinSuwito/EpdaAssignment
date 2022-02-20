@@ -53,18 +53,14 @@ public class DeleteStaff extends HttpServlet {
             // TO-DO: Show Unauthorized page
         }
         
-        String id = request.getParameter("id");
-        String password = request.getParameter("password");
-        String name = request.getParameter("name");
-        Boolean isMale = Boolean.parseBoolean("isMale");
-        Boolean isDeliveryStaff = Boolean.parseBoolean("isDeliveryStaff");
-        String phoneNumber = request.getParameter("phoneNumber");
-        String icNumber = request.getParameter("icNumber");
-        Enums.StaffRole role = 
-                isDeliveryStaff ? Enums.StaffRole.DeliveryStaff : Enums.StaffRole.ManagingStaff;
+        String staffId = request.getParameter("staffId");
+        Staff staffToDelete = staffFacade.find(staffId);
         
-        Staff newStaff = new Staff(id, password, name, role, isMale, phoneNumber, icNumber);
-        staffFacade.create(staff);
+        if (staffToDelete == null) {
+            // TO-DO: Show Not Found error
+        } else {
+            staffFacade.remove(staffToDelete);
+        }
         
         try (PrintWriter out = response.getWriter()) {
             // TO-DO: Redirect to staff list
