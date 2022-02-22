@@ -43,7 +43,8 @@ public class AddCustomer extends HttpServlet {
         
         // Removes all previous sessions
         HttpSession session = request.getSession(false);
-        session.invalidate();
+        if (session != null)
+            session.invalidate();
         
         String customerName = request.getParameter("name");
         String email = request.getParameter("email");

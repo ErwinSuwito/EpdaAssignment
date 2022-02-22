@@ -52,7 +52,8 @@ public class Login extends HttpServlet {
         
         // Removes all previous sessions
         HttpSession session = request.getSession(false);
-        session.invalidate();
+        if (session != null)
+            session.invalidate();
         
         if (customer == null) {
             Staff staff = staffFacade.find(email);
