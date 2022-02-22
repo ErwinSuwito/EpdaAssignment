@@ -41,6 +41,10 @@ public class AddCustomer extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        // Removes all previous sessions
+        HttpSession session = request.getSession(false);
+        session.invalidate();
+        
         String customerName = request.getParameter("name");
         String email = request.getParameter("email");
         String password1 = request.getParameter("password1");
@@ -52,7 +56,7 @@ public class AddCustomer extends HttpServlet {
         HttpSession newSession = request.getSession();
         
         // Checks for duplicate account
-        if (customer != null) {
+        if (customer == null) {
             // Checks if entered password is the same, then register user
             if (password1.equals(password2)) {
                 customer = new Customer(email, password1, customerName, phoneNumber);
@@ -60,6 +64,7 @@ public class AddCustomer extends HttpServlet {
                 newSession.setAttribute("noticeBg", "success");
                 newSession.setAttribute("notice", "Your account has been created. Please login");
                 response.sendRedirect("login.jsp");
+                return;
             } else {
                 newSession.setAttribute("noticeBg", "warning");
                 newSession.setAttribute("notice", "Passwords doesn't match!");
