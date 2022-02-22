@@ -6,8 +6,11 @@
             <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/staffmanagement/DeleteStaff.java</file>
             <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/customermangement/AddCustomer.java</file>
             <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/customermangement/DeleteCustomer.java</file>
+            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/authentication/CustomerLogin.java</file>
+            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/products/AddProduct.java</file>
             <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/staffmanagement/AddStaff.java</file>
             <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/products/EditProduct.java</file>
+            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/authentication/StaffLogin.java</file>
             <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/products/DeleteProduct.java</file>
             <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/staffmanagement/EditStaffInfo.java</file>
         </group>

@@ -63,7 +63,7 @@ public class AddProduct extends HttpServlet {
         productFacade.create(product);
         
         // TO-DO: Redirect to product list page (admin)
-    }
+        }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

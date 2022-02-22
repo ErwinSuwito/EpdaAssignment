@@ -45,6 +45,9 @@ public class AddCustomer extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String phoneNumber = request.getParameter("phoneNumber");
+        
+        // TO-DO: Check for duplicate username
+        
         Customer customer = new Customer(email, password, customerName, phoneNumber);
         customerFacade.create(customer);
         

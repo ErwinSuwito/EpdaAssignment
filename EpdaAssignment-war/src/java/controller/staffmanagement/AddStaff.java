@@ -62,6 +62,8 @@ public class AddStaff extends HttpServlet {
         Enums.StaffRole role = 
                 isDeliveryStaff ? Enums.StaffRole.DeliveryStaff : Enums.StaffRole.ManagingStaff;
         
+        // TO-DO: Check for duplicate username
+        
         Staff newStaff = new Staff(id, password, name, role, isMale, phoneNumber, icNumber);
         staffFacade.create(staff);
         
