@@ -35,11 +35,11 @@
                       </c:if>
                       <form action="Login" method="POST">
                           <div class="form-floating mb-3">
-                              <input type="email" class="form-control" name="email" id="email" required>
+                              <input type="email" class="form-control" name="email" id="email" placeholder="someone@something.com" required>
                               <label for="email">Email address</label>
                           </div>
                           <div class="form-floating mb-3">
-                              <input type="password" class="form-control" name="password" id="password" required>
+                              <input type="password" class="form-control" name="password" id="password" placeholder="password" required>
                               <label for="password">Password</label>
                           </div>
                           <div class="vstack gap-2 mx-auto">
