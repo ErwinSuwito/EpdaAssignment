@@ -67,6 +67,7 @@ public class AssignDeliveryStaff extends HttpServlet {
             String deliveryStaffId = request.getParameter("deliveryStaffId");
             Staff deliveryStaff = staffFacade.find(deliveryStaffId);
             order.setDeliveryStaff(deliveryStaff);
+            order.setStatus(Enums.OrderStatus.Assigned);
             ordersFacade.edit(order);
         }
         
