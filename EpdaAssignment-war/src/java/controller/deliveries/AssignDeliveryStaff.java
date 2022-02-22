@@ -7,11 +7,18 @@ package controller.deliveries;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Enums;
+import model.Orders;
+import model.OrdersFacade;
+import model.Staff;
+import model.StaffFacade;
 
 /**
  *
@@ -19,6 +26,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AssignDeliveryStaff", urlPatterns = {"/AssignDeliveryStaff"})
 public class AssignDeliveryStaff extends HttpServlet {
+
+    @EJB
+    private StaffFacade staffFacade;
+
+    @EJB
+    private OrdersFacade ordersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +45,33 @@ public class AssignDeliveryStaff extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        // Gets the current session to check if user is logged in
+        HttpSession session = request.getSession(false);
+        Staff staff = (Staff)session.getAttribute("login");
+        
+        if (staff == null) {
+            // TO-DO: Push to login page
+        }
+        
+        if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
+            // TO-DO: Show Unauthorized page
+        }
+        
+        Long orderId = Long.parseLong(request.getParameter("orderId"));
+        Orders order = ordersFacade.find(orderId);
+        
+        if (order == null) {
+            // Show Not Found page
+        } else {
+            String deliveryStaffId = request.getParameter("deliveryStaffId");
+            Staff deliveryStaff = staffFacade.find(deliveryStaffId);
+            order.setDeliveryStaff(deliveryStaff);
+            ordersFacade.edit(order);
+        }
+        
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AssignDeliveryStaff</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AssignDeliveryStaff at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            // TO-DO: Show pending orders page
         }
     }
 
