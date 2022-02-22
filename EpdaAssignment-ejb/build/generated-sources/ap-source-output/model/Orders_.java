@@ -10,16 +10,14 @@ import model.Enums.OrderStatus;
 import model.OrderProduct;
 import model.Staff;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2022-02-20T15:13:20")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2022-02-22T18:04:36")
 @StaticMetamodel(Orders.class)
 public class Orders_ { 
 
     public static volatile ListAttribute<Orders, OrderProduct> basket;
     public static volatile SingularAttribute<Orders, Double> totalAmount;
     public static volatile SingularAttribute<Orders, String> address;
-    public static volatile SingularAttribute<Orders, LocalDateTime> deliveryTime;
     public static volatile SingularAttribute<Orders, Staff> deliveryStaff;
-    public static volatile SingularAttribute<Orders, LocalDateTime> actualDeliveryTime;
     public static volatile SingularAttribute<Orders, Long> id;
     public static volatile SingularAttribute<Orders, LocalDateTime> deliveredTime;
     public static volatile SingularAttribute<Orders, Customer> customer;

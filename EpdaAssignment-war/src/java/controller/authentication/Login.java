@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Customer;
+import model.CustomerFacade;
 import model.Enums;
 import model.Staff;
 import model.StaffFacade;
@@ -22,8 +24,11 @@ import model.StaffFacade;
  *
  * @author erwin
  */
-@WebServlet(name = "StaffLogin", urlPatterns = {"/StaffLogin"})
-public class StaffLogin extends HttpServlet {
+@WebServlet(name = "Login", urlPatterns = {"/Login"})
+public class Login extends HttpServlet {
+
+    @EJB
+    private CustomerFacade customerFacade;
 
     @EJB
     private StaffFacade staffFacade;
@@ -43,29 +48,37 @@ public class StaffLogin extends HttpServlet {
         
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        Staff staff = staffFacade.find(email);
+        Customer customer = customerFacade.find(email);
         
         // Removes all previous sessions
         HttpSession session = request.getSession(false);
         session.invalidate();
         
-        if (staff == null) {
-            // Creates new session and record login failed
-            HttpSession newSession = request.getSession();
-            newSession.setAttribute("loginFailed", true);
-            
-            // TO-DO: Push back to staff login page
-        } else {
-            HttpSession newSession = request.getSession();
-            newSession.setAttribute("staffLogin", staff);
-        }
-        
-        try (PrintWriter out = response.getWriter()) {
-            if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
-                // TO-DO: Push to delivery staff home
+        if (customer == null) {
+            Staff staff = staffFacade.find(email);
+            if (staff == null) {
+                // Creates new session and record login failed
+                HttpSession newSession = request.getSession();
+                newSession.setAttribute("loginFailed", true);
+                
+                // Redirects back to login.jsp
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
-                // TO-DO: Push to managing staff home
+                HttpSession newSession = request.getSession();
+                newSession.setAttribute("staffLogin", staff);
+                
+                if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
+                    // TO-DO: Redirect to delivery staff home
+                } else {
+                    // TO-DO: Redirect to managing staff home
+                }
             }
+        } else {
+            // Creates a new session and record customer details
+            HttpSession newSession = request.getSession();
+            newSession.setAttribute("customerLogin", customer);
+            
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 

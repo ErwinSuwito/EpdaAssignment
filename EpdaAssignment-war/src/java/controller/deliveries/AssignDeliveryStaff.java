@@ -48,7 +48,7 @@ public class AssignDeliveryStaff extends HttpServlet {
         
         // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
-        Staff staff = (Staff)session.getAttribute("login");
+        Staff staff = (Staff)session.getAttribute("staffLogin");
         
         if (staff == null) {
             // TO-DO: Push to login page
