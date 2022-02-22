@@ -27,12 +27,10 @@
                       <%
                               String notice = (String)request.getSession(false).getAttribute("notice");
                               String noticeBg = (String)request.getSession(false).getAttribute("noticeBg");
+                              if (notice != null) {
+                                  out.println("<div class=\"alert alert-" + "noticeBg" + "\" role=\"alert\">" + notice + "</div>");
+                              }
                       %>
-                      <c:if test="${!notice.isEmpty()}">
-                          <div class="alert alert-${noticeBg}" role="alert">
-                            ${notice}
-                        </div>
-                      </c:if>
                       <form action="Login" method="POST">
                           <div class="form-floating mb-3">
                               <input type="email" class="form-control" name="email" id="email" placeholder="someone@something.com" required>
