@@ -24,6 +24,13 @@
                   <div class="card-body p-4 p-sm-5">
                       <h3 class="card-title text-center">APStore</h3>
                       <h5 class="card-title text-center mb-5">Login to Continue</h5>
+                      <%
+                              String notice = (String)request.getSession(false).getAttribute("notice");
+                              String noticeBg = (String)request.getSession(false).getAttribute("noticeBg");
+                      %>
+                      <div class="alert alert-${noticeBg}" role="alert">
+                          ${notice}
+                      </div>
                       <form action="AddCustomer" method="POST">
                           <div class="form-floating mb-3">
                               <input type="text" class="form-control" name="name" id="name" required>
