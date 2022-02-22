@@ -43,17 +43,33 @@ public class AddCustomer extends HttpServlet {
         
         String customerName = request.getParameter("name");
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String password1 = request.getParameter("password1");
+        String password2 = request.getParameter("password1");
         String phoneNumber = request.getParameter("phoneNumber");
         
-        // TO-DO: Check for duplicate username
+        Customer customer = customerFacade.find(email);
         
-        Customer customer = new Customer(email, password, customerName, phoneNumber);
-        customerFacade.create(customer);
+        HttpSession newSession = request.getSession();
         
-        try (PrintWriter out = response.getWriter()) {
-            // TO-DO: Push to login page
+        // Checks for duplicate account
+        if (customer != null) {
+            // Checks if entered password is the same, then register user
+            if (password1.equals(password2)) {
+                customer = new Customer(email, password1, customerName, phoneNumber);
+                customerFacade.create(customer);
+                newSession.setAttribute("noticeBg", "success");
+                newSession.setAttribute("notice", "Your account has been created. Please login");
+                response.sendRedirect("login.jsp");
+            } else {
+                newSession.setAttribute("noticeBg", "warning");
+                newSession.setAttribute("notice", "Passwords doesn't match!");
+            }
+        } else {
+            newSession.setAttribute("noticeBg", "danger");
+            newSession.setAttribute("notice", "Email has been registered!");
         }
+        
+        response.sendRedirect("register.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
