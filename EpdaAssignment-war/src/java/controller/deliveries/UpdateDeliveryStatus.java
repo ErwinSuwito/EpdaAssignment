@@ -7,11 +7,17 @@ package controller.deliveries;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Enums;
+import model.Orders;
+import model.OrdersFacade;
+import model.Staff;
 
 /**
  *
@@ -19,6 +25,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "UpdateDeliveryStatus", urlPatterns = {"/UpdateDeliveryStatus"})
 public class UpdateDeliveryStatus extends HttpServlet {
+
+    @EJB
+    private OrdersFacade ordersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +41,56 @@ public class UpdateDeliveryStatus extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        // Gets the current session to check if user is logged in
+        HttpSession session = request.getSession(false);
+        Staff staff = (Staff)session.getAttribute("login");
+        
+        if (staff == null) {
+            // TO-DO: Push to login page
+        }
+        
+        if (staff.getRole() == Enums.StaffRole.ManagingStaff) {
+            // TO-DO: Show Unauthorized page
+        }
+        
+        Long orderId = Long.parseLong(request.getParameter("orderId"));
+        Orders order = ordersFacade.find(orderId);
+        
+        if (order == null) {
+            // TO-DO: Show Not Found page
+        } else {
+            String orderStatus = request.getParameter("orderStatus");
+            
+            switch (orderStatus) {
+                case "Pending":
+                    order.setStatus(Enums.OrderStatus.Pending);
+                    break;
+                    
+                case "Assigned":
+                    order.setStatus(Enums.OrderStatus.Assigned);
+                    break;
+                    
+                case "Delivering":
+                    order.setStatus(Enums.OrderStatus.Delivering);
+                    break;
+                    
+                case "Delivered":
+                    order.setStatus(Enums.OrderStatus.Delivered);
+                    break;
+                    
+                case "Cancelled":
+                    order.setStatus(Enums.OrderStatus.Cancelled);
+                    break;
+            }
+            
+            ordersFacade.edit(order);
+        }
+        
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdateDeliveryStatus</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdateDeliveryStatus at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            // TO-DO: If user show orders list
+            //        If delivery staff show delivery list
+            //        If managing staff show orders list
         }
     }
 
