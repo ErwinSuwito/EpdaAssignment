@@ -44,7 +44,7 @@
                           </div>
                           <div class="vstack gap-2 mx-auto">
                               <button class="btn btn-primary text-uppercase fw-bold" value="Login" type="submit">Sign in</button>
-                              <a href="regiser.jsp" class="btn btn-outline-secondary text-uppercase fw-bold">
+                              <a href="register.jsp" class="btn btn-outline-secondary text-uppercase fw-bold">
                                   Create an Account
                               </a>
                           </div>
@@ -53,6 +53,11 @@
               </div>
           </div>
       </div>
+      
+      <%
+          // Invalidate sessions to remove notice
+          request.getSession(false).invalidate();
+      %>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
