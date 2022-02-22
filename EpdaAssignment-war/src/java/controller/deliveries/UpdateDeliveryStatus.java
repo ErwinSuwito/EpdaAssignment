@@ -5,6 +5,7 @@
  */
 package controller.deliveries;
 
+import helpers.Helpers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -61,29 +62,7 @@ public class UpdateDeliveryStatus extends HttpServlet {
             // TO-DO: Show Not Found page
         } else {
             String orderStatus = request.getParameter("orderStatus");
-            
-            switch (orderStatus) {
-                case "Pending":
-                    order.setStatus(Enums.OrderStatus.Pending);
-                    break;
-                    
-                case "Assigned":
-                    order.setStatus(Enums.OrderStatus.Assigned);
-                    break;
-                    
-                case "Delivering":
-                    order.setStatus(Enums.OrderStatus.Delivering);
-                    break;
-                    
-                case "Delivered":
-                    order.setStatus(Enums.OrderStatus.Delivered);
-                    break;
-                    
-                case "Cancelled":
-                    order.setStatus(Enums.OrderStatus.Cancelled);
-                    break;
-            }
-            
+            order.setStatus(Helpers.getOrderStatus(orderStatus));
             ordersFacade.edit(order);
         }
         

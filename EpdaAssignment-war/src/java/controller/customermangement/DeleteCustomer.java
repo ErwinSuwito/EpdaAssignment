@@ -61,6 +61,7 @@ public class DeleteCustomer extends HttpServlet {
             // TO-DO: Show 404 Not Found page
         } else {
             customerFacade.remove(customerToDelete);
+            // TO-DO: Show customers list
         }
         
         try (PrintWriter out = response.getWriter()) {
