@@ -44,39 +44,42 @@ public class EditCustomer extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         Customer customer = (Customer)session.getAttribute("customerLogin");        
-        Staff staff = (Staff)session.getAttribute("customerLogin");
+        Staff staff = (Staff)session.getAttribute("staffLogin");
+        
+        if ((customer == null) && (staff == null)) {
+            // TO-DO: Push to homepage
+        } else {
+            String id = request.getParameter("id");
+            if (customer.getId().equals(id) || staff.getRole() == Enums.StaffRole.ManagingStaff) {
+                String email = request.getParameter("email");
+                String name = request.getParameter("name");
+                String password = request.getParameter("password");
+                String phoneNumber = request.getParameter("phoneNumber");
+                
+                Customer customerToEdit = customerFacade.find(id);
+                customerToEdit.setId(email);
+                customerToEdit.setName(name);
+                customerToEdit.setPassword(password);
+                customerToEdit.setPhoneNumber(phoneNumber);
+                
+                customerFacade.edit(customerToEdit);
+                
+                // Customer is logged in. Invalidate session and 
+                // redirect to login page
+                if (customer != null)
+                {
+                    session.invalidate();
+                    // TO-DO: Redirect to home page
+                } else {
+                    // TO-DO: Show to customer list
+                }
+            } else {
+                // TO-DO: Show Unauthorized error message
+            }
+        }
         
         try (PrintWriter out = response.getWriter()) {
-            if ((customer == null) && (staff == null)) {
-                // TO-DO: Push to homepage
-            } else {
-                String id = request.getParameter("id");
-                if (customer.getId().equals(id) || staff.getRole() == Enums.StaffRole.ManagingStaff) {
-                    String email = request.getParameter("email");
-                    String name = request.getParameter("name");
-                    String password = request.getParameter("password");
-                    String phoneNumber = request.getParameter("phoneNumber");
-                    
-                    Customer customerToEdit = customerFacade.find(id);
-                    customerToEdit.setId(email);
-                    customerToEdit.setName(name);
-                    customerToEdit.setPassword(password);
-                    customerToEdit.setPhoneNumber(phoneNumber);
-                    
-                    customerFacade.edit(customerToEdit);
-                    
-                    if (customer != null)
-                    {
-                        session.invalidate();
-                        // TO-DO: Redirect to home page
-                    } else {
-                        // TO-DO: Show to customer list
-                    }
-                    
-                } else {
-                    // TO-DO: Show Unauthorized error message
-                }
-            }
+            
         }
     }
 

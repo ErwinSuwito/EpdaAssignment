@@ -45,11 +45,19 @@ public class StaffLogin extends HttpServlet {
         String password = request.getParameter("password");
         Staff staff = staffFacade.find(email);
         
+        // Removes all previous sessions
+        HttpSession session = request.getSession(false);
+        session.invalidate();
+        
         if (staff == null) {
+            // Creates new session and record login failed
+            HttpSession newSession = request.getSession();
+            newSession.setAttribute("loginFailed", true);
+            
             // TO-DO: Push back to staff login page
         } else {
-            HttpSession session = request.getSession();
-            session.setAttribute("staffLogin", staff);
+            HttpSession newSession = request.getSession();
+            newSession.setAttribute("staffLogin", staff);
         }
         
         try (PrintWriter out = response.getWriter()) {

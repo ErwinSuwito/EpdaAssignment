@@ -43,11 +43,20 @@ public class CustomerLogin extends HttpServlet {
         String password = request.getParameter("password");
         Customer customer = customerFacade.find(email);
         
+        // Removes all previous sessions
+        HttpSession session = request.getSession(false);
+        session.invalidate();
+        
         if (customer == null) {
-            // TO-DO: Push back to staff login page
+            // Creates new session and record login failed
+            HttpSession newSession = request.getSession();
+            newSession.setAttribute("loginFailed", true);
+            
+            // TO-DO: Redirect to login page
         } else {
-            HttpSession session = request.getSession();
-            session.setAttribute("customerLogin", customer);
+            // Creates a new session and record customer details
+            HttpSession newSession = request.getSession();
+            newSession.setAttribute("customerLogin", customer);
         }
         
         try (PrintWriter out = response.getWriter()) {
