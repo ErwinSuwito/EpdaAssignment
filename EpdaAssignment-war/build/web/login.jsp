@@ -26,11 +26,11 @@
                       <h5 class="card-title text-center mb-5">Login to Continue</h5>
                       <form action="Login" method="POST">
                           <div class="form-floating mb-3">
-                              <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
+                              <input type="email" class="form-control" name="email" id="email" required>
                               <label for="email">Email address</label>
                           </div>
                           <div class="form-floating mb-3">
-                              <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                              <input type="password" class="form-control" name="password" id="password" required>
                               <label for="password">Password</label>
                           </div>
                           <div class="vstack gap-2 mx-auto">
