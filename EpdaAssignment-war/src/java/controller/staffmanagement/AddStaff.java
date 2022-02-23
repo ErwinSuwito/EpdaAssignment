@@ -44,14 +44,10 @@ public class AddStaff extends HttpServlet {
         
         // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("staffLogin") == null) {
-            // TO-DO: Show Unauthorized page
-        } else {
-            Staff staff = (Staff) session.getAttribute("staffLogin");
-            
-            if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
-                // TO-DO: Show Unauthorized page
-            }
+        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state != Enums.LoginStateRole.ManagingStaff) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
         }
         
         String id = request.getParameter("id");
