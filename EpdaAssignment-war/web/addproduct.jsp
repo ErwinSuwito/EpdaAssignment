@@ -19,31 +19,34 @@
                     <div class="row mb-3">
                         <label for="productName" class="col-sm-2 col-form-label">Product Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="productName" id="productName">
+                            <input type="text" class="form-control" name="productName" id="productName" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="productImage" class="col-sm-2 col-form-label">Product Image</label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control" name="productImage" id="productImage">
+                            <input type="url" class="form-control" name="productImage" id="productImage" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="description" class="col-sm-2 col-form-label">Description</label>
                         <div class="col-sm-10">
-                            <textarea row="3" class ="form-control" name="description" id="description"></textarea>
+                            <textarea row="3" class ="form-control" name="description" id="description" required></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="price" class="col-sm-2 col-form-label">Price</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" name="price" id="price">
+                            <div class="input-group">
+                                <span class="input-group-text">RM</span>
+                                <input type="number" class="form-control" id="price" name="price" required>
+                            </div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" name="quantity" id="quantity">
+                            <input type="number" class="form-control" name="quantity" id="quantity" required>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-primary">Add Product</button>

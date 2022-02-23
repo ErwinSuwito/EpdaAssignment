@@ -60,8 +60,9 @@ public class AddProduct extends HttpServlet {
         String description = request.getParameter("description");
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         double price = Integer.parseInt(request.getParameter("price"));
+        String productImage = request.getParameter("productImage");
         
-        Product product = new Product(productName, quantity, price, description);
+        Product product = new Product(productName, description, quantity, price, productImage);
         productFacade.create(product);
         
         // TO-DO: Redirect to product list page (admin)
