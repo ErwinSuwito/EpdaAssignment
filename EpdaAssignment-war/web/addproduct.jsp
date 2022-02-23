@@ -39,7 +39,7 @@
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <span class="input-group-text">RM</span>
-                                <input type="number" class="form-control" id="price" name="price" required>
+                                <input type="number" class="form-control" id="price" name="price" step="0.01" required>
                             </div>
                         </div>
                     </div>

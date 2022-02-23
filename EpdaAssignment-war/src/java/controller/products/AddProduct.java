@@ -59,7 +59,7 @@ public class AddProduct extends HttpServlet {
         String productName = request.getParameter("productName");
         String description = request.getParameter("description");
         int quantity = Integer.parseInt(request.getParameter("quantity"));
-        double price = Integer.parseInt(request.getParameter("price"));
+        double price = Double.parseDouble(request.getParameter("price"));
         String productImage = request.getParameter("productImage");
         
         Product product = new Product(productName, description, quantity, price, productImage);
