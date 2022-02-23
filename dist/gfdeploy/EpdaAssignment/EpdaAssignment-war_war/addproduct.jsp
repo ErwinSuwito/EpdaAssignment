@@ -12,9 +12,8 @@
   </head>
     <body>
         <%@include file="WEB-INF/jspf/managing_navbar.jspf" %>
-        <div class="container">
-            
-            
+        <div class="container mt-5">
+            <h2>Add new product</h2>
             <form action="AddProduct" method="POST">
                 <label for="productName">Product Name: </label><br>
                 <input type="text" id="productName" name="productName"><br>
