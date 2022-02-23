@@ -43,28 +43,22 @@ public class DeleteStaff extends HttpServlet {
         
         // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
-        Staff staff = (Staff)session.getAttribute("login");
-        
-        if (staff == null) {
-            // TO-DO: Push to login page
-        }
-        
-        if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
-            // TO-DO: Show Unauthorized page
+        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state != Enums.LoginStateRole.ManagingStaff) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
         }
         
         String staffId = request.getParameter("staffId");
         Staff staffToDelete = staffFacade.find(staffId);
         
         if (staffToDelete == null) {
-            // TO-DO: Show Not Found error
+            response.sendRedirect("notfound.jsp");
+            return;
         } else {
             staffFacade.remove(staffToDelete);
         }
-        
-        try (PrintWriter out = response.getWriter()) {
-            // TO-DO: Redirect to staff list
-        }
+        response.sendRedirect("stafflist.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

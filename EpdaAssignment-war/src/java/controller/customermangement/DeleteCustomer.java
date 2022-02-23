@@ -54,14 +54,11 @@ public class DeleteCustomer extends HttpServlet {
         Customer customerToDelete = customerFacade.find(customerId);
         
         if (customerToDelete == null) {
-            // TO-DO: Show 404 Not Found page
+            response.sendRedirect("notfound.jsp");
+            return;
         } else {
             customerFacade.remove(customerToDelete);
-            // TO-DO: Show customers list
-        }
-        
-        try (PrintWriter out = response.getWriter()) {
-            
+            response.sendRedirect("customerlist.jsp");
         }
     }
 

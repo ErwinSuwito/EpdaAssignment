@@ -55,18 +55,14 @@ public class UpdateDeliveryStatus extends HttpServlet {
         Orders order = ordersFacade.find(orderId);
         
         if (order == null) {
-            // TO-DO: Show Not Found page
+            response.sendRedirect("notfound.jsp");
         } else {
             String orderStatus = request.getParameter("orderStatus");
             order.setStatus(Helpers.getOrderStatus(orderStatus));
             ordersFacade.edit(order);
         }
         
-        try (PrintWriter out = response.getWriter()) {
-            // TO-DO: If user show orders list
-            //        If delivery staff show delivery list
-            //        If managing staff show orders list
-        }
+        response.sendRedirect("assignedorders.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

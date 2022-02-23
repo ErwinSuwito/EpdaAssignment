@@ -75,6 +75,7 @@ public class AddCustomer extends HttpServlet {
             newSession.setAttribute("notice", "Email has been registered!");
         }
         
+        // Redirects back to register page. Notice has been added above
         response.sendRedirect("register.jsp");
     }
 

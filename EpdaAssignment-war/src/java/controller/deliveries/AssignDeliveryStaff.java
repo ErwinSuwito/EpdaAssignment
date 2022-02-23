@@ -58,7 +58,8 @@ public class AssignDeliveryStaff extends HttpServlet {
         Orders order = ordersFacade.find(orderId);
         
         if (order == null) {
-            // Show Not Found page
+            response.sendRedirect("notfound.jsp");
+            return;
         } else {
             String deliveryStaffId = request.getParameter("deliveryStaffId");
             Staff deliveryStaff = staffFacade.find(deliveryStaffId);
@@ -67,9 +68,7 @@ public class AssignDeliveryStaff extends HttpServlet {
             ordersFacade.edit(order);
         }
         
-        try (PrintWriter out = response.getWriter()) {
-            // TO-DO: Show pending orders page
-        }
+        response.sendRedirect("orders.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
