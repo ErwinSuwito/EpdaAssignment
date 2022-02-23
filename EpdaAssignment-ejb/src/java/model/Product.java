@@ -26,22 +26,34 @@ public class Product implements Serializable {
     private String description;
     private int quantity;
     private double price;
+    private String productImage;
 
-    public Product(Long id, String productName, int quantity, double price, String description) {
+    public Product(Long id, String productName, String description, int quantity, double price, String productImage) {
         this.id = id;
         this.productName = productName;
+        this.description = description;
         this.quantity = quantity;
         this.price = price;
+        this.productImage = productImage;
     }
 
-    public Product(String productName, int quantity, double price, String description) {
+    public Product(String productName, String description, int quantity, double price, String productImage) {
         this.productName = productName;
+        this.description = description;
         this.quantity = quantity;
         this.price = price;
-        this.description = description;
+        this.productImage = productImage;
     }
 
     public Product() {
+    }
+
+    public String getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
     }
 
     public String getProductName() {

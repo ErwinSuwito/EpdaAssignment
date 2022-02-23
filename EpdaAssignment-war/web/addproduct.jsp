@@ -11,7 +11,7 @@
     <title>Add Product | APStore </title>
   </head>
     <body>
-        <%@include file="WEB-INF/jspf/managing_navbar.jspf" %>
+        <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
             <h2>Add new product</h2>
             <div class="col-8 mt-4">

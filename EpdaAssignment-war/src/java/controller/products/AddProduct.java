@@ -46,15 +46,15 @@ public class AddProduct extends HttpServlet {
         HttpSession session = request.getSession(false);
         Staff staff = (Staff)session.getAttribute("login");
         
-        if (staff == null) {
-            // TO-DO: Redirect to staff login page
-            response.sendRedirect("/login.jsp");
-            return;
-        }
-        
-        if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
-            // TO-DO: Show Unauthorized page
-        }
+//        if (staff == null) {
+//            // TO-DO: Redirect to staff login page
+//            response.sendRedirect("/login.jsp");
+//            return;
+//        }
+//        
+//        if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
+//            // TO-DO: Show Unauthorized page
+//        }
         
         String productName = request.getParameter("productName");
         String description = request.getParameter("description");
@@ -65,7 +65,7 @@ public class AddProduct extends HttpServlet {
         productFacade.create(product);
         
         // TO-DO: Redirect to product list page (admin)
-        response.sendRedirect("/admin/addproduct.jsp");
+        response.sendRedirect("addproduct.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
