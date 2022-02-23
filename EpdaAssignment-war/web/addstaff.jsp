@@ -22,7 +22,7 @@
                 }
             %>
             <div class="col-8 mt-4">
-                <form action="AddProduct" method="POST">
+                <form action="AddStaff" method="POST">
                     <div class="row mb-3">
                         <label for="name" class="col-sm-2 col-form-label">Full Name</label>
                         <div class="col-sm-10">

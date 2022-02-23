@@ -7,6 +7,7 @@ package controller.staffmanagement;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,16 +41,17 @@ public class AddStaff extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
-        Staff staff = (Staff)session.getAttribute("login");
-        
-        if (staff == null) {
-            // TO-DO: Push to login page
-        }
-        
-        if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
+        if (session == null || session.getAttribute("staffLogin") == null) {
             // TO-DO: Show Unauthorized page
+        } else {
+            Staff staff = (Staff) session.getAttribute("staffLogin");
+            
+            if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
+                // TO-DO: Show Unauthorized page
+            }
         }
         
         String id = request.getParameter("id");
@@ -73,10 +75,11 @@ public class AddStaff extends HttpServlet {
             request.setAttribute("notice", "Another staff with the same email is found!");
             request.setAttribute("noticeBg", "danger");
             response.sendRedirect("addstaff.jsp");
+            return;
         }
         
         Staff newStaff = new Staff(id, password, name, role, isMale, phoneNumber, icNumber);
-        staffFacade.create(staff);
+        staffFacade.create(newStaff);
         
         response.sendRedirect("stafflist.jsp");
     }

@@ -43,18 +43,18 @@ public class AddProduct extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         // Gets the current session to check if user is logged in
-        HttpSession session = request.getSession(false);
-        Staff staff = (Staff)session.getAttribute("login");
-        
-        if (staff == null) {
-            // TO-DO: Redirect to staff login page
-            response.sendRedirect("/login.jsp");
-            return;
-        }
-        
-        if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
-            // TO-DO: Show Unauthorized page
-        }
+//        HttpSession session = request.getSession(false);
+//        Staff staff = (Staff)session.getAttribute("login");
+//        
+//        if (staff == null) {
+//            // TO-DO: Redirect to staff login page
+//            response.sendRedirect("/login.jsp");
+//            return;
+//        }
+//        
+//        if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
+//            // TO-DO: Show Unauthorized page
+//        }
         
         String productName = request.getParameter("productName");
         String description = request.getParameter("description");
