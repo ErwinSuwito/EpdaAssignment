@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Customer;
+import model.Enums;
 import model.OrderProduct;
 import model.OrderProductFacade;
 import model.Orders;
@@ -49,30 +50,34 @@ public class AddItemToCart extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
+        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state != Enums.LoginStateRole.Customer) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
+        }
+        
         Customer customer = (Customer)session.getAttribute("customerLogin");
         
-        try (PrintWriter out = response.getWriter()) {
-            if (customer == null) {
-                // TO-DO: Redirect to customer login page
-            } else {
-                Orders order = (Orders)session.getAttribute("cart");
-                if (order == null) {
-                    order = new Orders();
-                }
-                
-                String productId = request.getParameter("productId");
-                int quantity = Integer.parseInt(request.getParameter("quantity"));
-                Product product = productFacade.find(productId);
-                OrderProduct orderProduct = new OrderProduct(order, product, quantity);
-                
-                order.getProductBasket().add(orderProduct);
-                
-                request.setAttribute("cart", order);
-                
-                // TO-DO: Redirect to product added to cart page
-            }
+        Orders order;
+        if (session.getAttribute("cart") == null) {
+            order = new Orders();
+            order.setCustomer(customer);
+            order.setProductBasket(new ArrayList<OrderProduct>());
+        } else {
+            order = (Orders)session.getAttribute("cart");
         }
+
+        String productId = request.getParameter("productId");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        Product product = productFacade.find(productId);
+        OrderProduct orderProduct = new OrderProduct(order, product, quantity);
+
+        order.getProductBasket().add(orderProduct);
+
+        request.setAttribute("cart", order);
+        response.sendRedirect("productadded.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
