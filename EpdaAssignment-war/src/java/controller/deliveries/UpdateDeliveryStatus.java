@@ -45,14 +45,10 @@ public class UpdateDeliveryStatus extends HttpServlet {
         
         // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
-        Staff staff = (Staff)session.getAttribute("login");
-        
-        if (staff == null) {
-            // TO-DO: Push to login page
-        }
-        
-        if (staff.getRole() == Enums.StaffRole.ManagingStaff) {
-            // TO-DO: Show Unauthorized page
+        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state != Enums.LoginStateRole.DeliveryStaff) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
         }
         
         Long orderId = Long.parseLong(request.getParameter("orderId"));
