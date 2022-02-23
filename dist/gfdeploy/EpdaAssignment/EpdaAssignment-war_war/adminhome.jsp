@@ -64,11 +64,13 @@
                 <h5>Quick Actions</h5>
                 <div class="row row-cols-1 row-cols-md-5 g-4">
                     <div class="col">
-                        <div class="card border-primary">
-                            <div class="card-body">
-                                <i class="bi bi-arrow-right text-success"></i><span class="ms-3">Add New Product</span>
+                        <a href="addproduct.jsp">
+                            <div class="card border-primary">
+                                <div class="card-body">
+                                    <i class="bi bi-arrow-right text-success"></i><span class="ms-3">Add New Product</span>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col">
                         <div class="card border-primary">

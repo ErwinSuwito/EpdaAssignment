@@ -2,3 +2,8 @@
     box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%), inset 0 -1px 0 rgb(0 0 0 / 15%);
     position: sticky;
 }
+
+a {
+    color: inherit !important;
+    text-decoration: none !important;
+}
