@@ -43,22 +43,24 @@ public class CancelOrder extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
-        Customer customer = (Customer)session.getAttribute("customerLogin");
-        
-        if (customer != null) {
-            Orders order = ordersFacade.find(request.getParameter("orderId"));
-            
-            if (order.getCustomer().getId().equals(customer.getId())) {
-                order.setStatus(Enums.OrderStatus.Cancelled);
-                ordersFacade.edit(order);
-            }
-        } else {
-            // TO-DO: Redirect to Unauthorized error
+        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state != Enums.LoginStateRole.Customer) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
         }
         
-        try (PrintWriter out = response.getWriter()) {
-            
+        Customer customer = (Customer)session.getAttribute("customerLogin");
+        
+        Orders order = ordersFacade.find(request.getParameter("orderId"));
+
+        if (order.getCustomer().getId().equals(customer.getId())) {
+            order.setStatus(Enums.OrderStatus.Cancelled);
+            ordersFacade.edit(order);
+            response.sendRedirect("myorders.jsp");
+        } else {
+            response.sendRedirect("unauthorized.jsp");
         }
     }
 
