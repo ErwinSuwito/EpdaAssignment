@@ -67,6 +67,7 @@ public class RateOrder extends HttpServlet {
         
         if (!order.getCustomer().getId().equals(customer.getId())) {
             response.sendRedirect("unauthorized.jsp");
+            return;
         }
         
         int starCount = Integer.parseInt(request.getParameter("stars"));

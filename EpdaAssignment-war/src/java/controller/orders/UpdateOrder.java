@@ -44,26 +44,38 @@ public class UpdateOrder extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
+        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state != Enums.LoginStateRole.ManagingStaff) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
+        }
+        
         Customer customer = (Customer)session.getAttribute("customerLogin");
-
-        if (customer == null) {
-            // TO-DO: Redirect to login page
-        } 
         
         Orders order = ordersFacade.find(request.getParameter("orderId"));
         
         if (order == null) {
-            // TO-DO: Show Not Found error
-        } else {
+            response.sendRedirect("notfound.jsp");
+            return;
+        }
+        
+        if (!order.getCustomer().getId().equals(customer.getId())) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
+        }
+        
+        if (order.getStatus() != Enums.OrderStatus.Pending ||
+                order.getStatus() != Enums.OrderStatus.Assigned) {
             String address = request.getParameter("address");
             order.setAddress(address);
             ordersFacade.edit(order);
         }
         
-        try (PrintWriter out = response.getWriter()) {
-            // TO-DO: Redirect to orders page
-        }
+        session.setAttribute("notice", "We can't modify your order at this time. ");
+        session.setAttribute("noticeBg", "warning");
+        response.sendRedirect("myorders.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
