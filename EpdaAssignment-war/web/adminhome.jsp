@@ -13,7 +13,7 @@
   </head>
     <body>
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
-        <div class="container mt-5">
+        <div class="container mt-5 mb-5">
             <h2>Welcome!</h2>
             <div class="mt-4">
                 <h5>Overview</h5>
