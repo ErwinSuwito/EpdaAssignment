@@ -48,6 +48,8 @@ public class AddProduct extends HttpServlet {
         
         if (staff == null) {
             // TO-DO: Redirect to staff login page
+            response.sendRedirect("/login.jsp");
+            return;
         }
         
         if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
@@ -63,7 +65,8 @@ public class AddProduct extends HttpServlet {
         productFacade.create(product);
         
         // TO-DO: Redirect to product list page (admin)
-        }
+        response.sendRedirect("/admin/addproduct.jsp");
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

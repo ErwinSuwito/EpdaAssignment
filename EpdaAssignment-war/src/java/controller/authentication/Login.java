@@ -55,17 +55,19 @@ public class Login extends HttpServlet {
         if (session != null)
             session.invalidate();
         
+        HttpSession newSession = request.getSession();
+        
         if (customer == null) {
             Staff staff = staffFacade.find(email);
             if (staff == null) {
-                // Creates new session and record login failed
-                HttpSession newSession = request.getSession();
-                newSession.setAttribute("loginFailed", true);
+                // record login failed
+                newSession.setAttribute("notice", "Your email and password doesn't match our records.");
+                newSession.setAttribute("noticeBg", "danger");
                 
                 // Redirects back to login.jsp
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                response.sendRedirect("login.jsp");
             } else {
-                HttpSession newSession = request.getSession();
+                // Sets staff object to session
                 newSession.setAttribute("staffLogin", staff);
                 
                 if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
@@ -75,11 +77,19 @@ public class Login extends HttpServlet {
                 }
             }
         } else {
-            // Creates a new session and record customer details
-            HttpSession newSession = request.getSession();
-            newSession.setAttribute("customerLogin", customer);
-            
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            if (customer.getPassword().equals(password)) {
+                // Set customer object to session
+                newSession.setAttribute("customerLogin", customer);
+
+                // Redirects user to home page
+                response.sendRedirect("index.jsp");
+            } else {
+                newSession.setAttribute("notice", "Your email and password doesn't match our records.");
+                newSession.setAttribute("noticeBg", "danger");
+                
+                // Redirects user to login page
+                response.sendRedirect("login.jsp");
+            }
         }
     }
 
