@@ -44,27 +44,22 @@ public class DeleteProduct extends HttpServlet {
         
         // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
-        Staff staff = (Staff)session.getAttribute("login");
-        
-        if (staff == null) {
-            // TO-DO: Push to login page
-        }
-        
-        if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
-            // TO-DO: Show Unauthorized page
+        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state != Enums.LoginStateRole.ManagingStaff) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
         }
         
         long productId = Long.parseLong(request.getParameter("productId"));
         Product productToDelete = productFacade.find(productId);
         
         if (productToDelete == null) {
-            // TO-DO: Show Not Found page
+            response.sendRedirect("notfound.jsp");
+            return;
         } else {
             productFacade.remove(productToDelete);
-        }
-        
-        try (PrintWriter out = response.getWriter()) {
-            // TO-DO: Redirect to products list page (admin)
+            response.sendRedirect("productlist.jsp");
+            return;
         }
     }
 
