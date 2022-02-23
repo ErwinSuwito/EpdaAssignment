@@ -11,8 +11,9 @@
     <title>Login | APStore </title>
   </head>
     <body>
+        <%@include file="WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container">
-            <%@include file="WEB-INF/jspf/managing_navbar.jspf" %>
+            
             
             <form action="AddProduct" method="POST">
                 <label for="productName">Product Name: </label><br>
