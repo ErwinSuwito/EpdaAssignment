@@ -8,6 +8,7 @@ package model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,7 +32,7 @@ public class Orders implements Serializable {
     private Customer customer;
     @OneToOne
     private Staff deliveryStaff;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private ArrayList<OrderProduct> basket;
     private String address;
     private OrderStatus status;
