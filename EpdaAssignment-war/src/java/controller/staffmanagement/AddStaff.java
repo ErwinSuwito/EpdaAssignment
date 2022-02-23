@@ -55,21 +55,30 @@ public class AddStaff extends HttpServlet {
         String id = request.getParameter("id");
         String password = request.getParameter("password");
         String name = request.getParameter("name");
-        Boolean isMale = Boolean.parseBoolean("isMale");
-        Boolean isDeliveryStaff = Boolean.parseBoolean("isDeliveryStaff");
+        Boolean isMale = false;
+        Boolean isDeliveryStaff = false;
         String phoneNumber = request.getParameter("phoneNumber");
         String icNumber = request.getParameter("icNumber");
         Enums.StaffRole role = 
                 isDeliveryStaff ? Enums.StaffRole.DeliveryStaff : Enums.StaffRole.ManagingStaff;
         
-        // TO-DO: Check for duplicate username
+        if (request.getParameter("gender").equals("male"))
+            isMale = true;
+        
+        if (request.getParameter("staffType").equals("delivery"))
+            isDeliveryStaff = true;
+        
+        Staff checkForDuplicateStaff = staffFacade.find(id);
+        if (checkForDuplicateStaff != null) {
+            request.setAttribute("notice", "Another staff with the same email is found!");
+            request.setAttribute("noticeBg", "danger");
+            response.sendRedirect("addstaff.jsp");
+        }
         
         Staff newStaff = new Staff(id, password, name, role, isMale, phoneNumber, icNumber);
         staffFacade.create(staff);
         
-        try (PrintWriter out = response.getWriter()) {
-            // TO-DO: Redirect to staff list
-        }
+        response.sendRedirect("stafflist.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
