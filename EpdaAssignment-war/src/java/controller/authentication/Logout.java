@@ -41,7 +41,7 @@ public class Logout extends HttpServlet {
         }
         
         HttpSession newSession = request.getSession();
-        newSession.setAttribute("notice", "You are logged out");
+        newSession.setAttribute("notice", "You are logged out.");
         newSession.setAttribute("noticeBg", "success");
         response.sendRedirect("login.jsp");
     }

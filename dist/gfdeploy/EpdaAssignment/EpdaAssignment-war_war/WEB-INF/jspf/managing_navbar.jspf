@@ -10,7 +10,5 @@
         <li><a href="#" class="nav-link px-2 link-secondary">Reports</a></li>
         <li><a href="#" class="nav-link px-2 link-secondary">My Account</a></li>
     </ul>
-    <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-primary">Logout</button>
-    </div>
+    <%@include file="navbar_account.jspf" %>
 </header>
