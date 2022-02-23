@@ -6,12 +6,16 @@
 package controller.staffmanagement;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Enums;
+import model.Staff;
+import model.StaffFacade;
 
 /**
  *
@@ -19,6 +23,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "EditStaffInfo", urlPatterns = {"/EditStaffInfo"})
 public class EditStaffInfo extends HttpServlet {
+
+    @EJB
+    private StaffFacade staffFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +39,56 @@ public class EditStaffInfo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditStaffInfo</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditStaffInfo at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
+        // Gets the current session to check if user is logged in
+        HttpSession session = request.getSession(false);
+        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state == Enums.LoginStateRole.Customer
+                || state == Enums.LoginStateRole.LoggedOut) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
+        }
+
+        Staff staff = (Staff) session.getAttribute("staffLogin");
+
+        String staffId = request.getParameter("staffId");
+        Staff staffToEdit = staffFacade.find(staffId);
+
+        if (staffToEdit == null) {
+            response.sendRedirect("notfound.jsp");
+            return;
+        }
+
+        staffToEdit.setPassword(request.getParameter("password"));
+        staffToEdit.setPhoneNumber(request.getParameter("phoneNumber"));
+
+        if (staff.getRole() == Enums.StaffRole.ManagingStaff) {
+            staffToEdit.setIcNumber(request.getParameter("icNumber"));
+            staffToEdit.setName(request.getParameter("name"));
+
+            if (request.getParameter("gender").equals("male")) {
+                staffToEdit.setIsMale(true);
+            } else {
+                staffToEdit.setIsMale(false);
+            }
+
+            if (request.getParameter("staffType").equals("delivery")) {
+                staffToEdit.setRole(Enums.StaffRole.DeliveryStaff);
+            } else {
+                staffToEdit.setRole(Enums.StaffRole.ManagingStaff);
+            }
+        }
+
+        staffFacade.edit(staffToEdit);
+
+        if (staff.getId().equals(staffToEdit.getId())) {
+            session.invalidate();
+            HttpSession newSession = request.getSession(true);
+            newSession.setAttribute("noticeBg", "success");
+            newSession.setAttribute("notice", "Your data has been updated. Please login again.");
+            response.sendRedirect("login.jsp");
+        } else {
+            response.sendRedirect("stafflist.jsp");
         }
     }
 

@@ -54,17 +54,18 @@ public class AddStaff extends HttpServlet {
         String password = request.getParameter("password");
         String name = request.getParameter("name");
         Boolean isMale = false;
-        Boolean isDeliveryStaff = false;
+        Enums.StaffRole role;
         String phoneNumber = request.getParameter("phoneNumber");
         String icNumber = request.getParameter("icNumber");
-        Enums.StaffRole role = 
-                isDeliveryStaff ? Enums.StaffRole.DeliveryStaff : Enums.StaffRole.ManagingStaff;
         
         if (request.getParameter("gender").equals("male"))
             isMale = true;
         
-        if (request.getParameter("staffType").equals("delivery"))
-            isDeliveryStaff = true;
+        if (request.getParameter("staffType").equals("delivery")) {
+            role = Enums.StaffRole.DeliveryStaff;
+        } else {
+            role = Enums.StaffRole.ManagingStaff;
+        }
         
         Staff checkForDuplicateStaff = staffFacade.find(id);
         if (checkForDuplicateStaff != null) {
