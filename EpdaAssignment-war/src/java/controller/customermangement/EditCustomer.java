@@ -42,44 +42,47 @@ public class EditCustomer extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
-        Customer customer = (Customer)session.getAttribute("customerLogin");        
-        Staff staff = (Staff)session.getAttribute("staffLogin");
+        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state == Enums.LoginStateRole.LoggedOut ||
+                state == Enums.LoginStateRole.DeliveryStaff) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
+        }
         
-        if ((customer == null) && (staff == null)) {
-            // TO-DO: Push to homepage
-        } else {
-            String id = request.getParameter("id");
-            if (customer.getId().equals(id) || staff.getRole() == Enums.StaffRole.ManagingStaff) {
-                String email = request.getParameter("email");
-                String name = request.getParameter("name");
-                String password = request.getParameter("password");
-                String phoneNumber = request.getParameter("phoneNumber");
-                
-                Customer customerToEdit = customerFacade.find(id);
-                customerToEdit.setId(email);
-                customerToEdit.setName(name);
-                customerToEdit.setPassword(password);
-                customerToEdit.setPhoneNumber(phoneNumber);
-                
-                customerFacade.edit(customerToEdit);
-                
-                // Customer is logged in. Invalidate session and 
-                // redirect to login page
-                if (customer != null)
-                {
-                    session.invalidate();
-                    // TO-DO: Redirect to home page
-                } else {
-                    // TO-DO: Show to customer list
-                }
-            } else {
-                // TO-DO: Show Unauthorized error message
+        Customer customer;
+        String id = request.getParameter("id");
+        
+        if (state == Enums.LoginStateRole.Customer) {
+            customer = (Customer)session.getAttribute("customerLogin");
+            if (!customer.getId().equals(id)) {
+                response.sendRedirect("unauthorized.jsp");
+                return;
             }
         }
         
-        try (PrintWriter out = response.getWriter()) {
-            
+        String email = request.getParameter("email");
+        String name = request.getParameter("name");
+        String password = request.getParameter("password");
+        String phoneNumber = request.getParameter("phoneNumber");
+
+        Customer customerToEdit = customerFacade.find(id);
+        customerToEdit.setId(email);
+        customerToEdit.setName(name);
+        customerToEdit.setPassword(password);
+        customerToEdit.setPhoneNumber(phoneNumber);
+
+        customerFacade.edit(customerToEdit);
+        
+        if (state == Enums.LoginStateRole.Customer) {
+            session.invalidate();
+            HttpSession newSession = request.getSession(true);
+            newSession.setAttribute("notice", "Your details have been changed. Please login again.");
+            newSession.setAttribute("noticeBg", "success");
+            response.sendRedirect("login.jsp");
+        } else {
+            response.sendRedirect("customerlist.jsp");
         }
     }
 
