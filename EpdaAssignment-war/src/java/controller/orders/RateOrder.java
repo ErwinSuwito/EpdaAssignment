@@ -51,7 +51,7 @@ public class RateOrder extends HttpServlet {
         // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
         Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
-        if (state != Enums.LoginStateRole.ManagingStaff) {
+        if (state != Enums.LoginStateRole.Customer) {
             response.sendRedirect("unauthorized.jsp");
             return;
         }
