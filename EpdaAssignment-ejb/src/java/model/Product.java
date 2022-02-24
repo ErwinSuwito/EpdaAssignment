@@ -95,6 +95,10 @@ public class Product implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    public void incrementQuantity(int q) {
+        this.quantity += q;
+    }
 
     @Override
     public int hashCode() {

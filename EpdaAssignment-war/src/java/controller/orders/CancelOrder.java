@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Customer;
 import model.Enums;
+import model.OrderProduct;
 import model.Orders;
 import model.OrdersFacade;
+import model.ProductFacade;
 
 /**
  *
@@ -26,6 +28,9 @@ import model.OrdersFacade;
  */
 @WebServlet(name = "CancelOrder", urlPatterns = {"/CancelOrder"})
 public class CancelOrder extends HttpServlet {
+
+    @EJB
+    private ProductFacade productFacade;
 
     @EJB
     private OrdersFacade ordersFacade;
@@ -56,8 +61,13 @@ public class CancelOrder extends HttpServlet {
         Orders order = ordersFacade.find(request.getParameter("orderId"));
 
         if (order.getCustomer().getId().equals(customer.getId())) {
-            order.setStatus(Enums.OrderStatus.Cancelled);
-            ordersFacade.edit(order);
+            // Re-add the number of quantity for each products purchased
+            for(OrderProduct orderProduct : order.getProductBasket()) {
+                orderProduct.getProduct().incrementQuantity(orderProduct.getQuantityPurchased());
+                productFacade.edit(orderProduct.getProduct());
+            }
+            
+            ordersFacade.remove(order);
             response.sendRedirect("myorders.jsp");
         } else {
             response.sendRedirect("unauthorized.jsp");
