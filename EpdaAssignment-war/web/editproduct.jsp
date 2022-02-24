@@ -52,23 +52,23 @@
                     }
                 %>
                 <form action="EditProduct" method="POST">
-                    <input type="hidden" name="productId" id="productId" value="<% out.println(product.getId()); %>">
+                    <input type="hidden" name="productId" id="productId" value="<% out.print(product.getId()); %>">
                     <div class="row mb-3">
                         <label for="productName" class="col-sm-2 col-form-label">Product Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="productName" id="productName" value="<% out.println(product.getProductName()); %>" required>
+                            <input type="text" class="form-control" name="productName" id="productName" value="<% out.print(product.getProductName()); %>" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="productImage" class="col-sm-2 col-form-label">Product Image</label>
                         <div class="col-sm-10">
-                            <input type="url" class="form-control" name="productImage" id="productImage" value="<% out.println(product.getProductImage()); %>" required>
+                            <input type="url" class="form-control" name="productImage" id="productImage" value="<% out.print(product.getProductImage()); %>" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="description" class="col-sm-2 col-form-label">Description</label>
                         <div class="col-sm-10">
-                            <textarea row="3" class ="form-control" name="description" id="description" required><% out.println(product.getDescription()); %></textarea>
+                            <textarea row="3" class ="form-control" name="description" id="description" required><% out.print(product.getDescription()); %></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">

@@ -57,15 +57,10 @@ public class EditProduct extends HttpServlet {
             response.sendRedirect("notfound.jsp");
             return;
         } else {
-            String productName = request.getParameter("productName");
-            String description = request.getParameter("description");
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
-            double price = Integer.parseInt(request.getParameter("price"));
-            
-            product.setPrice(price);
-            product.setQuantity(quantity);
-            product.setDescription(description);
-            product.setProductName(productName);
+            product.setPrice(Double.parseDouble(request.getParameter("price")));
+            product.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+            product.setDescription(request.getParameter("description"));
+            product.setProductName(request.getParameter("productName"));
             
             productFacade.edit(product);
             response.sendRedirect("productlist.jsp");
