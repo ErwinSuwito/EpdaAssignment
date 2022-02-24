@@ -59,7 +59,10 @@ public class EditStaffInfo extends HttpServlet {
             return;
         }
 
-        staffToEdit.setPassword(request.getParameter("password"));
+        if (!request.getParameter("password").isEmpty()) {
+            staffToEdit.setPassword(request.getParameter("password"));
+        }
+        
         staffToEdit.setPhoneNumber(request.getParameter("phoneNumber"));
 
         if (staff.getRole() == Enums.StaffRole.ManagingStaff) {
