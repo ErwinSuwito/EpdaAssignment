@@ -21,7 +21,7 @@
     <body>
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
-            <h2>Manage Staffs</h2>
+            <h2>Manage Customers</h2>
             <div class="col-12 mt-4">
                 <%
                     String notice = (String) request.getSession(false).getAttribute("notice");
@@ -33,7 +33,7 @@
                 <table id="staffTable" class="table table-stripped" style="width:100%">
                     <thead>
                     <th>Name</th>
-                    <th>Id</th>
+                    <th>Email</th>
                     <th>Phone Number</th>
                     <th></th>
                     </thead>

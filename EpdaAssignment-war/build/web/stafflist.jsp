@@ -37,7 +37,7 @@
                 <table id="staffTable" class="table table-stripped" style="width:100%">
                     <thead>
                     <th>Name</th>
-                    <th>Id</th>
+                    <th>Email</th>
                     <th>Staff Type</th>
                     <th></th>
                     </thead>
