@@ -68,7 +68,7 @@
                     <div class="row mb-3">
                         <label for="description" class="col-sm-2 col-form-label">Description</label>
                         <div class="col-sm-10">
-                            <textarea row="3" class ="form-control" name="description" id="description" value="<% out.println(product.getDescription()); %>" required></textarea>
+                            <textarea row="3" class ="form-control" name="description" id="description" required><% out.println(product.getDescription()); %></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -76,14 +76,14 @@
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <span class="input-group-text">RM</span>
-                                <input type="number" class="form-control" id="price" name="price" step="0.01" value="<% out.println(product.getPrice()); %>" required>
+                                <input type="number" class="form-control" id="price" name="price" step="0.01" value="<%out.print(product.getPrice());%>" required>
                             </div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" name="quantity" id="quantity" value="<% out.println(product.getQuantity()); %>" required>
+                            <input type="number" class="form-control" name="quantity" id="quantity" value="<%out.print(product.getQuantity());%>" required>
                         </div>
                     </div>
                     <hr>
