@@ -44,7 +44,7 @@
                         return;
                     }
 
-                    String id = request.getParameter("id");
+                    Long id = Long.parseLong(request.getParameter("id"));
                     Product product = productFacade.find(id);
                     if (product == null) {
                         response.sendRedirect("notfound.jsp");
