@@ -136,11 +136,6 @@
                             <input type="text" class ="form-control" name="icNumber" id="icNumber" value="<% out.println(staffToEdit.getIcNumber()); %>" required></input>
                         </div>
                     </div>
-                    <hr>
-                    <div class="row mb-3">
-                        To save changes, please re-enter your password
-                        <input type="text" class ="form-control" name="icNumber" id="icNumber" value="<% out.println(staffToEdit.getIcNumber()); %>" required></input>
-                    </div>
                     <button type="submit" value="submit" class="btn btn-primary">Save Changes</button>
                 </form>
             </div>
