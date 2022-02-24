@@ -8,22 +8,22 @@
     <div class="collapse navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
+          <a class="nav-link" href="adminhome.jsp">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Products</a>
+          <a class="nav-link" href="productlist.jsp">Products</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Users</a>
+          <a class="nav-link" href="stafflist.jsp">Staffs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Customers</a>
+          <a class="nav-link" href="customerlist.jsp">Customers</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Reports</a>
+          <a class="nav-link" href="reports.jsp">Reports</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">My Account</a>
+          <a class="nav-link" href="admin_profile.jsp">My Account</a>
         </li>
       </ul>
       <%@include file="navbar_account.jspf"%>
