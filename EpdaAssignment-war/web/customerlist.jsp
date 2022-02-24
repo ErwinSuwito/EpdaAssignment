@@ -1,11 +1,11 @@
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="java.util.List"%>
-<%@page import="model.Product"%>
-<%@page import="model.ProductFacade"%>
+<%@page import="model.Customer"%>
+<%@page import="model.CustomerFacade"%>
 <%
     Context context = new InitialContext();
-    ProductFacade productFacade = (ProductFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/ProductFacade");
+    CustomerFacade customerFacade = (CustomerFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/CustomerFacade");
 %>
 <!doctype html>
 <html lang="en">
@@ -16,12 +16,12 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css">
         <link href="site.css" rel="stylesheet">
-        <title>Manage Products | APStore </title>
+        <title>Manage Customers | APStore </title>
     </head>
     <body>
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
-            <h2>Manage Products</h2>
+            <h2>Manage Staffs</h2>
             <div class="col-12 mt-4">
                 <%
                     String notice = (String) request.getSession(false).getAttribute("notice");
@@ -30,29 +30,25 @@
                         out.println("<div class=\"alert alert-" + noticeBg + "\" role=\"alert\">" + notice + "</div>");
                     }
                 %>
-                <a href="addproduct.jsp">
-                    <span class="btn btn-primary mb-3">Add Product</span>
-                </a>
-
-                <table id="productTable" class="table table-stripped" style="width:100%">
+                <table id="staffTable" class="table table-stripped" style="width:100%">
                     <thead>
-                    <th>Product Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
+                    <th>Name</th>
+                    <th>Id</th>
+                    <th>Phone Number</th>
                     <th></th>
                     </thead>
                     <tbody>
                         <%
-                            List<model.Product> products = productFacade.findAll();
+                            List<Customer> customers = customerFacade.findAll();
 
-                            for (model.Product product : products) {
+                            for (Customer customer : customers) {
                                 out.println("<tr>");
-                                out.println("<td>" + product.getProductName() + "</td>");
-                                out.println("<td>" + product.getPrice() + "</td>");
-                                out.println("<td>" + product.getQuantity() + "</td>");
+                                out.println("<td>" + customer.getName() + "</td>");
+                                out.println("<td>" + customer.getId() + "</td>");
+                                out.println("<td>" + customer.getPhoneNumber().toString() + "</td>");
                                 out.println("<td>");
-                                out.println("<a href=\"editproduct.jsp?id=" + product.getId() + "\"> <span class=\"btn btn-secondary btn-sm\">Edit</span></a>");
-                                out.println("<a href=\"deleteproduct.jsp?id=" + product.getId() + "\"> <span class=\"btn btn-danger btn-sm\">Delete</span></a>");
+                                out.println("<a href=\"editcustomer.jsp?id=" + customer.getId() + "\"> <span class=\"btn btn-secondary btn-sm\">Edit</span></a>");
+                                out.println("<a href=\"deletecustomer.jsp?id=" + customer.getId() + "\"> <span class=\"btn btn-danger btn-sm\">Delete</span></a>");
                                 out.println("</td>");
                                 out.println("</tr>");
                             }
@@ -73,7 +69,7 @@
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
         <script>
             $(document).ready(function () {
-                $('#productTable').DataTable();
+                $('#staffTable').DataTable();
             });
         </script>
     </body>
