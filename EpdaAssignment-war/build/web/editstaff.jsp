@@ -51,7 +51,7 @@
                         return;
                     }
                 %>
-                <form action="EditStaff" method="POST">
+                <form action="EditStaffInfo" method="POST">
                     <div class="alert alert-warning">
                         Entering something on the password field will change the staff's password. <b>Leave it blank to keep the staff's password.</b>
                     </div>
@@ -96,7 +96,7 @@
                     <div class="row mb-3">
                         <label for="password" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password" id="password" required>
+                            <input type="password" class="form-control" name="password" id="password">
                         </div>
                     </div>
                     <fieldset class="row mb-3">
