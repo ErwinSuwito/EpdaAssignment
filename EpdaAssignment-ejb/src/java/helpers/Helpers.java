@@ -28,9 +28,6 @@ public class Helpers {
 
             case "Delivered":
                 return Enums.OrderStatus.Delivered;
-
-            case "Cancelled":
-                return OrderStatus.Cancelled;
         }
 
         return null;
