@@ -50,8 +50,8 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Product Name</label>
                         <div class="col-sm-10">
-                            <input type="hidden" name="id" id="id" value="<% product.getId(); %>">
-                            <span><% product.getProductName();%></span>
+                            <input type="hidden" name="id" id="id" value="<% out.println(product.getId()); %>">
+                            <input type="text" class="form-control" name="productName" value="<% out.println(product.getProductName()); %>" id="productName" disabled readonly>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-danger">Delete</button>

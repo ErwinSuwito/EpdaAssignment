@@ -1,11 +1,11 @@
 <%@page import="model.Enums"%>
-<%@page import="model.ProductFacade"%>
-<%@page import="model.Product"%>
+<%@page import="model.CustomerFacade"%>
+<%@page import="model.Customer"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
 <%
     Context context = new InitialContext();
-    ProductFacade productFacade = (ProductFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/ProductFacade");
+    CustomerFacade customerFacade = (CustomerFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/CustomerFacade");
 %>
 <!doctype html>
 <html lang="en">
@@ -17,7 +17,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="site.css" rel="stylesheet">
 
-        <title>Edit Product | APStore </title>
+        <title>Edit Customer | APStore </title>
     </head>
     <%
         // Gets the current session to check if user is logged in
@@ -30,7 +30,7 @@
     <body>
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
-            <h2>Edit Product</h2>
+            <h2>Edit Customer</h2>
             <div class="col-8 mt-4">
                 <%
                     String notice = (String) request.getSession(false).getAttribute("notice");
@@ -45,48 +45,40 @@
                     }
 
                     String id = request.getParameter("id");
-                    Product product = productFacade.find(id);
-                    if (product == null) {
+                    Customer customer = customerFacade.find(id);
+                    if (customer == null) {
                         response.sendRedirect("notfound.jsp");
                         return;
                     }
                 %>
-                <form action="EditProduct" method="POST">
-                    <input type="hidden" name="productId" id="productId" value="<% out.println(product.getId()); %>">
+                <form action="EditStaff" method="POST">
+                    <div class="alert alert-warning">
+                        Entering something on the password field will change the customer's password. <b>Leave it blank to keep the staff's password.</b>
+                    </div>
                     <div class="row mb-3">
-                        <label for="productName" class="col-sm-2 col-form-label">Product Name</label>
+                        <label for="name" class="col-sm-2 col-form-label">Full Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="productName" id="productName" value="<% out.println(product.getProductName()); %>" required>
+                            <input type="text" class ="form-control" name="name" id="name" value="<% out.println(customer.getName()); %>" required></input>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="productImage" class="col-sm-2 col-form-label">Product Image</label>
+                        <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="url" class="form-control" name="productImage" id="productImage" value="<% out.println(product.getProductImage()); %>" required>
+                            <input type="email" class="form-control" name="email" id="email" value="<% out.println(customer.getId()); %>" disabled readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="description" class="col-sm-2 col-form-label">Description</label>
+                        <label for="password" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
-                            <textarea row="3" class ="form-control" name="description" id="description" value="<% out.println(product.getDescription()); %>" required></textarea>
+                            <input type="password" class="form-control" name="password" id="password" required>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="price" class="col-sm-2 col-form-label">Price</label>
+                        <label for="phoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
                         <div class="col-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-text">RM</span>
-                                <input type="number" class="form-control" id="price" name="price" step="0.01" value="<% out.println(product.getPrice()); %>" required>
-                            </div>
+                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" value="<% out.println(customer.getPhoneNumber()); %>" required></input>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
-                        <div class="col-sm-10">
-                            <input type="number" class="form-control" name="quantity" id="quantity" value="<% out.println(product.getQuantity()); %>" required>
-                        </div>
-                    </div>
-                    <hr>
                     <button type="submit" value="submit" class="btn btn-primary">Save Changes</button>
                 </form>
             </div>

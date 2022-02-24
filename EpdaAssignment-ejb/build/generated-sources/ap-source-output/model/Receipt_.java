@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import model.Orders;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2022-02-24T15:49:33")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2022-02-24T17:22:16")
 @StaticMetamodel(Receipt.class)
 public class Receipt_ { 
 
