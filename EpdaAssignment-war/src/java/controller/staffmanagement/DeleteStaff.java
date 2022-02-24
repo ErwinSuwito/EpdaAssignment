@@ -57,6 +57,8 @@ public class DeleteStaff extends HttpServlet {
             return;
         } else {
             staffFacade.remove(staffToDelete);
+            session.setAttribute("notice", staffId + " has been deleted.");
+            session.setAttribute("noticeBg", "success");
         }
         response.sendRedirect("stafflist.jsp");
     }
