@@ -23,14 +23,16 @@
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
             <h2>Delete staff?</h2>
-            <p>All user data will be permanently deleted and not recoverable.</p>
+            <div class="alert alert-danger">
+                <b>All user data will be permanently deleted and not recoverable.</b>
+            </div>
             <%
                 if (request.getParameter("id") == null) {
                     response.sendRedirect("notfound.jsp");
                     return;
                 }
                 
-                Long id = Long.parseLong(request.getParameter("id"));
+                String id = request.getParameter("id");
                 Staff staffToDelete = staffFacade.find(id);
                 if (staffToDelete == null) {
                     response.sendRedirect("notfound.jsp");
@@ -42,7 +44,7 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Staff Email:</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="id" id="id" disabled readonly>
+                            <input type="email" class="form-control" name="id" id="id" value="<% out.println(staffToDelete.getId()); %>" disabled readonly>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-danger">Delete</button>
