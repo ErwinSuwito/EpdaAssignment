@@ -1,3 +1,11 @@
+<%@page import="model.StaffFacade"%>
+<%@page import="model.Staff"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="javax.naming.Context"%>
+<%
+    Context context = new InitialContext();
+    StaffFacade staffFacade = (StaffFacade)context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/StaffFacade");
+%>
 <!doctype html>
 <html lang="en">
     <head>
@@ -8,18 +16,20 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="site.css" rel="stylesheet">
 
-        <title>Add Staff | APStore </title>
+        <title>Edit Staff | APStore </title>
     </head>
     <body>
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
-            <h2>Add a new Staff</h2>
+            <h2>Edit staff</h2>
             <%
                 String notice = (String) request.getSession(false).getAttribute("notice");
                 String noticeBg = (String) request.getSession(false).getAttribute("noticeBg");
                 if (notice != null) {
                     out.println("<div class=\"alert alert-" + noticeBg + "\" role=\"alert\">" + notice + "</div>");
                 }
+                
+                
             %>
             <div class="col-8 mt-4">
                 <form action="AddStaff" method="POST">
@@ -87,7 +97,7 @@
                             <input type="text" class ="form-control" name="icNumber" id="icNumber" required></input>
                         </div>
                     </div>
-                    <button type="submit" value="submit" class="btn btn-primary">Add Staff</button>
+                    <button type="submit" value="submit" class="btn btn-primary">Save Changes</button>
                 </form>
             </div>
         </div>
