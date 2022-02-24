@@ -51,7 +51,7 @@ public class EditStaffInfo extends HttpServlet {
 
         Staff staff = (Staff) session.getAttribute("staffLogin");
 
-        String staffId = request.getParameter("staffId");
+        String staffId = request.getParameter("id");
         Staff staffToEdit = staffFacade.find(staffId);
 
         if (staffToEdit == null) {

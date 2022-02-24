@@ -77,7 +77,7 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="id" id="id" required>
+                            <input type="email" class="form-control" name="id" id="id" disabled readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
