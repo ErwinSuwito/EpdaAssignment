@@ -54,7 +54,7 @@
                                 out.println("<tr>");
                                 out.println("<td>" + customer.getName() + "</td>");
                                 out.println("<td>" + customer.getId() + "</td>");
-                                out.println("<td>" + customer.getPhoneNumber().toString() + "</td>");
+                                out.println("<td>" + customer.getPhoneNumber() + "</td>");
                                 out.println("<td>");
                                 out.println("<a href=\"editcustomer.jsp?id=" + customer.getId() + "\"> <span class=\"btn btn-secondary btn-sm\">Edit</span></a>");
                                 out.println("<a href=\"deletecustomer.jsp?id=" + customer.getId() + "\"> <span class=\"btn btn-danger btn-sm\">Delete</span></a>");
@@ -69,8 +69,8 @@
 
         <%
             // Removes notice and noticeBg from session
-            session.removeAttribute("noticeBg");
-            session.removeAttribute("notice");
+            //session.removeAttribute("noticeBg");
+            //session.removeAttribute("notice");
         %>
 
         <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>

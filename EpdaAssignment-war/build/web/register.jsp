@@ -49,7 +49,7 @@
                               <label for="password2">Password</label>
                           </div>
                           <div class="form-floating mb-3">
-                              <input type="text" class="form-control" name="phone" id="phone" placeholder="012-12342234" required>
+                              <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="012-12342234" required>
                               <label for="phone">Phone Number</label>
                           </div>
                           <div class="vstack gap-2 mx-auto">
