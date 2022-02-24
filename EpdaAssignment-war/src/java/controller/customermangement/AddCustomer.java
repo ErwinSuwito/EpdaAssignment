@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import model.Customer;
 import model.CustomerFacade;
 import model.Staff;
+import model.StaffFacade;
 
 /**
  *
@@ -27,6 +28,9 @@ public class AddCustomer extends HttpServlet {
 
     @EJB
     private CustomerFacade customerFacade;
+    
+    @EJB
+    private StaffFacade staffFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,11 +57,12 @@ public class AddCustomer extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         
         Customer customer = customerFacade.find(email);
+        Staff staff = staffFacade.find(email);
         
         HttpSession newSession = request.getSession();
         
         // Checks for duplicate account
-        if (customer == null) {
+        if (customer == null && staff == null) {
             // Checks if entered password is the same, then register user
             if (password1.equals(password2)) {
                 customer = new Customer(email, password1, customerName, phoneNumber);

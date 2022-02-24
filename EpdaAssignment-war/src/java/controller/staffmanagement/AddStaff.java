@@ -15,7 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Customer;
+import model.CustomerFacade;
 import model.Enums;
+import static model.Enums.LoginStateRole.Customer;
 import model.Staff;
 import model.StaffFacade;
 
@@ -28,6 +31,9 @@ public class AddStaff extends HttpServlet {
 
     @EJB
     private StaffFacade staffFacade;
+    
+    @EJB
+    private CustomerFacade customerFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -70,6 +76,14 @@ public class AddStaff extends HttpServlet {
         Staff checkForDuplicateStaff = staffFacade.find(id);
         if (checkForDuplicateStaff != null) {
             session.setAttribute("notice", "Another staff with the same email is found!");
+            session.setAttribute("noticeBg", "danger");
+            response.sendRedirect("addstaff.jsp");
+            return;
+        }
+        
+        Customer checkForSameCustomerId = customerFacade.find(id);
+        if (checkForSameCustomerId != null) {
+            session.setAttribute("notice", "A customer with the same email is found!");
             session.setAttribute("noticeBg", "danger");
             response.sendRedirect("addstaff.jsp");
             return;
