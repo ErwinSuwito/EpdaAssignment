@@ -93,7 +93,7 @@
         </div>
 
         <%
-            // Invalidate sessions to remove notice
+            // Removes notice and noticeBg from session
             session.removeAttribute("noticeBg");
             session.removeAttribute("notice");
         %>

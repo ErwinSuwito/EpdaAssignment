@@ -5,7 +5,7 @@
 <%@page import="model.StaffFacade"%>
 <%
     Context context = new InitialContext();
-    StaffFacade staffFacade = (StaffFacade)context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/StaffFacade");
+    StaffFacade staffFacade = (StaffFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/StaffFacade");
 %>
 <!doctype html>
 <html lang="en">
@@ -23,25 +23,32 @@
         <div class="container mt-5">
             <h2>Manage Staffs</h2>
             <div class="col-12 mt-4">
+                <%
+                    String notice = (String) request.getSession(false).getAttribute("notice");
+                    String noticeBg = (String) request.getSession(false).getAttribute("noticeBg");
+                    if (notice != null) {
+                        out.println("<div class=\"alert alert-" + noticeBg + "\" role=\"alert\">" + notice + "</div>");
+                    }
+                %>
                 <a href="addstaff.jsp">
                     <span class="btn btn-primary mb-3">Add Staff</span>
                 </a>
-                
+
                 <table id="staffTable" class="table table-stripped" style="width:100%">
                     <thead>
-                        <th>Name</th>
-                        <th>Id</th>
-                        <th>Staff Type</th>
-                        <th></th>
+                    <th>Name</th>
+                    <th>Id</th>
+                    <th>Staff Type</th>
+                    <th></th>
                     </thead>
                     <tbody>
                         <%
                             List<model.Staff> staffs = staffFacade.findAll();
-                            
+
                             for (model.Staff staff : staffs) {
                                 out.println("<tr>");
                                 out.println("<td>" + staff.getName() + "</td>");
-                                out.println("<td>" + staff.getId()+ "</td>");
+                                out.println("<td>" + staff.getId() + "</td>");
                                 out.println("<td>" + staff.getRole().toString() + "</td>");
                                 out.println("<td>");
                                 out.println("<a href=\"editstaff.jsp?id=" + staff.getId() + "\"> <span class=\"btn btn-secondary btn-sm\">Edit</span></a>");
@@ -54,6 +61,12 @@
                 </table>
             </div>
         </div>
+
+        <%
+            // Removes notice and noticeBg from session
+            session.removeAttribute("noticeBg");
+            session.removeAttribute("notice");
+        %>
 
         <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>

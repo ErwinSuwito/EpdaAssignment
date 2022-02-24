@@ -5,7 +5,7 @@
 <%@page import="model.ProductFacade"%>
 <%
     Context context = new InitialContext();
-    ProductFacade productFacade = (ProductFacade)context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/ProductFacade");
+    ProductFacade productFacade = (ProductFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/ProductFacade");
 %>
 <!doctype html>
 <html lang="en">
@@ -23,21 +23,28 @@
         <div class="container mt-5">
             <h2>Manage Products</h2>
             <div class="col-12 mt-4">
+                <%
+                    String notice = (String) request.getSession(false).getAttribute("notice");
+                    String noticeBg = (String) request.getSession(false).getAttribute("noticeBg");
+                    if (notice != null) {
+                        out.println("<div class=\"alert alert-" + noticeBg + "\" role=\"alert\">" + notice + "</div>");
+                    }
+                %>
                 <a href="addproduct.jsp">
                     <span class="btn btn-primary mb-3">Add Product</span>
                 </a>
-                
+
                 <table id="productTable" class="table table-stripped" style="width:100%">
                     <thead>
-                        <th>Product Name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th></th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th></th>
                     </thead>
                     <tbody>
                         <%
                             List<model.Product> products = productFacade.findAll();
-                            
+
                             for (model.Product product : products) {
                                 out.println("<tr>");
                                 out.println("<td>" + product.getProductName() + "</td>");
@@ -54,6 +61,12 @@
                 </table>
             </div>
         </div>
+
+        <%
+            // Removes notice and noticeBg from session
+            session.removeAttribute("noticeBg");
+            session.removeAttribute("notice");
+        %>
 
         <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
