@@ -20,6 +20,6 @@ public class Enums {
     }
     
     public enum OrderStatus {
-        Pending, Assigned, Delivering, Delivered, Cancelled
+        Pending, Assigned, Delivering, Delivered
     }
 }
