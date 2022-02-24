@@ -5,7 +5,7 @@
 <%@page import="javax.naming.Context"%>
 <%
     Context context = new InitialContext();
-    StaffFacade staffFacade = (StaffFacade)context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/StaffFacade");
+    StaffFacade staffFacade = (StaffFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/StaffFacade");
 %>
 <!doctype html>
 <html lang="en">
@@ -36,7 +36,7 @@
                         return;
                     }
 
-                    Long id = Long.parseLong(request.getParameter("id"));
+                    String id = request.getParameter("id");
                     Staff staffToEdit = staffFacade.find(id);
                     if (staffToEdit == null) {
                         response.sendRedirect("notfound.jsp");
@@ -44,10 +44,13 @@
                     }
                 %>
                 <form action="EditStaff" method="POST">
+                    <div class="alert alert-warning">
+                        Entering something on the password field will change the staff's password. <b>Leave it blank to keep the staff's password.</b>
+                    </div>
                     <div class="row mb-3">
                         <label for="name" class="col-sm-2 col-form-label">Full Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class ="form-control" name="name" id="name" value="<% staffToEdit.getName(); %>" required></input>
+                            <input type="text" class ="form-control" name="name" id="name" value="<% out.println(staffToEdit.getName()); %>" required></input>
                         </div>
                     </div>
                     <fieldset class="row mb-3">
@@ -56,8 +59,9 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="gender" id="female" value="female" 
                                        <%
-                                           if (!staffToEdit.getIsMale())
+                                           if (!staffToEdit.getIsMale()) {
                                                out.println("checked");
+                                           }
                                        %>>
                                 <label class="form-check-label" for="female">
                                     Female
@@ -65,8 +69,9 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="gender" id="male" value="male"<%
-                                           if (staffToEdit.getIsMale())
-                                               out.println("checked");
+                                    if (staffToEdit.getIsMale()) {
+                                        out.println("checked");
+                                    }
                                        %>>
                                 <label class="form-check-label" for="male">
                                     Male
@@ -77,7 +82,7 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="id" id="id" disabled readonly>
+                            <input type="email" class="form-control" name="id" id="id" value="<% out.println(staffToEdit.getId()); %>" disabled readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -91,8 +96,9 @@
                         <div class="col-sm-10">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="staffType" id="delivery" value="delivery"<%
-                                           if (staffToEdit.getRole() == Enums.StaffRole.DeliveryStaff)
-                                               out.println("checked");
+                                    if (staffToEdit.getRole() == Enums.StaffRole.DeliveryStaff) {
+                                        out.println("checked");
+                                    }
                                        %>>
                                 <label class="form-check-label" for="delivery">
                                     Delivery Staff
@@ -100,8 +106,9 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="staffType" id="managing" value="managing"<%
-                                           if (staffToEdit.getRole() == Enums.StaffRole.ManagingStaff)
-                                               out.println("checked");
+                                    if (staffToEdit.getRole() == Enums.StaffRole.ManagingStaff) {
+                                        out.println("checked");
+                                    }
                                        %>>
                                 <label class="form-check-label" for="managing">
                                     Managing Staff
@@ -120,6 +127,11 @@
                         <div class="col-sm-10">
                             <input type="text" class ="form-control" name="icNumber" id="icNumber" value="<% out.println(staffToEdit.getIcNumber()); %>" required></input>
                         </div>
+                    </div>
+                        <hr>
+                    <div class="row mb-3">
+                        To save changes, please re-enter your password
+                        <input type="text" class ="form-control" name="icNumber" id="icNumber" value="<% out.println(staffToEdit.getIcNumber()); %>" required></input>
                     </div>
                     <button type="submit" value="submit" class="btn btn-primary">Save Changes</button>
                 </form>
