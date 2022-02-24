@@ -82,18 +82,22 @@
                         </a>
                     </div>
                     <div class="col">
-                        <div class="card border-primary">
-                            <div class="card-body">
-                                <i class="bi bi-arrow-right text-success"></i><span class="ms-3">Add New Staff</span>
+                        <a href="addstaff.jsp">
+                            <div class="card border-primary">
+                                <div class="card-body">
+                                    <i class="bi bi-arrow-right text-success"></i><span class="ms-3">Add New Staff</span>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col">
-                        <div class="card border-primary">
-                            <div class="card-body">
-                                <i class="bi bi-arrow-right text-success"></i><span class="ms-3">View Orders</span>
+                        <a href="orderlist.jsp">
+                            <div class="card border-primary">
+                                <div class="card-body">
+                                    <i class="bi bi-arrow-right text-success"></i><span class="ms-3">View Orders</span>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
