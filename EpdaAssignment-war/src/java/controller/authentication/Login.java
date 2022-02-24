@@ -73,7 +73,7 @@ public class Login extends HttpServlet {
                 if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
                     // TO-DO: Redirect to delivery staff home
                 } else {
-                    // TO-DO: Redirect to managing staff home
+                    response.sendRedirect("adminhome.jsp");
                 }
             }
         } else {

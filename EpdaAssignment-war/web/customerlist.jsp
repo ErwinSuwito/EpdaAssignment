@@ -1,3 +1,4 @@
+<%@page import="model.Enums"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="java.util.List"%>
@@ -18,6 +19,14 @@
         <link href="site.css" rel="stylesheet">
         <title>Manage Customers | APStore </title>
     </head>
+    <%
+        // Gets the current session to check if user is logged in
+        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state != Enums.LoginStateRole.ManagingStaff) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
+        }
+    %>
     <body>
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">

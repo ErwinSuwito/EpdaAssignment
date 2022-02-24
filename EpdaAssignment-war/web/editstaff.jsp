@@ -19,6 +19,14 @@
 
         <title>Edit Staff | APStore </title>
     </head>
+    <%
+        // Gets the current session to check if user is logged in
+        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state != Enums.LoginStateRole.ManagingStaff) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
+        }
+    %>
     <body>
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
@@ -128,7 +136,7 @@
                             <input type="text" class ="form-control" name="icNumber" id="icNumber" value="<% out.println(staffToEdit.getIcNumber()); %>" required></input>
                         </div>
                     </div>
-                        <hr>
+                    <hr>
                     <div class="row mb-3">
                         To save changes, please re-enter your password
                         <input type="text" class ="form-control" name="icNumber" id="icNumber" value="<% out.println(staffToEdit.getIcNumber()); %>" required></input>

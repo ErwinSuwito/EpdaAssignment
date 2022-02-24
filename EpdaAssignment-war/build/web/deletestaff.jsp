@@ -5,7 +5,7 @@
 <%@page import="javax.naming.Context"%>
 <%
     Context context = new InitialContext();
-    StaffFacade staffFacade = (StaffFacade)context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/StaffFacade");
+    StaffFacade staffFacade = (StaffFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/StaffFacade");
 %>
 <!doctype html>
 <html lang="en">
@@ -19,6 +19,14 @@
 
         <title>Confirm Delete Staff | APStore </title>
     </head>
+    <%
+        // Gets the current session to check if user is logged in
+        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state != Enums.LoginStateRole.ManagingStaff) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
+        }
+    %>
     <body>
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
@@ -31,7 +39,7 @@
                     response.sendRedirect("notfound.jsp");
                     return;
                 }
-                
+
                 String id = request.getParameter("id");
                 Staff staffToDelete = staffFacade.find(id);
                 if (staffToDelete == null) {
@@ -44,7 +52,7 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Staff Email:</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="id" id="id" value="<% out.println(staffToDelete.getId()); %>" disabled readonly>
+                            <input type="email" class="form-control" name="id" id="id" value="<% out.println(staffToDelete.getId());%>" disabled readonly>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-danger">Delete</button>

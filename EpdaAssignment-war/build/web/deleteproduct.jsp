@@ -5,7 +5,7 @@
 <%@page import="javax.naming.Context"%>
 <%
     Context context = new InitialContext();
-    ProductFacade productFacade = (ProductFacade)context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/ProductFacade");
+    ProductFacade productFacade = (ProductFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/ProductFacade");
 %>
 <!doctype html>
 <html lang="en">
@@ -19,6 +19,14 @@
 
         <title>Confirm Delete Product | APStore </title>
     </head>
+    <%
+        // Gets the current session to check if user is logged in
+        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state != Enums.LoginStateRole.ManagingStaff) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
+        }
+    %>
     <body>
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
@@ -29,7 +37,7 @@
                     response.sendRedirect("notfound.jsp");
                     return;
                 }
-                
+
                 Long id = Long.parseLong(request.getParameter("id"));
                 Product product = productFacade.find(id);
                 if (product == null) {
@@ -43,7 +51,7 @@
                         <label for="id" class="col-sm-2 col-form-label">Product Name</label>
                         <div class="col-sm-10">
                             <input type="hidden" name="id" id="id" value="<% product.getId(); %>">
-                            <span><% product.getProductName(); %></span>
+                            <span><% product.getProductName();%></span>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-danger">Delete</button>
