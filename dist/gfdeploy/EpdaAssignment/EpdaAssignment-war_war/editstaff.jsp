@@ -1,3 +1,4 @@
+<%@page import="model.Enums"%>
 <%@page import="model.StaffFacade"%>
 <%@page import="model.Staff"%>
 <%@page import="javax.naming.InitialContext"%>
@@ -22,34 +23,51 @@
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
             <h2>Edit staff</h2>
-            <%
-                String notice = (String) request.getSession(false).getAttribute("notice");
-                String noticeBg = (String) request.getSession(false).getAttribute("noticeBg");
-                if (notice != null) {
-                    out.println("<div class=\"alert alert-" + noticeBg + "\" role=\"alert\">" + notice + "</div>");
-                }
-                
-                
-            %>
             <div class="col-8 mt-4">
-                <form action="AddStaff" method="POST">
+                <%
+                    String notice = (String) request.getSession(false).getAttribute("notice");
+                    String noticeBg = (String) request.getSession(false).getAttribute("noticeBg");
+                    if (notice != null) {
+                        out.println("<div class=\"alert alert-" + noticeBg + "\" role=\"alert\">" + notice + "</div>");
+                    }
+
+                    if (request.getParameter("id") == null) {
+                        response.sendRedirect("notfound.jsp");
+                        return;
+                    }
+
+                    Long id = Long.parseLong(request.getParameter("id"));
+                    Staff staffToEdit = staffFacade.find(id);
+                    if (staffToEdit == null) {
+                        response.sendRedirect("notfound.jsp");
+                        return;
+                    }
+                %>
+                <form action="EditStaff" method="POST">
                     <div class="row mb-3">
                         <label for="name" class="col-sm-2 col-form-label">Full Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class ="form-control" name="name" id="name" required></input>
+                            <input type="text" class ="form-control" name="name" id="name" value="<% staffToEdit.getName(); %>" required></input>
                         </div>
                     </div>
                     <fieldset class="row mb-3">
                         <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
                         <div class="col-sm-10">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                                <input class="form-check-input" type="radio" name="gender" id="female" value="female" 
+                                       <%
+                                           if (!staffToEdit.getIsMale())
+                                               out.println("checked");
+                                       %>>
                                 <label class="form-check-label" for="female">
                                     Female
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="male"<%
+                                           if (staffToEdit.getIsMale())
+                                               out.println("checked");
+                                       %>>
                                 <label class="form-check-label" for="male">
                                     Male
                                 </label>
@@ -59,7 +77,7 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="id" id="id" required>
+                            <input type="email" class="form-control" name="id" id="id" disabled readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -72,13 +90,19 @@
                         <legend class="col-form-label col-sm-2 pt-0">Staff Type</legend>
                         <div class="col-sm-10">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="staffType" id="delivery" value="delivery">
+                                <input class="form-check-input" type="radio" name="staffType" id="delivery" value="delivery"<%
+                                           if (staffToEdit.getRole() == Enums.StaffRole.DeliveryStaff)
+                                               out.println("checked");
+                                       %>>
                                 <label class="form-check-label" for="delivery">
                                     Delivery Staff
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="staffType" id="managing" value="managing">
+                                <input class="form-check-input" type="radio" name="staffType" id="managing" value="managing"<%
+                                           if (staffToEdit.getRole() == Enums.StaffRole.ManagingStaff)
+                                               out.println("checked");
+                                       %>>
                                 <label class="form-check-label" for="managing">
                                     Managing Staff
                                 </label>
@@ -88,13 +112,13 @@
                     <div class="row mb-3">
                         <label for="phoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
                         <div class="col-sm-10">
-                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" required></input>
+                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" value="<% out.println(staffToEdit.getPhoneNumber()); %>" required></input>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="icNumber" class="col-sm-2 col-form-label">IC Number</label>
                         <div class="col-sm-10">
-                            <input type="text" class ="form-control" name="icNumber" id="icNumber" required></input>
+                            <input type="text" class ="form-control" name="icNumber" id="icNumber" value="<% out.println(staffToEdit.getIcNumber()); %>" required></input>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-primary">Save Changes</button>

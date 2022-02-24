@@ -23,26 +23,26 @@
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
             <h2>Edit staff</h2>
-            <%
-                String notice = (String) request.getSession(false).getAttribute("notice");
-                String noticeBg = (String) request.getSession(false).getAttribute("noticeBg");
-                if (notice != null) {
-                    out.println("<div class=\"alert alert-" + noticeBg + "\" role=\"alert\">" + notice + "</div>");
-                }
-                
-                if (request.getParameter("id") == null) {
-                    response.sendRedirect("notfound.jsp");
-                    return;
-                }
-                
-                Long id = Long.parseLong(request.getParameter("id"));
-                Staff staffToEdit = staffFacade.find(id);
-                if (staffToEdit == null) {
-                    response.sendRedirect("notfound.jsp");
-                    return;
-                }
-            %>
             <div class="col-8 mt-4">
+                <%
+                    String notice = (String) request.getSession(false).getAttribute("notice");
+                    String noticeBg = (String) request.getSession(false).getAttribute("noticeBg");
+                    if (notice != null) {
+                        out.println("<div class=\"alert alert-" + noticeBg + "\" role=\"alert\">" + notice + "</div>");
+                    }
+
+                    if (request.getParameter("id") == null) {
+                        response.sendRedirect("notfound.jsp");
+                        return;
+                    }
+
+                    Long id = Long.parseLong(request.getParameter("id"));
+                    Staff staffToEdit = staffFacade.find(id);
+                    if (staffToEdit == null) {
+                        response.sendRedirect("notfound.jsp");
+                        return;
+                    }
+                %>
                 <form action="EditStaff" method="POST">
                     <div class="row mb-3">
                         <label for="name" class="col-sm-2 col-form-label">Full Name</label>

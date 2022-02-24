@@ -69,8 +69,8 @@ public class AddStaff extends HttpServlet {
         
         Staff checkForDuplicateStaff = staffFacade.find(id);
         if (checkForDuplicateStaff != null) {
-            request.setAttribute("notice", "Another staff with the same email is found!");
-            request.setAttribute("noticeBg", "danger");
+            session.setAttribute("notice", "Another staff with the same email is found!");
+            session.setAttribute("noticeBg", "danger");
             response.sendRedirect("addstaff.jsp");
             return;
         }
