@@ -52,14 +52,14 @@
                     }
                 %>
                 <form action="EditStaffInfo" method="POST">
-                    <input type="hidden" name="id" id="id" value="<% out.println(staffToEdit.getId()); %>">
+                    <input type="hidden" name="id" id="id" value="<% out.print(staffToEdit.getId()); %>">
                     <div class="alert alert-warning">
                         Entering something on the password field will change the staff's password. <b>Leave it blank to keep the staff's password.</b>
                     </div>
                     <div class="row mb-3">
                         <label for="name" class="col-sm-2 col-form-label">Full Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class ="form-control" name="name" id="name" value="<% out.println(staffToEdit.getName()); %>" required></input>
+                            <input type="text" class ="form-control" name="name" id="name" value="<% out.print(staffToEdit.getName()); %>" required></input>
                         </div>
                     </div>
                     <fieldset class="row mb-3">
@@ -91,7 +91,7 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email" id="email" value="<% out.println(staffToEdit.getId()); %>">
+                            <input type="email" class="form-control" name="email" id="email" value="<% out.print(staffToEdit.getId()); %>">
                         </div>
                     </div>
                     <div class="row mb-3">
