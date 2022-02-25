@@ -65,21 +65,6 @@ public class EditStaffInfo extends HttpServlet {
             response.sendRedirect("notfound.jsp");
             return;
         }
-        
-        if (!newStaffId.equals(staffId)) {
-            Staff findDuplicateStaff = staffFacade.find(newStaffId);
-            Customer findDuplicateCustomer = customerFacade.find(newStaffId);
-            
-            if (findDuplicateStaff == null && findDuplicateCustomer == null) {
-                staffToEdit.setId(newStaffId);
-            } else {
-                HttpSession newSession = request.getSession(true);
-                session.setAttribute("notice", "Another staff or customer with the same email is found!");
-                session.setAttribute("noticeBg", "danger");
-                response.sendRedirect("editstaff.jsp");
-                return;
-            }
-        }
 
         if (!request.getParameter("password").isEmpty()) {
             staffToEdit.setPassword(request.getParameter("password"));

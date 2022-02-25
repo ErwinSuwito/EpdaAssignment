@@ -67,7 +67,6 @@ public class EditCustomer extends HttpServlet {
             }
         }
         
-        String email = request.getParameter("email");
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         String phoneNumber = request.getParameter("phoneNumber");
@@ -79,24 +78,7 @@ public class EditCustomer extends HttpServlet {
             response.sendRedirect("notfound.jsp");
             return;
         }
-        
-        // Checks if the customer's id/email is being changed. Checks for
-        // duplicate id if it is being changed.
-        if (!email.equals(id)) {
-            Staff findDuplicateStaff = staffFacade.find(email);
-            Customer findDuplicateCustomer = customerFacade.find(email);
-            
-            if (findDuplicateStaff == null && findDuplicateCustomer == null) {
-                customerToEdit.setId(email);
-            } else {
-                HttpSession newSession = request.getSession(true);
-                session.setAttribute("notice", "Another staff or customer with the same email is found!");
-                session.setAttribute("noticeBg", "danger");
-                response.sendRedirect("editstaff.jsp");
-                return;
-            }
-        }
-        
+
         customerToEdit.setName(name);
         customerToEdit.setPassword(password);
         customerToEdit.setPhoneNumber(phoneNumber);

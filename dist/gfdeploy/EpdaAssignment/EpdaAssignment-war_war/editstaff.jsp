@@ -91,7 +91,7 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email" id="email" maxlength="255" value="<% out.print(staffToEdit.getId()); %>">
+                            <input type="email" class="form-control" name="email" id="email" maxlength="255" value="<% out.print(staffToEdit.getId()); %>" disabled readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
