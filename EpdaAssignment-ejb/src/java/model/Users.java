@@ -22,6 +22,7 @@ import model.Enums.LoginStateRole;
 @NamedQueries({
     @NamedQuery(name = "Users.FindByEmail",
             query = "SELECT u FROM Users u WHERE u.email = :email"),
+    
 })
 public class Users implements Serializable {
 

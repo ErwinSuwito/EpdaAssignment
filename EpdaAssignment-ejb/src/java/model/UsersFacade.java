@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,5 +31,13 @@ public class UsersFacade extends AbstractFacade<Users> {
     
     public Users findByEmail(String email) {
         return new Users();
+    }
+    
+    public ArrayList<Users> findAllCustomers() {
+        return new ArrayList<Users>();
+    }
+    
+    public ArrayList<Users> findAllStaffs() {
+        return new ArrayList<Users>();
     }
 }

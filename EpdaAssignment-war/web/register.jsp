@@ -28,7 +28,7 @@
                               String notice = (String)request.getSession(false).getAttribute("notice");
                               String noticeBg = (String)request.getSession(false).getAttribute("noticeBg");
                               if (notice != null) {
-                                  out.println("<div class=\"alert alert-" + "noticeBg" + "\" role=\"alert\">" + notice + "</div>");
+                                  out.println("<div class=\"alert alert-" + noticeBg + "\" role=\"alert\">" + notice + "</div>");
                               }
                       %>
                       <form action="AddCustomer" method="POST">
