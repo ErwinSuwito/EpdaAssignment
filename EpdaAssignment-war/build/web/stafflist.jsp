@@ -2,11 +2,11 @@
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="java.util.List"%>
-<%@page import="model.Staff"%>
-<%@page import="model.StaffFacade"%>
+<%@page import="model.Users"%>
+<%@page import="model.UsersFacade"%>
 <%
     Context context = new InitialContext();
-    StaffFacade staffFacade = (StaffFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/StaffFacade");
+    UsersFacade usersFacade = (UsersFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/UsersFacade");
 %>
 <!doctype html>
 <html lang="en">
@@ -52,16 +52,16 @@
                     </thead>
                     <tbody>
                         <%
-                            List<model.Staff> staffs = staffFacade.findAll();
+                            List<Users> staffs = usersFacade.findAllStaffs();
 
-                            for (model.Staff staff : staffs) {
+                            for (Users staff : staffs) {
                                 out.println("<tr>");
                                 out.println("<td>" + staff.getName() + "</td>");
                                 out.println("<td>" + staff.getId() + "</td>");
                                 out.println("<td>" + staff.getRole().toString() + "</td>");
                                 out.println("<td>");
                                 out.println("<a href=\"editstaff.jsp?id=" + staff.getId() + "\"> <span class=\"btn btn-secondary btn-sm\">Edit</span></a>");
-                                out.println("<a href=\"deletestaff.jsp?id=" + staff.getId() + "\"> <span class=\"btn btn-danger btn-sm\">Delete</span></a>");
+                                out.println("<a href=\"deleteuser.jsp?id=" + staff.getId() + "\"> <span class=\"btn btn-danger btn-sm\">Delete</span></a>");
                                 out.println("</td>");
                                 out.println("</tr>");
                             }

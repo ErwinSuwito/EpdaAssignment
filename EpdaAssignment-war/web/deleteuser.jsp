@@ -30,7 +30,7 @@
     <body>
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
-            <h2>Delete staff?</h2>
+            <h2>Delete user?</h2>
             <div class="alert alert-danger">
                 <b>All user data will be permanently deleted and not recoverable.</b>
             </div>
@@ -40,7 +40,7 @@
                     return;
                 }
 
-                String id = request.getParameter("id");
+                Long id = Long.parseLong(request.getParameter("id"));
                 Users user = usersFacade.find(id);
                 if (user == null) {
                     response.sendRedirect("notfound.jsp");

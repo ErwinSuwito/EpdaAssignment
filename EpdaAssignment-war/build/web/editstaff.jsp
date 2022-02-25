@@ -1,11 +1,11 @@
 <%@page import="model.Enums"%>
-<%@page import="model.StaffFacade"%>
-<%@page import="model.Staff"%>
+<%@page import="model.UsersFacade"%>
+<%@page import="model.Users"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
 <%
     Context context = new InitialContext();
-    StaffFacade staffFacade = (StaffFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/StaffFacade");
+    UsersFacade usersFacade = (UsersFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/UsersFacade");
 %>
 <!doctype html>
 <html lang="en">
@@ -44,8 +44,8 @@
                         return;
                     }
 
-                    String id = request.getParameter("id");
-                    Staff staffToEdit = staffFacade.find(id);
+                    Long id = Long.parseLong(request.getParameter("id"));
+                    Users staffToEdit = usersFacade.find(id);
                     if (staffToEdit == null) {
                         response.sendRedirect("notfound.jsp");
                         return;
