@@ -11,10 +11,6 @@ public class Enums {
         LoggedOut, Customer, DeliveryStaff, ManagingStaff
     }
     
-    public enum StaffRole {
-        DeliveryStaff, ManagingStaff
-    }
-    
     public enum FeedbackStatus {
         Open, Closed
     }

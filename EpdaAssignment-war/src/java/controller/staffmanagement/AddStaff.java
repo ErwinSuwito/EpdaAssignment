@@ -15,12 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Customer;
-import model.CustomerFacade;
 import model.Enums;
 import static model.Enums.LoginStateRole.Customer;
-import model.Staff;
-import model.StaffFacade;
+import model.Users;
+import model.UsersFacade;
 
 /**
  *
@@ -30,10 +28,7 @@ import model.StaffFacade;
 public class AddStaff extends HttpServlet {
 
     @EJB
-    private StaffFacade staffFacade;
-    
-    @EJB
-    private CustomerFacade customerFacade;
+    private UsersFacade usersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -56,11 +51,11 @@ public class AddStaff extends HttpServlet {
             return;
         }
         
-        String id = request.getParameter("id");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
         String name = request.getParameter("name");
         Boolean isMale = false;
-        Enums.StaffRole role;
+        Enums.LoginStateRole role;
         String phoneNumber = request.getParameter("phoneNumber");
         String icNumber = request.getParameter("icNumber");
         
@@ -68,29 +63,21 @@ public class AddStaff extends HttpServlet {
             isMale = true;
         
         if (request.getParameter("staffType").equals("delivery")) {
-            role = Enums.StaffRole.DeliveryStaff;
+            role = Enums.LoginStateRole.DeliveryStaff;
         } else {
-            role = Enums.StaffRole.ManagingStaff;
+            role = Enums.LoginStateRole.ManagingStaff;
         }
         
-        Staff checkForDuplicateStaff = staffFacade.find(id);
-        if (checkForDuplicateStaff != null) {
+        Users checkForDuplicateUser = usersFacade.findByEmail(email);
+        if (checkForDuplicateUser != null) {
             session.setAttribute("notice", "Another staff with the same email is found!");
             session.setAttribute("noticeBg", "danger");
             response.sendRedirect("addstaff.jsp");
             return;
         }
         
-        Customer checkForSameCustomerId = customerFacade.find(id);
-        if (checkForSameCustomerId != null) {
-            session.setAttribute("notice", "A customer with the same email is found!");
-            session.setAttribute("noticeBg", "danger");
-            response.sendRedirect("addstaff.jsp");
-            return;
-        }
-        
-        Staff newStaff = new Staff(id, password, name, role, isMale, phoneNumber, icNumber);
-        staffFacade.create(newStaff);
+        Users newStaff = new Users(email, password, name, isMale, phoneNumber, icNumber, role);
+        usersFacade.create(newStaff);
         
         response.sendRedirect("stafflist.jsp");
     }

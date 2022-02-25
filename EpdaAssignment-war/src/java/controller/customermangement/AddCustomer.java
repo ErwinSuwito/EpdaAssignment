@@ -14,10 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Customer;
-import model.CustomerFacade;
-import model.Staff;
-import model.StaffFacade;
+import model.UsersFacade;
+import model.Users;
 
 /**
  *
@@ -27,11 +25,8 @@ import model.StaffFacade;
 public class AddCustomer extends HttpServlet {
 
     @EJB
-    private CustomerFacade customerFacade;
+    private UsersFacade usersFacade;
     
-    @EJB
-    private StaffFacade staffFacade;
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -56,17 +51,16 @@ public class AddCustomer extends HttpServlet {
         String password2 = request.getParameter("password1");
         String phoneNumber = request.getParameter("phoneNumber");
         
-        Customer customer = customerFacade.find(email);
-        Staff staff = staffFacade.find(email);
-        
+        Users customer = usersFacade.findByEmail(email);
+
         HttpSession newSession = request.getSession();
         
         // Checks for duplicate account
-        if (customer == null && staff == null) {
+        if (customer == null ) {
             // Checks if entered password is the same, then register user
             if (password1.equals(password2)) {
-                customer = new Customer(email, password1, customerName, phoneNumber);
-                customerFacade.create(customer);
+                customer = new Users(email, password1, customerName, phoneNumber);
+                usersFacade.create(customer);
                 newSession.setAttribute("noticeBg", "success");
                 newSession.setAttribute("notice", "Your account has been created. Please login");
                 response.sendRedirect("login.jsp");

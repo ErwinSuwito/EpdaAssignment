@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import model.Enums;
 import model.Orders;
 import model.OrdersFacade;
-import model.Staff;
+import model.Users;
 
 /**
  *
@@ -46,8 +46,8 @@ public class UpdateDeliveryStatus extends HttpServlet {
         // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
         Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
-        if (state != Enums.LoginStateRole.DeliveryStaff) {
-            response.sendRedirect("unauthorized.jsp");
+        if (state == Enums.LoginStateRole.LoggedOut) {
+            response.sendRedirect("login.jsp");
             return;
         }
         
@@ -57,6 +57,12 @@ public class UpdateDeliveryStatus extends HttpServlet {
         if (order == null) {
             response.sendRedirect("notfound.jsp");
         } else {
+            Users deliveryStaff = (Users) session.getAttribute("login");
+            if (!deliveryStaff.getEmail().equals(order.getDeliveryStaff().getEmail())) {
+                response.sendRedirect("unauthorized.jsp");
+                return;
+            }
+            
             String orderStatus = request.getParameter("orderStatus");
             order.setStatus(Helpers.getOrderStatus(orderStatus));
             ordersFacade.edit(order);

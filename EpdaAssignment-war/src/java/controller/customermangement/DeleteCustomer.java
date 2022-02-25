@@ -14,10 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Customer;
-import model.CustomerFacade;
+import model.Users;
+import model.UsersFacade;
 import model.Enums;
-import model.Staff;
 
 /**
  *
@@ -27,7 +26,7 @@ import model.Staff;
 public class DeleteCustomer extends HttpServlet {
 
     @EJB
-    private CustomerFacade customerFacade;
+    private UsersFacade usersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,13 +50,13 @@ public class DeleteCustomer extends HttpServlet {
         }
         
         long customerId = Long.parseLong(request.getParameter("id"));
-        Customer customerToDelete = customerFacade.find(customerId);
+        Users customerToDelete = usersFacade.find(customerId);
         
         if (customerToDelete == null) {
             response.sendRedirect("notfound.jsp");
             return;
         } else {
-            customerFacade.remove(customerToDelete);
+            usersFacade.remove(customerToDelete);
             response.sendRedirect("customerlist.jsp");
         }
     }

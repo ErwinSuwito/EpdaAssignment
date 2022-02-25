@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Customer;
+import model.Users;
 import model.Enums;
 import model.Feedback;
 import model.FeedbackFacade;
@@ -56,7 +56,7 @@ public class RateOrder extends HttpServlet {
             return;
         }
         
-        Customer customer = (Customer)session.getAttribute("customerLogin");
+        Users customer = (Users)session.getAttribute("login");
         
         Orders order = ordersFacade.find(request.getParameter("orderId"));
         

@@ -13,12 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Customer;
-import model.CustomerFacade;
 import model.Enums;
 import static model.Enums.LoginStateRole.Customer;
-import model.Staff;
-import model.StaffFacade;
+import model.Users;
+import model.UsersFacade;
 
 /**
  *
@@ -28,10 +26,7 @@ import model.StaffFacade;
 public class EditStaffInfo extends HttpServlet {
 
     @EJB
-    private StaffFacade staffFacade;
-    
-    @EJB
-    private CustomerFacade customerFacade;
+    private UsersFacade usersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -55,11 +50,11 @@ public class EditStaffInfo extends HttpServlet {
             return;
         }
 
-        Staff staff = (Staff) session.getAttribute("staffLogin");
+        Users staff = (Users) session.getAttribute("login");
 
         String staffId = request.getParameter("id");
         String newStaffId = request.getParameter("email");
-        Staff staffToEdit = staffFacade.find(staffId);
+        Users staffToEdit = usersFacade.find(staffId);
 
         if (staffToEdit == null) {
             response.sendRedirect("notfound.jsp");
@@ -72,7 +67,7 @@ public class EditStaffInfo extends HttpServlet {
         
         staffToEdit.setPhoneNumber(request.getParameter("phoneNumber"));
 
-        if (staff.getRole() == Enums.StaffRole.ManagingStaff) {
+        if (staff.getRole() == Enums.LoginStateRole.ManagingStaff) {
             staffToEdit.setIcNumber(request.getParameter("icNumber"));
             staffToEdit.setName(request.getParameter("name"));
 
@@ -83,13 +78,13 @@ public class EditStaffInfo extends HttpServlet {
             }
 
             if (request.getParameter("staffType").equals("delivery")) {
-                staffToEdit.setRole(Enums.StaffRole.DeliveryStaff);
+                staffToEdit.setRole(Enums.LoginStateRole.DeliveryStaff);
             } else {
-                staffToEdit.setRole(Enums.StaffRole.ManagingStaff);
+                staffToEdit.setRole(Enums.LoginStateRole.ManagingStaff);
             }
         }
 
-        staffFacade.edit(staffToEdit);
+        usersFacade.edit(staffToEdit);
 
         if (staff.getId().equals(staffToEdit.getId())) {
             session.invalidate();

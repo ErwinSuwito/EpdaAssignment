@@ -35,22 +35,9 @@ public class Helpers {
 
     public static LoginStateRole checkLoginState(HttpSession session) {
         if (session != null) {
-            if (session.getAttribute("staffLogin") == null
-                    && session.getAttribute("customerLogin") == null) {
-                return LoginStateRole.LoggedOut;
-            }
-
-            if (session.getAttribute("staffLogin") != null) {
-                Staff staff = (Staff) session.getAttribute("staffLogin");
-                if (staff.getRole().equals(StaffRole.DeliveryStaff)) {
-                    return LoginStateRole.DeliveryStaff;
-                } else {
-                    return LoginStateRole.ManagingStaff;
-                }
-            }
-
-            if (session.getAttribute("customerLogin") != null) {
-                return LoginStateRole.Customer;
+            if (session.getAttribute("login") != null) {
+                Users user = (Users)session.getAttribute("login");
+                return user.getRole();
             }
         }
 

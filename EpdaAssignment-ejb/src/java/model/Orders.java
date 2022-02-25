@@ -29,9 +29,9 @@ public class Orders implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne
-    private Customer customer;
+    private Users customer;
     @OneToOne
-    private Staff deliveryStaff;
+    private Users deliveryStaff;
     @OneToMany(cascade = CascadeType.REMOVE)
     private ArrayList<OrderProduct> basket;
     private String address;
@@ -39,7 +39,7 @@ public class Orders implements Serializable {
     private LocalDateTime deliveredTime;
     private double totalAmount;
 
-    public Orders(Long id, Customer customer, Staff deliveryStaff, ArrayList<OrderProduct> basket, String address, OrderStatus status, LocalDateTime deliveredTime, double totalAmount) {
+    public Orders(Long id, Users customer, Users deliveryStaff, ArrayList<OrderProduct> basket, String address, OrderStatus status, LocalDateTime deliveredTime, double totalAmount) {
         this.id = id;
         this.customer = customer;
         this.deliveryStaff = deliveryStaff;
@@ -50,7 +50,7 @@ public class Orders implements Serializable {
         this.totalAmount = totalAmount;
     }
 
-    public Orders(Customer customer, Staff deliveryStaff, ArrayList<OrderProduct> basket, String address, OrderStatus status, double totalAmount) {
+    public Orders(Users customer, Users deliveryStaff, ArrayList<OrderProduct> basket, String address, OrderStatus status, double totalAmount) {
         this.customer = customer;
         this.deliveryStaff = deliveryStaff;
         this.basket = basket;
@@ -62,19 +62,19 @@ public class Orders implements Serializable {
     public Orders() {
     }
 
-    public Customer getCustomer() {
+    public Users getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(Users customer) {
         this.customer = customer;
     }
 
-    public Staff getDeliveryStaff() {
+    public Users getDeliveryStaff() {
         return deliveryStaff;
     }
 
-    public void setDeliveryStaff(Staff deliveryStaff) {
+    public void setDeliveryStaff(Users deliveryStaff) {
         this.deliveryStaff = deliveryStaff;
     }
 

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Customer;
+import model.Users;
 import model.Enums;
 import model.OrderProduct;
 import model.Orders;
@@ -56,7 +56,7 @@ public class CancelOrder extends HttpServlet {
             return;
         }
         
-        Customer customer = (Customer)session.getAttribute("customerLogin");
+        Users customer = (Users)session.getAttribute("customerLogin");
         
         Orders order = ordersFacade.find(request.getParameter("orderId"));
 

@@ -14,11 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Customer;
-import model.CustomerFacade;
 import model.Enums;
-import model.Staff;
-import model.StaffFacade;
+import model.Enums.LoginStateRole;
+import model.Users;
+import model.UsersFacade;
 
 /**
  *
@@ -28,10 +27,7 @@ import model.StaffFacade;
 public class Login extends HttpServlet {
 
     @EJB
-    private CustomerFacade customerFacade;
-
-    @EJB
-    private StaffFacade staffFacade;
+    private UsersFacade usersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,7 +44,7 @@ public class Login extends HttpServlet {
         
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        Customer customer = customerFacade.find(email);
+        Users user = usersFacade.findByEmail(email);
         
         // Removes all previous sessions
         HttpSession session = request.getSession(false);
@@ -57,40 +53,37 @@ public class Login extends HttpServlet {
         
         HttpSession newSession = request.getSession();
         
-        if (customer == null) {
-            Staff staff = staffFacade.find(email);
-            if (staff == null) {
-                // record login failed
-                newSession.setAttribute("notice", "Your email and password doesn't match our records.");
-                newSession.setAttribute("noticeBg", "danger");
-                
-                // Redirects back to login.jsp
-                response.sendRedirect("login.jsp");
-            } else {
-                // Sets staff object to session
-                newSession.setAttribute("staffLogin", staff);
-                
-                if (staff.getRole() == Enums.StaffRole.DeliveryStaff) {
-                    // TO-DO: Redirect to delivery staff home
-                } else {
-                    response.sendRedirect("adminhome.jsp");
-                }
-            }
-        } else {
-            if (customer.getPassword().equals(password)) {
+        if (user != null) {
+            if (user.getPassword().equals(password)) {
                 // Set customer object to session
-                newSession.setAttribute("customerLogin", customer);
+                newSession.setAttribute("login", user);
 
-                // Redirects user to home page
-                response.sendRedirect("index.jsp");
-            } else {
-                newSession.setAttribute("notice", "Your email and password doesn't match our records.");
-                newSession.setAttribute("noticeBg", "danger");
+                String redirectTo = "";
+                // Redirects user to the proper home page for each role
+                switch (user.getRole()) {
+                    case Customer:
+                        redirectTo = "index.jsp";
+                        break;
+                        
+                    case ManagingStaff: 
+                        redirectTo = "adminhome.jsp";
+                        break;
+                        
+                    case DeliveryStaff:
+                        redirectTo = "deliveryhome.jsp";
+                        break;
+                }
                 
-                // Redirects user to login page
-                response.sendRedirect("login.jsp");
+                response.sendRedirect(redirectTo);
+                return;
             }
         }
+        
+        newSession.setAttribute("notice", "Your email and password doesn't match our records.");
+        newSession.setAttribute("noticeBg", "danger");
+
+        // Redirects user to login page
+        response.sendRedirect("login.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

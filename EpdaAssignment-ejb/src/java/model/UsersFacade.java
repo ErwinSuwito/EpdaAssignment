@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author erwin
  */
 @Stateless
-public class CustomerFacade extends AbstractFacade<Customer> {
+public class UsersFacade extends AbstractFacade<Users> {
 
     @PersistenceContext(unitName = "EpdaAssignment-ejbPU")
     private EntityManager em;
@@ -24,8 +24,11 @@ public class CustomerFacade extends AbstractFacade<Customer> {
         return em;
     }
 
-    public CustomerFacade() {
-        super(Customer.class);
+    public UsersFacade() {
+        super(Users.class);
     }
     
+    public Users findByEmail(String email) {
+        return new Users();
+    }
 }

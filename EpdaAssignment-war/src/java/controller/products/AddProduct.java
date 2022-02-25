@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import model.Enums;
 import model.Product;
 import model.ProductFacade;
-import model.Staff;
 
 /**
  *

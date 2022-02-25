@@ -15,11 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Customer;
+import model.Users;
 import model.Enums;
 import model.Orders;
 import model.OrdersFacade;
-import model.Staff;
 
 /**
  *
@@ -52,7 +51,7 @@ public class UpdateOrder extends HttpServlet {
             return;
         }
         
-        Customer customer = (Customer)session.getAttribute("customerLogin");
+        Users customer = (Users)session.getAttribute("login");
         
         Orders order = ordersFacade.find(request.getParameter("orderId"));
         

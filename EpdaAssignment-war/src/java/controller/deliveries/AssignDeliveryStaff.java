@@ -17,8 +17,8 @@ import javax.servlet.http.HttpSession;
 import model.Enums;
 import model.Orders;
 import model.OrdersFacade;
-import model.Staff;
-import model.StaffFacade;
+import model.Users;
+import model.UsersFacade;
 
 /**
  *
@@ -28,7 +28,7 @@ import model.StaffFacade;
 public class AssignDeliveryStaff extends HttpServlet {
 
     @EJB
-    private StaffFacade staffFacade;
+    private UsersFacade usersFacade;
 
     @EJB
     private OrdersFacade ordersFacade;
@@ -62,7 +62,7 @@ public class AssignDeliveryStaff extends HttpServlet {
             return;
         } else {
             String deliveryStaffId = request.getParameter("deliveryStaffId");
-            Staff deliveryStaff = staffFacade.find(deliveryStaffId);
+            Users deliveryStaff = usersFacade.find(deliveryStaffId);
             order.setDeliveryStaff(deliveryStaff);
             order.setStatus(Enums.OrderStatus.Assigned);
             ordersFacade.edit(order);

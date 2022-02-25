@@ -10,13 +10,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import model.Enums.LoginStateRole;
 
 /**
  *
  * @author erwin
  */
 @Entity
-public class Staff implements Serializable {
+@NamedQueries({
+    @NamedQuery(name = "Users.FindByEmail",
+            query = "SELECT u FROM Users u WHERE u.email = :email"),
+})
+public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -25,33 +32,41 @@ public class Staff implements Serializable {
     private String email;
     private String password;
     private String name;
-    private Enums.StaffRole role;
     private Boolean isMale;
     private String phoneNumber;
     private String icNumber;
+    private LoginStateRole role;
 
-    public Staff(Long id, String email, String password, String name, Enums.StaffRole role, Boolean isMale, String phoneNumber, String icNumber) {
+    public Users(Long id, String email, String password, String name, Boolean isMale, String phoneNumber, String icNumber, LoginStateRole role) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
-        this.role = role;
         this.isMale = isMale;
         this.phoneNumber = phoneNumber;
         this.icNumber = icNumber;
+        this.role = role;
     }
 
-    public Staff(String email, String password, String name, Enums.StaffRole role, Boolean isMale, String phoneNumber, String icNumber) {
+    public Users(String email, String password, String name, Boolean isMale, String phoneNumber, String icNumber, LoginStateRole role) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.role = role;
         this.isMale = isMale;
         this.phoneNumber = phoneNumber;
         this.icNumber = icNumber;
+        this.role = role;
     }
 
-    public Staff() {
+    public Users(String email, String password, String name, String phoneNumber) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.role = LoginStateRole.Customer;
+    }
+
+    public Users() {
     }
 
     public String getEmail() {
@@ -78,14 +93,6 @@ public class Staff implements Serializable {
         this.name = name;
     }
 
-    public Enums.StaffRole getRole() {
-        return role;
-    }
-
-    public void setRole(Enums.StaffRole role) {
-        this.role = role;
-    }
-
     public Boolean getIsMale() {
         return isMale;
     }
@@ -110,6 +117,14 @@ public class Staff implements Serializable {
         this.icNumber = icNumber;
     }
 
+    public LoginStateRole getRole() {
+        return role;
+    }
+
+    public void setRole(LoginStateRole role) {
+        this.role = role;
+    }
+
     public Long getId() {
         return id;
     }
@@ -128,10 +143,10 @@ public class Staff implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Staff)) {
+        if (!(object instanceof Users)) {
             return false;
         }
-        Staff other = (Staff) object;
+        Users other = (Users) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -140,7 +155,7 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Staff[ id=" + id + " ]";
+        return "model.Users[ id=" + id + " ]";
     }
     
 }

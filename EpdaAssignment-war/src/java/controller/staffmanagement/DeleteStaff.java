@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Enums;
-import model.Staff;
-import model.StaffFacade;
+import model.Users;
+import model.UsersFacade;
 
 /**
  *
@@ -26,7 +26,7 @@ import model.StaffFacade;
 public class DeleteStaff extends HttpServlet {
 
     @EJB
-    private StaffFacade staffFacade;
+    private UsersFacade usersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,13 +50,13 @@ public class DeleteStaff extends HttpServlet {
         }
         
         String id = request.getParameter("id");
-        Staff staffToDelete = staffFacade.find(id);
+        Users staffToDelete = usersFacade.findByEmail(id);
         
         if (staffToDelete == null) {
             response.sendRedirect("notfound.jsp");
             return;
         } else {
-            staffFacade.remove(staffToDelete);
+            usersFacade.remove(staffToDelete);
             session.setAttribute("notice", id + " has been deleted.");
             session.setAttribute("noticeBg", "success");
         }

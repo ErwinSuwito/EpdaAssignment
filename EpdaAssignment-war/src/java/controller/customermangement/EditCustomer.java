@@ -14,11 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Customer;
-import model.CustomerFacade;
+import model.Users;
+import model.UsersFacade;
 import model.Enums;
-import model.Staff;
-import model.StaffFacade;
 
 /**
  *
@@ -28,10 +26,7 @@ import model.StaffFacade;
 public class EditCustomer extends HttpServlet {
 
     @EJB
-    private CustomerFacade customerFacade;
-    
-    @EJB
-    private StaffFacade staffFacade;
+    private UsersFacade usersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -55,35 +50,54 @@ public class EditCustomer extends HttpServlet {
             return;
         }
         
-        Customer customer;
+        Users customer;
         String id = request.getParameter("id");
         
         // Checks if the customer editing the customer is the customer itself
         if (state == Enums.LoginStateRole.Customer) {
-            customer = (Customer)session.getAttribute("customerLogin");
+            customer = (Users)session.getAttribute("customerLogin");
             if (!customer.getId().equals(id)) {
                 response.sendRedirect("unauthorized.jsp");
                 return;
             }
         }
         
+        String email = request.getParameter("email");
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         String phoneNumber = request.getParameter("phoneNumber");
 
-        Customer customerToEdit = customerFacade.find(id);
+        Users customerToEdit = usersFacade.find(id);
         
         // Re-checks if the customer to edit is available on the database
         if (customerToEdit == null) {
             response.sendRedirect("notfound.jsp");
             return;
         }
-
+        
+        if (!email.equals(customerToEdit.getEmail())) {
+            Users duplicateUser = usersFacade.findByEmail(email);
+            
+            if (duplicateUser != null) {
+                session.setAttribute("notice", "That email is already used by another user!");
+                session.setAttribute("noticeBg", "danger");
+                
+                if (state == Enums.LoginStateRole.Customer) {
+                    response.sendRedirect("customerprofile.jsp");
+                    return;
+                } else {
+                    response.sendRedirect("customerlist.jsp");
+                    return;
+                }
+            }
+        }
+        
+        customerToEdit.setEmail(email);
         customerToEdit.setName(name);
         customerToEdit.setPassword(password);
         customerToEdit.setPhoneNumber(phoneNumber);
 
-        customerFacade.edit(customerToEdit);
+        usersFacade.edit(customerToEdit);
         
         if (state == Enums.LoginStateRole.Customer) {
             session.invalidate();
