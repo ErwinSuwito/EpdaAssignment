@@ -20,7 +20,9 @@ public class Staff implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String email;
     private String password;
     private String name;
     private Enums.StaffRole role;
@@ -28,8 +30,19 @@ public class Staff implements Serializable {
     private String phoneNumber;
     private String icNumber;
 
-    public Staff(String id, String password, String name, Enums.StaffRole role, Boolean isMale, String phoneNumber, String icNumber) {
+    public Staff(Long id, String email, String password, String name, Enums.StaffRole role, Boolean isMale, String phoneNumber, String icNumber) {
         this.id = id;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.role = role;
+        this.isMale = isMale;
+        this.phoneNumber = phoneNumber;
+        this.icNumber = icNumber;
+    }
+
+    public Staff(String email, String password, String name, Enums.StaffRole role, Boolean isMale, String phoneNumber, String icNumber) {
+        this.email = email;
         this.password = password;
         this.name = name;
         this.role = role;
@@ -39,6 +52,14 @@ public class Staff implements Serializable {
     }
 
     public Staff() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -89,11 +110,11 @@ public class Staff implements Serializable {
         this.icNumber = icNumber;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

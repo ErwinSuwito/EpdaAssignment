@@ -21,19 +21,33 @@ public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
+    private String email;
     private String password;
     private String name;
     private String phoneNumber;
 
-    public Customer(String id, String password, String name, String phoneNumber) {
+    public Customer(Long id, String email, String password, String name, String phoneNumber) {
         this.id = id;
+        this.email = email;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
     }
 
-    public Customer() {
+    public Customer(String email, String password, String name, String phoneNumber) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -60,11 +74,11 @@ public class Customer implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
