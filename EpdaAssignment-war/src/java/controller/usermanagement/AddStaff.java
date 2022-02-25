@@ -59,6 +59,13 @@ public class AddStaff extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         String icNumber = request.getParameter("icNumber");
         
+        if (request.getParameter("gender") == null || request.getParameter("staffType") == null) {
+            session.setAttribute("notice", "Please fill in all fields in the form!");
+            session.setAttribute("noticeBg", "warning");
+            response.sendRedirect("addstaff.jsp");
+            return;
+        }
+        
         if (request.getParameter("gender").equals("male"))
             isMale = true;
         
