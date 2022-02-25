@@ -13,7 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Customer;
+import model.CustomerFacade;
 import model.Enums;
+import static model.Enums.LoginStateRole.Customer;
 import model.Staff;
 import model.StaffFacade;
 
@@ -26,6 +29,9 @@ public class EditStaffInfo extends HttpServlet {
 
     @EJB
     private StaffFacade staffFacade;
+    
+    @EJB
+    private CustomerFacade customerFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,11 +58,27 @@ public class EditStaffInfo extends HttpServlet {
         Staff staff = (Staff) session.getAttribute("staffLogin");
 
         String staffId = request.getParameter("id");
+        String newStaffId = request.getParameter("email");
         Staff staffToEdit = staffFacade.find(staffId);
 
         if (staffToEdit == null) {
             response.sendRedirect("notfound.jsp");
             return;
+        }
+        
+        if (!newStaffId.equals(staffId)) {
+            Staff findDuplicateStaff = staffFacade.find(newStaffId);
+            Customer findDuplicateCustomer = customerFacade.find(newStaffId);
+            
+            if (findDuplicateStaff == null && findDuplicateCustomer == null) {
+                staffToEdit.setId(newStaffId);
+            } else {
+                HttpSession newSession = request.getSession(true);
+                session.setAttribute("notice", "Another staff or customer with the same email is found!");
+                session.setAttribute("noticeBg", "danger");
+                response.sendRedirect("editstaff.jsp");
+                return;
+            }
         }
 
         if (!request.getParameter("password").isEmpty()) {
