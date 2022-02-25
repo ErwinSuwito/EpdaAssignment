@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.staffmanagement;
+package controller.usermanagement;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,16 +14,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Enums;
 import model.Users;
 import model.UsersFacade;
+import model.Enums;
 
 /**
  *
  * @author erwin
  */
-@WebServlet(name = "DeleteStaff", urlPatterns = {"/DeleteStaff"})
-public class DeleteStaff extends HttpServlet {
+@WebServlet(name = "EditCustomer", urlPatterns = {"/EditCustomer"})
+public class EditCustomer extends HttpServlet {
 
     @EJB
     private UsersFacade usersFacade;
@@ -44,23 +44,70 @@ public class DeleteStaff extends HttpServlet {
         // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
         Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
-        if (state != Enums.LoginStateRole.ManagingStaff) {
+        if (state == Enums.LoginStateRole.LoggedOut ||
+                state == Enums.LoginStateRole.DeliveryStaff) {
             response.sendRedirect("unauthorized.jsp");
             return;
         }
         
+        Users customer;
         String id = request.getParameter("id");
-        Users staffToDelete = usersFacade.findByEmail(id);
         
-        if (staffToDelete == null) {
+        // Checks if the customer editing the customer is the customer itself
+        if (state == Enums.LoginStateRole.Customer) {
+            customer = (Users)session.getAttribute("customerLogin");
+            if (!customer.getId().equals(id)) {
+                response.sendRedirect("unauthorized.jsp");
+                return;
+            }
+        }
+        
+        String email = request.getParameter("email");
+        String name = request.getParameter("name");
+        String password = request.getParameter("password");
+        String phoneNumber = request.getParameter("phoneNumber");
+
+        Users customerToEdit = usersFacade.find(id);
+        
+        // Re-checks if the customer to edit is available on the database
+        if (customerToEdit == null) {
             response.sendRedirect("notfound.jsp");
             return;
-        } else {
-            usersFacade.remove(staffToDelete);
-            session.setAttribute("notice", id + " has been deleted.");
-            session.setAttribute("noticeBg", "success");
         }
-        response.sendRedirect("stafflist.jsp");
+        
+        if (!email.equals(customerToEdit.getEmail())) {
+            Users duplicateUser = usersFacade.findByEmail(email);
+            
+            if (duplicateUser != null) {
+                session.setAttribute("notice", "That email is already used by another user!");
+                session.setAttribute("noticeBg", "danger");
+                
+                if (state == Enums.LoginStateRole.Customer) {
+                    response.sendRedirect("customerprofile.jsp");
+                    return;
+                } else {
+                    response.sendRedirect("customerlist.jsp");
+                    return;
+                }
+            }
+        }
+        
+        customerToEdit.setEmail(email);
+        customerToEdit.setName(name);
+        customerToEdit.setPassword(password);
+        customerToEdit.setPhoneNumber(phoneNumber);
+
+        usersFacade.edit(customerToEdit);
+        
+        if (state == Enums.LoginStateRole.Customer) {
+            session.invalidate();
+            HttpSession newSession = request.getSession(true);
+            newSession.setAttribute("notice", "Your details have been changed. Please login again.");
+            newSession.setAttribute("noticeBg", "success");
+            response.sendRedirect("login.jsp");
+        } else {
+            response.sendRedirect("customerlist.jsp");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

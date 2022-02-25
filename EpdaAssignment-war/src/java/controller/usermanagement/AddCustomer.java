@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.customermangement;
+package controller.usermanagement;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,20 +14,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Users;
 import model.UsersFacade;
-import model.Enums;
+import model.Users;
 
 /**
  *
  * @author erwin
  */
-@WebServlet(name = "DeleteCustomer", urlPatterns = {"/DeleteCustomer"})
-public class DeleteCustomer extends HttpServlet {
+@WebServlet(name = "AddCustomer", urlPatterns = {"/AddCustomer"})
+public class AddCustomer extends HttpServlet {
 
     @EJB
     private UsersFacade usersFacade;
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,24 +40,42 @@ public class DeleteCustomer extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        // Gets the current session to check if user is logged in
+        // Removes all previous sessions
         HttpSession session = request.getSession(false);
-        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
-        if (state != Enums.LoginStateRole.ManagingStaff) {
-            response.sendRedirect("unauthorized.jsp");
-            return;
-        }
+        if (session != null)
+            session.invalidate();
         
-        long customerId = Long.parseLong(request.getParameter("id"));
-        Users customerToDelete = usersFacade.find(customerId);
+        String customerName = request.getParameter("name");
+        String email = request.getParameter("email");
+        String password1 = request.getParameter("password1");
+        String password2 = request.getParameter("password1");
+        String phoneNumber = request.getParameter("phoneNumber");
         
-        if (customerToDelete == null) {
-            response.sendRedirect("notfound.jsp");
-            return;
+        Users customer = usersFacade.findByEmail(email);
+
+        HttpSession newSession = request.getSession();
+        
+        // Checks for duplicate account
+        if (customer == null ) {
+            // Checks if entered password is the same, then register user
+            if (password1.equals(password2)) {
+                customer = new Users(email, password1, customerName, phoneNumber);
+                usersFacade.create(customer);
+                newSession.setAttribute("noticeBg", "success");
+                newSession.setAttribute("notice", "Your account has been created. Please login");
+                response.sendRedirect("login.jsp");
+                return;
+            } else {
+                newSession.setAttribute("noticeBg", "warning");
+                newSession.setAttribute("notice", "Passwords doesn't match!");
+            }
         } else {
-            usersFacade.remove(customerToDelete);
-            response.sendRedirect("customerlist.jsp");
+            newSession.setAttribute("noticeBg", "danger");
+            newSession.setAttribute("notice", "Email has been registered!");
         }
+        
+        // Redirects back to register page. Notice has been added above
+        response.sendRedirect("register.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

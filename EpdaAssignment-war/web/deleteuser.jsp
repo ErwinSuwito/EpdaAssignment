@@ -1,11 +1,11 @@
 <%@page import="model.Enums"%>
-<%@page import="model.CustomerFacade"%>
-<%@page import="model.Customer"%>
+<%@page import="model.UsersFacade"%>
+<%@page import="model.Users"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
 <%
     Context context = new InitialContext();
-    CustomerFacade customerFacade = (CustomerFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/CustomerFacade");
+    UsersFacade usersFacade = (UsersFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/UsersFacade");
 %>
 <!doctype html>
 <html lang="en">
@@ -17,7 +17,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="site.css" rel="stylesheet">
 
-        <title>Confirm Delete Customer | APStore </title>
+        <title>Confirm Delete User | APStore </title>
     </head>
     <%
         // Gets the current session to check if user is logged in
@@ -41,18 +41,18 @@
                 }
 
                 String id = request.getParameter("id");
-                Customer customer = customerFacade.find(id);
-                if (customer == null) {
+                Users user = usersFacade.find(id);
+                if (user == null) {
                     response.sendRedirect("notfound.jsp");
                     return;
                 }
             %>
             <div class="col-8 mt-4">
-                <form action="DeleteCustomer" method="POST">
+                <form action="DeleteUser" method="POST">
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email:</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="id" id="id" value="<% out.println(customer.getId());%>" disabled readonly>
+                            <input type="email" class="form-control" name="id" id="id" value="<% out.println(user.getId());%>" disabled readonly>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-danger">Delete</button>

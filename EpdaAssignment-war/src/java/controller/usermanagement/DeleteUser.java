@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.staffmanagement;
+package controller.usermanagement;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Enums;
-import static model.Enums.LoginStateRole.Customer;
 import model.Users;
 import model.UsersFacade;
 
@@ -22,8 +22,8 @@ import model.UsersFacade;
  *
  * @author erwin
  */
-@WebServlet(name = "EditStaffInfo", urlPatterns = {"/EditStaffInfo"})
-public class EditStaffInfo extends HttpServlet {
+@WebServlet(name = "DeleteUser", urlPatterns = {"/DeleteUser"})
+public class DeleteUser extends HttpServlet {
 
     @EJB
     private UsersFacade usersFacade;
@@ -40,60 +40,23 @@ public class EditStaffInfo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
         Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
-        if (state == Enums.LoginStateRole.Customer
-                || state == Enums.LoginStateRole.LoggedOut) {
+        if (state != Enums.LoginStateRole.ManagingStaff) {
             response.sendRedirect("unauthorized.jsp");
             return;
         }
-
-        Users staff = (Users) session.getAttribute("login");
-
-        String staffId = request.getParameter("id");
-        String newStaffId = request.getParameter("email");
-        Users staffToEdit = usersFacade.find(staffId);
-
-        if (staffToEdit == null) {
+        
+        long customerId = Long.parseLong(request.getParameter("id"));
+        Users customerToDelete = usersFacade.find(customerId);
+        
+        if (customerToDelete == null) {
             response.sendRedirect("notfound.jsp");
             return;
-        }
-
-        if (!request.getParameter("password").isEmpty()) {
-            staffToEdit.setPassword(request.getParameter("password"));
-        }
-        
-        staffToEdit.setPhoneNumber(request.getParameter("phoneNumber"));
-
-        if (staff.getRole() == Enums.LoginStateRole.ManagingStaff) {
-            staffToEdit.setIcNumber(request.getParameter("icNumber"));
-            staffToEdit.setName(request.getParameter("name"));
-
-            if (request.getParameter("gender").equals("male")) {
-                staffToEdit.setIsMale(true);
-            } else {
-                staffToEdit.setIsMale(false);
-            }
-
-            if (request.getParameter("staffType").equals("delivery")) {
-                staffToEdit.setRole(Enums.LoginStateRole.DeliveryStaff);
-            } else {
-                staffToEdit.setRole(Enums.LoginStateRole.ManagingStaff);
-            }
-        }
-
-        usersFacade.edit(staffToEdit);
-
-        if (staff.getId().equals(staffToEdit.getId())) {
-            session.invalidate();
-            HttpSession newSession = request.getSession(true);
-            newSession.setAttribute("noticeBg", "success");
-            newSession.setAttribute("notice", "Your data has been updated. Please login again.");
-            response.sendRedirect("login.jsp");
         } else {
-            response.sendRedirect("stafflist.jsp");
+            usersFacade.remove(customerToDelete);
+            response.sendRedirect("customerlist.jsp");
         }
     }
 
