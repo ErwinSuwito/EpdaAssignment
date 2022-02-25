@@ -28,19 +28,19 @@
                     <div class="row mb-3">
                         <label for="productName" class="col-sm-2 col-form-label">Product Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="productName" id="productName" required>
+                            <input type="text" class="form-control" name="productName" id="productName" maxlength="255" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="productImage" class="col-sm-2 col-form-label">Product Image</label>
                         <div class="col-sm-10">
-                            <input type="url" class="form-control" name="productImage" id="productImage" required>
+                            <input type="url" class="form-control" name="productImage" id="productImage" maxlength="255" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="description" class="col-sm-2 col-form-label">Description</label>
                         <div class="col-sm-10">
-                            <textarea row="3" class ="form-control" name="description" id="description" required></textarea>
+                            <textarea row="3" class ="form-control" name="description" id="description" maxlength="255" required></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">

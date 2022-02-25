@@ -35,7 +35,7 @@
                     <div class="row mb-3">
                         <label for="name" class="col-sm-2 col-form-label">Full Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class ="form-control" name="name" id="name" required></input>
+                            <input type="text" class ="form-control" name="name" id="name" maxlength="255" required></input>
                         </div>
                     </div>
                     <fieldset class="row mb-3">
@@ -58,13 +58,13 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="id" id="id" required>
+                            <input type="email" class="form-control" name="id" id="id" maxlength="255" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="password" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password" id="password" required>
+                            <input type="password" class="form-control" name="password" id="password" maxlength="255" required>
                         </div>
                     </div>
                     <fieldset class="row mb-3">
@@ -87,13 +87,13 @@
                     <div class="row mb-3">
                         <label for="phoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
                         <div class="col-sm-10">
-                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" required></input>
+                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" maxlength="255" required></input>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="icNumber" class="col-sm-2 col-form-label">IC Number</label>
                         <div class="col-sm-10">
-                            <input type="text" class ="form-control" name="icNumber" id="icNumber" required></input>
+                            <input type="text" class ="form-control" name="icNumber" id="icNumber" maxlength="255" required></input>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-primary">Add Staff</button>

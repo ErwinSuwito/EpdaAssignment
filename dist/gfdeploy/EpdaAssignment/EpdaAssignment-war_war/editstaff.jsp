@@ -59,7 +59,7 @@
                     <div class="row mb-3">
                         <label for="name" class="col-sm-2 col-form-label">Full Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class ="form-control" name="name" id="name" value="<% out.print(staffToEdit.getName()); %>" required></input>
+                            <input type="text" class ="form-control" name="name" id="name" value="<% out.print(staffToEdit.getName()); %>" maxlength="255" required></input>
                         </div>
                     </div>
                     <fieldset class="row mb-3">
@@ -91,13 +91,13 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email" id="email" value="<% out.print(staffToEdit.getId()); %>">
+                            <input type="email" class="form-control" name="email" id="email" maxlength="255" value="<% out.print(staffToEdit.getId()); %>">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="password" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password" id="password">
+                            <input type="password" class="form-control" name="password" id="password" maxlength="255">
                         </div>
                     </div>
                     <fieldset class="row mb-3">
@@ -128,13 +128,13 @@
                     <div class="row mb-3">
                         <label for="phoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
                         <div class="col-sm-10">
-                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" value="<% out.println(staffToEdit.getPhoneNumber()); %>" required></input>
+                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" value="<% out.println(staffToEdit.getPhoneNumber()); %>" maxlength="255" required></input>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="icNumber" class="col-sm-2 col-form-label">IC Number</label>
                         <div class="col-sm-10">
-                            <input type="text" class ="form-control" name="icNumber" id="icNumber" value="<% out.println(staffToEdit.getIcNumber()); %>" required></input>
+                            <input type="text" class ="form-control" name="icNumber" id="icNumber" value="<% out.println(staffToEdit.getIcNumber()); %>" maxlength="255" required></input>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-primary">Save Changes</button>

@@ -58,25 +58,25 @@
                     <div class="row mb-3">
                         <label for="name" class="col-sm-2 col-form-label">Full Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class ="form-control" name="name" id="name" value="<% out.println(customer.getName()); %>" required></input>
+                            <input type="text" class ="form-control" name="name" id="name" value="<% out.println(customer.getName()); %> maxlength="255"" required></input>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email" id="email" value="<% out.println(customer.getId()); %>" disabled readonly>
+                            <input type="email" class="form-control" name="email" id="email" value="<% out.println(customer.getId()); %>" maxlength="255" disabled readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="password" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password" id="password" required>
+                            <input type="password" class="form-control" name="password" id="password" maxlength="255" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="phoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
                         <div class="col-sm-10">
-                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" value="<% out.println(customer.getPhoneNumber()); %>" required></input>
+                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" maxlength="255" value="<% out.println(customer.getPhoneNumber()); %>" required></input>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-primary">Save Changes</button>
