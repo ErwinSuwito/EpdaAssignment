@@ -5,7 +5,7 @@
  */
 package model;
 
-import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,14 +30,18 @@ public class UsersFacade extends AbstractFacade<Users> {
     }
     
     public Users findByEmail(String email) {
-        return new Users();
+        return (Users)em.createNamedQuery("Users.FindByEmail")
+                .setParameter("email", email)
+                .getSingleResult();
     }
     
-    public ArrayList<Users> findAllCustomers() {
-        return new ArrayList<Users>();
+    public List<Users> findAllCustomers() {
+        return em.createNamedQuery("Users.FindCustomers")
+                .getResultList();
     }
     
-    public ArrayList<Users> findAllStaffs() {
-        return new ArrayList<Users>();
+    public List<Users> findAllStaffs() {
+        return em.createNamedQuery("Users.FindStaffs")
+                .getResultList();
     }
 }

@@ -1,0 +1,10 @@
+<div class="col-md-3 text-end">
+    <%
+        if (request.getSession(false).getAttribute("staffLogin") != null ||
+                request.getSession(false).getAttribute("customerLogin") != null) {
+            out.println("<a href=\"Logout\"><span class=\"btn btn-outline-secondary\">Logout</span></a>");
+        } else {
+            out.println("<a href=\"login.jsp\"><span class=\"btn btn-primary\">Login</span></a>");
+        }
+    %>
+</div>
