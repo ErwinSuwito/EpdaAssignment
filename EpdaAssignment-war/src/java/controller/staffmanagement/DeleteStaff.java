@@ -49,15 +49,15 @@ public class DeleteStaff extends HttpServlet {
             return;
         }
         
-        String staffId = request.getParameter("staffId");
-        Staff staffToDelete = staffFacade.find(staffId);
+        String id = request.getParameter("id");
+        Staff staffToDelete = staffFacade.find(id);
         
         if (staffToDelete == null) {
             response.sendRedirect("notfound.jsp");
             return;
         } else {
             staffFacade.remove(staffToDelete);
-            session.setAttribute("notice", staffId + " has been deleted.");
+            session.setAttribute("notice", id + " has been deleted.");
             session.setAttribute("noticeBg", "success");
         }
         response.sendRedirect("stafflist.jsp");

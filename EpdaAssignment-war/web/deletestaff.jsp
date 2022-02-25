@@ -49,10 +49,11 @@
             %>
             <div class="col-8 mt-4">
                 <form action="DeleteStaff" method="POST">
+                    <input type="hidden" class="form-control" name="id" id="id" value="<% out.print(staffToDelete.getId());%>">
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Staff Email:</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="id" id="id" value="<% out.println(staffToDelete.getId());%>" disabled readonly>
+                            <input type="email" class="form-control" name="email" id="email" value="<% out.print(staffToDelete.getId());%>" disabled readonly>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-danger">Delete</button>
