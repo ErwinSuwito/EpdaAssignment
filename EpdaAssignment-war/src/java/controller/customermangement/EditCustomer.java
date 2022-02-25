@@ -18,6 +18,7 @@ import model.Customer;
 import model.CustomerFacade;
 import model.Enums;
 import model.Staff;
+import model.StaffFacade;
 
 /**
  *
@@ -28,6 +29,9 @@ public class EditCustomer extends HttpServlet {
 
     @EJB
     private CustomerFacade customerFacade;
+    
+    @EJB
+    private StaffFacade staffFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -54,6 +58,7 @@ public class EditCustomer extends HttpServlet {
         Customer customer;
         String id = request.getParameter("id");
         
+        // Checks if the customer editing the customer is the customer itself
         if (state == Enums.LoginStateRole.Customer) {
             customer = (Customer)session.getAttribute("customerLogin");
             if (!customer.getId().equals(id)) {
@@ -68,7 +73,30 @@ public class EditCustomer extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
 
         Customer customerToEdit = customerFacade.find(id);
-        customerToEdit.setId(email);
+        
+        // Re-checks if the customer to edit is available on the database
+        if (customerToEdit == null) {
+            response.sendRedirect("notfound.jsp");
+            return;
+        }
+        
+        // Checks if the customer's id/email is being changed. Checks for
+        // duplicate id if it is being changed.
+        if (!email.equals(id)) {
+            Staff findDuplicateStaff = staffFacade.find(email);
+            Customer findDuplicateCustomer = customerFacade.find(email);
+            
+            if (findDuplicateStaff == null && findDuplicateCustomer == null) {
+                customerToEdit.setId(email);
+            } else {
+                HttpSession newSession = request.getSession(true);
+                session.setAttribute("notice", "Another staff or customer with the same email is found!");
+                session.setAttribute("noticeBg", "danger");
+                response.sendRedirect("editstaff.jsp");
+                return;
+            }
+        }
+        
         customerToEdit.setName(name);
         customerToEdit.setPassword(password);
         customerToEdit.setPhoneNumber(phoneNumber);

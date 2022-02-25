@@ -51,32 +51,33 @@
                         return;
                     }
                 %>
-                <form action="EditStaff" method="POST">
+                <form action="EditCustomer" method="POST">
+                    <input type="hidden" name="id" id="id" value="<% out.print(customer.getId()); %>">
                     <div class="alert alert-warning">
-                        Entering something on the password field will change the customer's password. <b>Leave it blank to keep the staff's password.</b>
+                        Entering something on the password field will change the customer's password. <b>Leave it blank to keep the customer's password.</b>
                     </div>
                     <div class="row mb-3">
                         <label for="name" class="col-sm-2 col-form-label">Full Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class ="form-control" name="name" id="name" value="<% out.println(customer.getName()); %> maxlength="255"" required></input>
+                            <input type="text" class ="form-control" name="name" id="name" value="<% out.print(customer.getName()); %>" maxlength="255" required></input>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email" id="email" value="<% out.println(customer.getId()); %>" maxlength="255" disabled readonly>
+                            <input type="email" class="form-control" name="email" id="email" value="<% out.print(customer.getId()); %>" maxlength="255" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="password" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password" id="password" maxlength="255" required>
+                            <input type="password" class="form-control" name="password" id="password" maxlength="255">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="phoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
                         <div class="col-sm-10">
-                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" maxlength="255" value="<% out.println(customer.getPhoneNumber()); %>" required></input>
+                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" maxlength="255" value="<% out.print(customer.getPhoneNumber()); %>" required></input>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-primary">Save Changes</button>
