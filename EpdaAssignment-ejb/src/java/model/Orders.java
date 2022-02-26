@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import model.Enums.OrderStatus;
@@ -22,6 +24,16 @@ import model.Enums.OrderStatus;
  * @author erwin
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Orders.GetPendingOrders",
+            query = "SELECT o FROM Orders o WHERE o.status = model.Enums.OrderStatus.Pending"),
+    @NamedQuery(name = "Orders.GetAssignedOrders",
+            query = "SELECT o FROM Orders o WHERE o.status = model.Enums.OrderStatus.Assigned"),
+    @NamedQuery(name = "Orders.GetDeliveringOrders",
+            query = "SELECT o FROM Orders o WHERE o.status = model.Enums.OrderStatus.Delivering"),
+    @NamedQuery(name = "Orders.GetDeliveredOrders",
+            query = "SELECT o FROM Orders o WHERE o.status = model.Enums.OrderStatus.Delivered")
+})
 public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;

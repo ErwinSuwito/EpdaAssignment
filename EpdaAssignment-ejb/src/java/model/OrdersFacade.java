@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,4 +29,23 @@ public class OrdersFacade extends AbstractFacade<Orders> {
         super(Orders.class);
     }
     
+    public List<Orders> getPendingOrders() {
+        return em.createNamedQuery("Orders.GetPendingOrders")
+                .getResultList();
+    }
+    
+    public List<Orders> getAssignedOrders() {
+        return em.createNamedQuery("Orders.GetAssignedOrders")
+                .getResultList();
+    }
+    
+    public List<Orders> getDeliveringOrders() {
+        return em.createNamedQuery("Orders.GetDeliveringOrders")
+                .getResultList();
+    }
+    
+    public List<Orders> getDeliveredOrders() {
+        return em.createNamedQuery("Orders.GetDeliveredOrders")
+                .getResultList();
+    }
 }
