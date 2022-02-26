@@ -30,16 +30,14 @@ public class UsersFacade extends AbstractFacade<Users> {
     }
     
     public Users findByEmail(String email) {
-        Object user;
         try {
-            user = em.createNamedQuery("Users.FindByEmail")
+            Object user = em.createNamedQuery("Users.FindByEmail")
                 .setParameter("email", email)
                 .getSingleResult();
-        } catch (javax.persistence.NoResultException noResultExeption) {
+            return (Users)user;
+        } catch (Exception ex) {
             return null;
         }
-        
-        return (Users)user;
     }
     
     public List<Users> findAllCustomers() {
