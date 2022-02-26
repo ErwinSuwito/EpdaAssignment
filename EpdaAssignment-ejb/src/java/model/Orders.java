@@ -32,7 +32,9 @@ import model.Enums.OrderStatus;
     @NamedQuery(name = "Orders.GetDeliveringOrders",
             query = "SELECT o FROM Orders o WHERE o.status = model.Enums.OrderStatus.Delivering"),
     @NamedQuery(name = "Orders.GetDeliveredOrders",
-            query = "SELECT o FROM Orders o WHERE o.status = model.Enums.OrderStatus.Delivered")
+            query = "SELECT o FROM Orders o WHERE o.status = model.Enums.OrderStatus.Delivered"),
+    @NamedQuery(name = "Orders.GetRecentOrders",
+            query = "SELECT o FROM Orders o WHERE o.customer = :customer")
 })
 public class Orders implements Serializable {
 

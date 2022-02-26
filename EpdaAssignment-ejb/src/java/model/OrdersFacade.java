@@ -50,6 +50,12 @@ public class OrdersFacade extends AbstractFacade<Orders> {
                 .getResultList();
     }
     
+    public List<Orders> getRecentOrders(Users customer) {
+        return em.createNamedQuery("Orders.GetRecentOrders")
+                .setParameter("customer", customer)
+                .getResultList();
+    }
+    
     public void assignDeliveryStaff(Orders order, Users user) {
         order.setDeliveryStaff(user);
         order.setStatus(Enums.OrderStatus.Assigned);

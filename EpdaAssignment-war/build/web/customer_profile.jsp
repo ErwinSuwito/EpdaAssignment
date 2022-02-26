@@ -1,12 +1,15 @@
+<%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="model.Enums"%>
 <%@page import="model.UsersFacade"%>
 <%@page import="model.Users"%>
+<%@page import="model.OrdersFacade"%>
+<%@page import="model.Orders"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
 <%
     Context context = new InitialContext();
-    UsersFacade usersFacade = (UsersFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/UsersFacade");
+    OrdersFacade ordersFacade = (OrdersFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/OrdersFacade");
 %>
 <!doctype html>
 <html lang="en">
@@ -92,7 +95,25 @@
                         </div>
                         <div class="accordion-collapse collapse" id="purchasesPanel">
                             <div class="accordion-body ms-4">
-                                Accordion Body
+                                <table class="table">
+                                    <thead>
+                                    <th>Order ID</th>
+                                    <th>Ordered Date</th>
+                                    <th>Amount</th>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                            List<Orders> recentOrders = ordersFacade.getRecentOrders(user);
+                                            for (Orders order : recentOrders) {
+                                                out.println("<tr>");
+                                                out.println("<td>" + order.getId() + "</td>");
+                                                out.println("<td>" + order.getSubmittedTime() + "</td>");
+                                                out.println("<td>" + order.getTotalAmount() + "</td>");
+                                                out.println("</tr>");
+                                            }
+                                        %>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
