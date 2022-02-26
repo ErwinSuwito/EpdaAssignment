@@ -89,6 +89,14 @@ public class Orders implements Serializable {
         return basket;
     }
 
+    public LocalDateTime getAssignedTime() {
+        return assignedTime;
+    }
+
+    public void setAssignedTime(LocalDateTime assignedTime) {
+        this.assignedTime = assignedTime;
+    }
+
     public void setBasket(ArrayList<OrderProduct> basket) {
         this.basket = basket;
     }
