@@ -69,8 +69,8 @@
 
         <%
             // Removes notice and noticeBg from session
-            //session.removeAttribute("noticeBg");
-            //session.removeAttribute("notice");
+            session.removeAttribute("noticeBg");
+            session.removeAttribute("notice");
         %>
 
         <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
