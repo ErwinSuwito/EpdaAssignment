@@ -9,7 +9,6 @@
     UsersFacade usersFacade = (UsersFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/UsersFacade");
 %>
 <!doctype html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -82,18 +81,6 @@
                                         </button>
                                     </a>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#purchasesPanel">
-                                <i class="bi bi-cart"></i><span class="ms-2">Order history</span>
-                            </button>
-                        </div>
-                        <div class="accordion-collapse collapse" id="purchasesPanel">
-                            <div class="accordion-body ms-4">
-                                Accordion Body
                             </div>
                         </div>
                     </div>

@@ -9,7 +9,6 @@
     UsersFacade usersFacade = (UsersFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/UsersFacade");
 %>
 <!doctype html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -33,7 +32,7 @@
         Users user = (Users) request.getSession(false).getAttribute("login");
     %>
     <body>
-        <%@include file="/WEB-INF/jspf/profile_navbar.jspf" %>
+        <%@include file="/WEB-INF/jspf/customer_navbar.jspf" %>
         <div class="container mt-5">
             <h2><% out.print(user.getName()); %></h2>
             <h6><% out.print(user.getRole()); %></h6>
@@ -92,18 +91,6 @@
                             </button>
                         </div>
                         <div class="accordion-collapse collapse" id="purchasesPanel">
-                            <div class="accordion-body ms-4">
-                                Accordion Body
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#deliverisPanel">
-                                <i class="bi bi-truck"></i><span class="ms-2">Deliveries</span>
-                            </button>
-                        </div>
-                        <div class="accordion-collapse collapse" id="deliverisPanel">
                             <div class="accordion-body ms-4">
                                 Accordion Body
                             </div>

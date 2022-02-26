@@ -14,7 +14,7 @@
           <a class="nav-link" href="#">Cart</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="myprofile.jsp">My Account</a>
+          <a class="nav-link" href="customer_profile.jsp">My Account</a>
         </li>
       </ul>
       <%@include file="navbar_account.jspf"%>
