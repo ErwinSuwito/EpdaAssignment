@@ -48,30 +48,48 @@ public class Orders implements Serializable {
     private ArrayList<OrderProduct> basket;
     private String address;
     private OrderStatus status;
+    private LocalDateTime submittedTime;
     private LocalDateTime deliveredTime;
     private double totalAmount;
 
-    public Orders(Long id, Users customer, Users deliveryStaff, ArrayList<OrderProduct> basket, String address, OrderStatus status, LocalDateTime deliveredTime, double totalAmount) {
+    public Orders(Long id, Users customer, Users deliveryStaff, ArrayList<OrderProduct> basket, String address, OrderStatus status, LocalDateTime submittedTime, LocalDateTime deliveredTime, double totalAmount) {
         this.id = id;
         this.customer = customer;
         this.deliveryStaff = deliveryStaff;
         this.basket = basket;
         this.address = address;
         this.status = status;
+        this.submittedTime = submittedTime;
         this.deliveredTime = deliveredTime;
         this.totalAmount = totalAmount;
     }
 
-    public Orders(Users customer, Users deliveryStaff, ArrayList<OrderProduct> basket, String address, OrderStatus status, double totalAmount) {
+    public Orders(Users customer, ArrayList<OrderProduct> basket, String address, OrderStatus status, LocalDateTime submittedTime, double totalAmount) {
         this.customer = customer;
-        this.deliveryStaff = deliveryStaff;
         this.basket = basket;
         this.address = address;
         this.status = status;
+        this.submittedTime = submittedTime;
         this.totalAmount = totalAmount;
     }
 
     public Orders() {
+    }
+
+    public ArrayList<OrderProduct> getBasket() {
+        return basket;
+    }
+
+    public void setBasket(ArrayList<OrderProduct> basket) {
+        this.basket = basket;
+    }
+
+    public LocalDateTime getSubmittedTime() {
+        return submittedTime;
+    }
+
+    public void setSubmittedTime(LocalDateTime submittedTime) {
+        this.submittedTime = submittedTime;
     }
 
     public Users getCustomer() {
