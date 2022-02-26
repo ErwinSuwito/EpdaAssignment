@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -47,5 +48,17 @@ public class OrdersFacade extends AbstractFacade<Orders> {
     public List<Orders> getDeliveredOrders() {
         return em.createNamedQuery("Orders.GetDeliveredOrders")
                 .getResultList();
+    }
+    
+    public void assignDeliveryStaff(Orders order, Users user) {
+        order.setDeliveryStaff(user);
+        order.setStatus(Enums.OrderStatus.Assigned);
+        this.edit(order);
+    }
+    
+    public void completeOrder(Orders order) {
+        order.setStatus(Enums.OrderStatus.Delivered);
+        order.setDeliveredTime(LocalDateTime.now());
+        this.edit(order);
     }
 }
