@@ -34,13 +34,13 @@ import model.Enums.OrderStatus;
     @NamedQuery(name = "Orders.GetDeliveredOrders",
             query = "SELECT o FROM Orders o WHERE o.status = model.Enums.OrderStatus.Delivered"),
     @NamedQuery(name = "Orders.GetRecentOrders",
-            query = "SELECT TOP 3 o FROM Orders o WHERE o.customer = :customer SORT BY o.submittedTime"),
+            query = "SELECT TOP 3 o FROM Orders o WHERE o.customer = :customer SORT BY o.submittedTime DESC"),
     @NamedQuery(name = "Orders.GetCustomerOrders",
-            query = "SELECT o FROM Orders o WHERE o.customer = :customer SORT BY o.submittedTime"),
+            query = "SELECT o FROM Orders o WHERE o.customer = :customer SORT BY o.submittedTime DESC"),
     @NamedQuery(name = "Orders.GetAssignedDeliveries",
             query = "SELECT o FROM Orders o WHERE o.deliveryStaff = :deliveryStaff"),
     @NamedQuery(name = "Orders.GetRecentlyAssignedDeliveries",
-            query = "SELECT TOP 3 o FROM Orders o WHERE o.deliveryStaff = :deliveryStaff SORT BY o.assignedTime"),
+            query = "SELECT TOP 3 o FROM Orders o WHERE o.deliveryStaff = :deliveryStaff SORT BY o.assignedTime DESC"),
 })
 public class Orders implements Serializable {
 
