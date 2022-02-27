@@ -52,7 +52,7 @@ public class EditStaffInfo extends HttpServlet {
 
         Users staff = (Users) session.getAttribute("login");
 
-        String staffId = request.getParameter("id");
+        Long staffId = Long.parseLong(request.getParameter("id"));
         String newStaffId = request.getParameter("email");
         Users staffToEdit = usersFacade.find(staffId);
 
@@ -61,13 +61,14 @@ public class EditStaffInfo extends HttpServlet {
             return;
         }
 
-        if (request.getParameter("password") == null || request.getParameter("password").isEmpty()) {
-            staffToEdit.setPassword(request.getParameter("password"));
-        }
-        
+        if (request.getParameter("password") != null) {
+            if (!request.getParameter("password").isEmpty())
+                staffToEdit.setPassword(request.getParameter("password"));
+        }        
         staffToEdit.setPhoneNumber(request.getParameter("phoneNumber"));
         staffToEdit.setIcNumber(request.getParameter("icNumber"));
         staffToEdit.setName(request.getParameter("name"));
+        staffToEdit.setEmail(request.getParameter("email"));
 
         if (staff.getRole() == Enums.LoginStateRole.ManagingStaff) {
             if (request.getParameter("gender") != null) {

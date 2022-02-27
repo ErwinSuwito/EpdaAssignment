@@ -56,13 +56,7 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email" id="email" maxlength="255" value="<% out.print(user.getId()); %>" disabled readonly>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="password" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password" id="password" maxlength="255">
+                            <input type="email" class="form-control" name="email" id="email" maxlength="255" value="<% out.print(user.getEmail()); %>">
                         </div>
                     </div>
                     <div class="row mb-3">
