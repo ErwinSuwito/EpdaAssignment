@@ -1,12 +1,11 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.List"%>
 <%@page import="model.Enums"%>
-<%@page import="model.UsersFacade"%>
-<%@page import="model.Users"%>
+<%@page import="model.*"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
 <%
     Context context = new InitialContext();
-    UsersFacade usersFacade = (UsersFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/UsersFacade");
+    OrdersFacade ordersFacade = (OrdersFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/OrdersFacade");
 %>
 <!doctype html>
 <html lang="en">
@@ -32,7 +31,7 @@
         Users user = (Users) request.getSession(false).getAttribute("login");
     %>
     <body>
-        <%@include file="/WEB-INF/jspf/profile_navbar.jspf" %>
+        <%@include file="/WEB-INF/jspf/delivery_navbar.jspf" %>
         <div class="container mt-5">
             <h2><% out.print(user.getName()); %></h2>
             <h6><% out.print(user.getRole()); %></h6>
@@ -92,7 +91,30 @@
                         </div>
                         <div class="accordion-collapse collapse" id="deliverisPanel">
                             <div class="accordion-body ms-4">
-                                Accordion Body
+                                <table class="table">
+                                    <thead>
+                                    <th>Order ID</th>
+                                    <th>Ordered Date</th>
+                                    <th>Amount</th>
+                                    <th></th>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                            List<Orders> allDeliveries = ordersFacade.getAssignedDeliveries(user);
+                                            for (Orders order : allDeliveries) {
+                                                out.println("<tr>");
+                                                out.println("<td>" + order.getId() + "</td>");
+                                                out.println("<td>" + order.getSubmittedTime() + "</td>");
+                                                out.println("<td>" + order.getTotalAmount() + "</td>");
+                                                if (order.getStatus() != Enums.OrderStatus.Delivered) {
+                                                    out.println("<td><a href=\"updateorderstatus.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-primary\">Update status</span></a></td>");
+                                                }
+                                                out.println("<td><a href=\"viewdeliverydetails.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-primary\">View Details</span></a></td>");
+                                                out.println("</tr>");
+                                            }
+                                        %>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
