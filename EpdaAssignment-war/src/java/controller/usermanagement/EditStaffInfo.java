@@ -61,26 +61,29 @@ public class EditStaffInfo extends HttpServlet {
             return;
         }
 
-        if (!request.getParameter("password").isEmpty()) {
+        if (request.getParameter("password") == null || request.getParameter("password").isEmpty()) {
             staffToEdit.setPassword(request.getParameter("password"));
         }
         
         staffToEdit.setPhoneNumber(request.getParameter("phoneNumber"));
+        staffToEdit.setIcNumber(request.getParameter("icNumber"));
+        staffToEdit.setName(request.getParameter("name"));
 
         if (staff.getRole() == Enums.LoginStateRole.ManagingStaff) {
-            staffToEdit.setIcNumber(request.getParameter("icNumber"));
-            staffToEdit.setName(request.getParameter("name"));
-
-            if (request.getParameter("gender").equals("male")) {
-                staffToEdit.setIsMale(true);
-            } else {
-                staffToEdit.setIsMale(false);
+            if (request.getParameter("gender") != null) {
+                if (request.getParameter("gender").equals("male")) {
+                    staffToEdit.setIsMale(true);
+                } else {
+                    staffToEdit.setIsMale(false);
+                }
             }
-
-            if (request.getParameter("staffType").equals("delivery")) {
-                staffToEdit.setRole(Enums.LoginStateRole.DeliveryStaff);
-            } else {
-                staffToEdit.setRole(Enums.LoginStateRole.ManagingStaff);
+            
+            if (request.getParameter("staffType") != null) {
+                if (request.getParameter("staffType").equals("delivery")) {
+                    staffToEdit.setRole(Enums.LoginStateRole.DeliveryStaff);
+                } else {
+                    staffToEdit.setRole(Enums.LoginStateRole.ManagingStaff);
+                }
             }
         }
 
