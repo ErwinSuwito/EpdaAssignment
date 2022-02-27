@@ -10,12 +10,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author erwin
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Product.GetAvailableProducts",
+            query = "SELECT p FROM Product p WHERE p.quantity > 0"),
+})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;

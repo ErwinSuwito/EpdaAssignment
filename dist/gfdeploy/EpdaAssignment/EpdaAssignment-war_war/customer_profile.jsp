@@ -20,6 +20,7 @@
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
         <link href="site.css" rel="stylesheet">
 
@@ -96,7 +97,7 @@
                         </div>
                         <div class="accordion-collapse collapse" id="pendingOrders">
                             <div class="accordion-body ms-4">
-                                <table class="table">
+                                <table class="table" id="pendingTable">
                                     <thead>
                                     <th>Order ID</th>
                                     <th>Ordered Date</th>
@@ -128,7 +129,7 @@
                         </div>
                         <div class="accordion-collapse collapse" id="assignedOrders">
                             <div class="accordion-body ms-4">
-                                <table class="table">
+                                <table class="table" id="assignedTable">
                                     <thead>
                                     <th>Order ID</th>
                                     <th>Ordered Date</th>
@@ -160,7 +161,7 @@
                         </div>
                         <div class="accordion-collapse collapse" id="deliveringOrders">
                             <div class="accordion-body ms-4">
-                                <table class="table">
+                                <table class="table" id="deliveringTable">
                                     <thead>
                                     <th>Order ID</th>
                                     <th>Ordered Date</th>
@@ -192,7 +193,7 @@
                         </div>
                         <div class="accordion-collapse collapse" id="completedOrders">
                             <div class="accordion-body ms-4">
-                                <table class="table">
+                                <table class="table" id="deliveredTable">
                                     <thead>
                                     <th>Order ID</th>
                                     <th>Ordered Date</th>
@@ -219,6 +220,19 @@
                 </div>
             </div>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#pendingTable').DataTable();
+                $('#assignedTable').DataTable();
+                $('#deliveringTable').DataTable();
+                $('#deliveredTable').DataTable();
+            });
+        </script>
 
         <%
             // Removes notice and noticeBg from session

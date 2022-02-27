@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,4 +29,8 @@ public class ProductFacade extends AbstractFacade<Product> {
         super(Product.class);
     }
     
+    public List<Product> getAvailableProducts() {
+        return em.createNamedQuery("Product.GetAvailableProducts")
+                .getResultList();
+    }
 }
