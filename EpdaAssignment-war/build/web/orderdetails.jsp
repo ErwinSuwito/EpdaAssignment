@@ -241,6 +241,10 @@
                                         if (order.getStatus() == OrderStatus.Pending || order.getStatus() == OrderStatus.Assigned) {
                                             out.println("<span class=\"btn btn-danger btn-sm\"><a href=\"cancelorder.jsp?id=" + order.getId() + "\">Cancel Order</a></span>");
                                         }
+                                        
+                                        if (order.getStatus() == OrderStatus.Delivered) {
+                                            out.println("<span class=\"btn btn-danger btn-sm\"><a href=\"submitrateandfeedback.jsp?id=" + order.getId() + "\">Cancel Order</a></span>");
+                                        }
                                     }
 
                                     if (user.getRole() == LoginStateRole.DeliveryStaff) {
