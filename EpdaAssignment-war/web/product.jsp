@@ -61,7 +61,7 @@
                             RM <b><% out.print(product.getPrice()); %></b> per unit
                         </h4>
                         <form class="mt-2" action="AddItemToCart" method="POST">
-                            <input type="hidden" id="id" name="id" value="<% out.print(product.getId());%>">
+                            <input type="hidden" id="productId" name="productId" value="<% out.print(product.getId());%>">
                             <div class="row g-3 align-items-center">
                                 <div class="col-auto">
                                     <label for="quantity" class="col-form-label">Quantity</label>
