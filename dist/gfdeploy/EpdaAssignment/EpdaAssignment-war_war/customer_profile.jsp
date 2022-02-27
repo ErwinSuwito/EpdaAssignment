@@ -111,7 +111,7 @@
                                                 out.println("<td>" + order.getId() + "</td>");
                                                 out.println("<td>" + order.getSubmittedTime() + "</td>");
                                                 out.println("<td>" + order.getTotalAmount() + "</td>");
-                                                out.println("<td><a href=\"vieworderdetails.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-primary\">View Details</span></a></td>");
+                                                out.println("<td><a href=\"orderdetails.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-primary\">View Details</span></a></td>");
                                                 out.println("</tr>");
                                             }
                                         %>

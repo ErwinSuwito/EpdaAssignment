@@ -24,8 +24,8 @@
         // Gets the current session to check if user is logged in
         Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
         if (state == Enums.LoginStateRole.LoggedOut) {
-            //response.sendRedirect("login.jsp");
-            //return;
+            response.sendRedirect("login.jsp");
+            return;
         }
 
         Users user = (Users) request.getSession(false).getAttribute("login");
