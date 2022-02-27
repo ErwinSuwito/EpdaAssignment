@@ -1,3 +1,5 @@
+<%@page import="model.Enums.LoginStateRole"%>
+<%@page import="model.Enums.OrderStatus"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Enums"%>
@@ -23,8 +25,8 @@
     </head>
     <%
         // Gets the current session to check if user is logged in
-        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
-        if (state == Enums.LoginStateRole.LoggedOut) {
+        LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state == LoginStateRole.LoggedOut) {
             response.sendRedirect("login.jsp");
             return;
         }
@@ -39,6 +41,12 @@
         Orders order = ordersFacade.find(id);
         if (order == null) {
             response.sendRedirect("notfound.jsp");
+            return;
+        }
+        
+        if ((state == LoginStateRole.Customer && !order.getCustomer().getId().equals(user.getId())) || 
+                (state == LoginStateRole.DeliveryStaff && !order.getDeliveryStaff().getId().equals(user.getId()))) {
+            response.sendRedirect("unauthorized.jsp");
             return;
         }
     %>
@@ -203,7 +211,7 @@
                                     <span class="col-3 col-sm-2">Delivered Time</span>
                                     <span class="col-9 col-sm-10">
                                         <%
-                                            if (order.getDeliveredTime()== LocalDateTime.MIN) {
+                                            if (order.getDeliveredTime() == LocalDateTime.MIN) {
                                                 out.print(" - ");
                                             } else {
                                                 out.print(order.getAssignedTime().toString());
@@ -211,6 +219,34 @@
                                         %>
                                     </span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#actionsPanel">
+                                <i class="bi bi-gear"></i><span class="ms-2">Available Actions</span>
+                            </button>
+                        </div>
+                        <div class="accordion-collapse collapse" id="actionsPanel">
+                            <div class="accordion-body ms-4">
+                                <%
+                                    if (user.getRole() == LoginStateRole.ManagingStaff) {
+                                        if (order.getStatus() == OrderStatus.Pending || order.getStatus() == OrderStatus.Assigned) {
+                                            out.println("<span class=\"btn btn-warning btn-sm\"><a href=\"assigndelivery.jsp?id=" + order.getId() + "\">Assign Delivery</a></span>");
+                                        }
+                                    }
+
+                                    if (user.getRole() == LoginStateRole.Customer) {
+                                        if (order.getStatus() == OrderStatus.Pending || order.getStatus() == OrderStatus.Assigned) {
+                                            out.println("<span class=\"btn btn-danger btn-sm\"><a href=\"cancelorder.jsp?id=" + order.getId() + "\">Cancel Order</a></span>");
+                                        }
+                                    }
+
+                                    if (user.getRole() == LoginStateRole.DeliveryStaff) {
+                                        out.println("<span class=\"btn btn-danger btn-sm\"><a href=\"updatestatus.jsp?id=" + order.getId() + "\">Update Status</a></span>");
+                                    }
+                                %>
                             </div>
                         </div>
                     </div>
