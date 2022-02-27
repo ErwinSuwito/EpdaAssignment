@@ -52,7 +52,7 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email:</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="id" id="id" value="<% out.println(user.getId());%>" disabled readonly>
+                            <input type="email" class="form-control" name="id" id="id" value="<% out.println(user.getEmail());%>" disabled readonly>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-danger">Delete</button>
