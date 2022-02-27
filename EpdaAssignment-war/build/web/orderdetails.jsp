@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDateTime"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Enums"%>
 <%@page import="model.*"%>
@@ -24,24 +25,28 @@
         // Gets the current session to check if user is logged in
         Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
         if (state == Enums.LoginStateRole.LoggedOut) {
-            //response.sendRedirect("login.jsp");
-            //return;
+            response.sendRedirect("login.jsp");
+            return;
         }
 
         if (request.getParameter("id") == null) {
-            //response.sendRedirect("notfound.jsp");
-            //return;
+            response.sendRedirect("notfound.jsp");
+            return;
         }
 
-        //Long id = Long.parseLong(request.getParameter("id"));
+        Long id = Long.parseLong(request.getParameter("id"));
         Users user = (Users) request.getSession(false).getAttribute("login");
-        //Orders order = ordersFacade.find(id);
+        Orders order = ordersFacade.find(id);
+        if (order == null) {
+            response.sendRedirect("notfound.jsp");
+            return;
+        }
     %>
     <body>
         <%@include file="/WEB-INF/jspf/empty_navbar.jspf" %>
         <div class="container mt-5">
             <h2>Order Details</h2>
-            <!--<h6></h6>-->
+            <h6><% out.print(order.getId()); %></h6>
             <div class="row mt-4">
                 <%
                     String notice = (String) request.getSession(false).getAttribute("notice");
@@ -63,14 +68,52 @@
                             <div class="accordion-body ms-4">
                                 <div class="row">
                                     <div class="col-1 d-flex align-items-center ms-1">
-                                        <h1><i class="bi bi-hourglass"></i></h1>
+                                        <h1>
+                                            <i class="bi <%
+                                                switch (order.getStatus()) {
+                                                    case Pending:
+                                                        out.print("bi-hourglass");
+                                                        break;
+
+                                                    case Assigned:
+                                                        out.print("bi-bi-box-seam");
+                                                        break;
+
+                                                    case Delivering:
+                                                        out.print("bi-bi-truck");
+                                                        break;
+
+                                                    case Delivered:
+                                                        out.print("bi-bi-check2");
+                                                        break;
+                                                };
+                                               %>"></i>
+                                        </h1>
                                     </div>
                                     <div class="col">
                                         <h3>
-                                            Pending
+                                            <% out.print(order.getStatus()); %>
                                         </h3>
                                         <p>
-                                            Lorem ipsum
+                                            <%
+                                                switch (order.getStatus()) {
+                                                    case Pending:
+                                                        out.print("Order submitted on " + order.getSubmittedTime().toString());
+                                                        break;
+
+                                                    case Assigned:
+                                                        out.print("Your order is assigned to " + order.getDeliveryStaff().getName() + " on " + order.getAssignedTime().toString());
+                                                        break;
+
+                                                    case Delivering:
+                                                        out.print("Your order is on the way");
+                                                        break;
+
+                                                    case Delivered:
+                                                        out.print("Your order is delivered on " + order.getDeliveredTime().toString());
+                                                        break;
+                                                };
+                                            %>
                                         </p>
                                     </div>
                                 </div>
@@ -87,15 +130,23 @@
                             <div class="accordion-body ms-4">
                                 <table class="table">
                                     <thead>
-                                        <th>Product Name</th>
-                                        <th>Quantity</th>
-                                        <th>Price</th>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
                                     </thead>
                                     <tbody>
-                                        <!-- TO-DO: Print each product list here -->
+                                        <%
+                                            for (OrderProduct orderProduct : order.getProductBasket()) {
+                                                out.println("<tr>");
+                                                out.println("<td>" + orderProduct.getProduct().getProductName() + "</td>");
+                                                out.println("<td>" + orderProduct.getQuantityPurchased() + "</td>");
+                                                out.println("<td>RM " + orderProduct.getProduct().getPrice() + "</td>");
+                                                out.println("</tr>");
+                                            }
+                                        %>
                                     </tbody>
                                 </table>
-                                Total: RM <!-- TO-DO: Print total price here -->
+                                Total: RM <% out.print(order.getTotalAmount()); %>
                             </div>
                         </div>
                     </div>
@@ -109,31 +160,56 @@
                             <div class="accordion-body ms-4">
                                 <div class="row">
                                     <span class="col-3 col-sm-2">Order ID</span>
-                                    <span class="col-9 col-sm-10"></span>
+                                    <span class="col-9 col-sm-10"><% out.print(order.getId()); %></span>
                                 </div>
                                 <div class="row">
                                     <span class="col-3 col-sm-2">Submitted On</span>
-                                    <span class="col-9 col-sm-10"></span>
+                                    <span class="col-9 col-sm-10"><% out.print(order.getSubmittedTime().toString()); %></span>
                                 </div>
                                 <div class="row">
                                     <span class="col-3 col-sm-2">Delivery Address</span>
-                                    <span class="col-9 col-sm-10"></span>
+                                    <span class="col-9 col-sm-10"><% out.print(order.getAddress()); %></span>
                                 </div>
                                 <div class="row">
                                     <span class="col-3 col-sm-2">Total Amount</span>
-                                    <span class="col-9 col-sm-10"></span>
+                                    <span class="col-9 col-sm-10"><% out.print(order.getTotalAmount()); %></span>
                                 </div>
                                 <div class="row">
                                     <span class="col-3 col-sm-2">Delivery By</span>
-                                    <span class="col-9 col-sm-10"></span>
+                                    <span class="col-9 col-sm-10">
+                                        <%
+                                            if (order.getDeliveryStaff() == null) {
+                                                out.print("Not assigned yet");
+                                            } else {
+                                                out.print(order.getDeliveryStaff().getName());
+                                            }
+                                        %>
+                                    </span>
+                                    <span class="col-9 col-sm-10"><% out.print(order.getDeliveryStaff().getName()); %></span>
                                 </div>
                                 <div class="row">
                                     <span class="col-3 col-sm-2">Assigned Delivery On</span>
-                                    <span class="col-9 col-sm-10"></span>
+                                    <span class="col-9 col-sm-10">
+                                        <%
+                                            if (order.getAssignedTime() == LocalDateTime.MIN) {
+                                                out.print(" - ");
+                                            } else {
+                                                out.print(order.getAssignedTime().toString());
+                                            }
+                                        %>
+                                    </span>
                                 </div>
                                 <div class="row">
                                     <span class="col-3 col-sm-2">Delivered Time</span>
-                                    <span class="col-9 col-sm-10"></span>
+                                    <span class="col-9 col-sm-10">
+                                        <%
+                                            if (order.getDeliveredTime()== LocalDateTime.MIN) {
+                                                out.print(" - ");
+                                            } else {
+                                                out.print(order.getAssignedTime().toString());
+                                            }
+                                        %>
+                                    </span>
                                 </div>
                             </div>
                         </div>

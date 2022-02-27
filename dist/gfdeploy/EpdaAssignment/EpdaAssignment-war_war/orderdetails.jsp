@@ -24,18 +24,22 @@
         // Gets the current session to check if user is logged in
         Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
         if (state == Enums.LoginStateRole.LoggedOut) {
-            //response.sendRedirect("login.jsp");
-            //return;
+            response.sendRedirect("login.jsp");
+            return;
         }
 
         if (request.getParameter("id") == null) {
-            //response.sendRedirect("notfound.jsp");
-            //return;
+            response.sendRedirect("notfound.jsp");
+            return;
         }
 
-        //Long id = Long.parseLong(request.getParameter("id"));
+        Long id = Long.parseLong(request.getParameter("id"));
         Users user = (Users) request.getSession(false).getAttribute("login");
-        //Orders order = ordersFacade.find(id);
+        Orders order = ordersFacade.find(id);
+        if (order == null) {
+            response.sendRedirect("notfound.jsp");
+            return;
+        }
     %>
     <body>
         <%@include file="/WEB-INF/jspf/empty_navbar.jspf" %>
