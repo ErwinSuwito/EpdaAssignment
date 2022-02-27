@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Enums;
+import model.Enums.LoginStateRole;
 import model.Users;
 import model.UsersFacade;
 
@@ -55,8 +56,15 @@ public class DeleteUser extends HttpServlet {
             response.sendRedirect("notfound.jsp");
             return;
         } else {
+            LoginStateRole role = customerToDelete.getRole();
             usersFacade.remove(customerToDelete);
-            response.sendRedirect("customerlist.jsp");
+            session.setAttribute("notice", "User has been deleted successfully");
+            session.setAttribute("noticeBg", "success");
+            if (role == LoginStateRole.Customer) {
+                response.sendRedirect("customerlist.jsp");
+            } else {
+                response.sendRedirect("stafflist.jsp");
+            }
         }
     }
 
