@@ -9,7 +9,6 @@
     UsersFacade usersFacade = (UsersFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/UsersFacade");
 %>
 <!doctype html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -33,7 +32,7 @@
         Users user = (Users) request.getSession(false).getAttribute("login");
     %>
     <body>
-        <%@include file="/WEB-INF/jspf/profile_navbar.jspf" %>
+        <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
             <h2><% out.print(user.getName()); %></h2>
             <h6><% out.print(user.getRole()); %></h6>

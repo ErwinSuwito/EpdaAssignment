@@ -45,11 +45,11 @@ public class AddStaff extends HttpServlet {
         
         // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
-        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
-        if (state != Enums.LoginStateRole.ManagingStaff) {
-            response.sendRedirect("unauthorized.jsp");
-            return;
-        }
+//        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+//        if (state != Enums.LoginStateRole.ManagingStaff) {
+//            response.sendRedirect("unauthorized.jsp");
+//            return;
+//        }
         
         String email = request.getParameter("email");
         String password = request.getParameter("password");

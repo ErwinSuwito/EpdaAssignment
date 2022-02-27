@@ -33,21 +33,21 @@ import model.Enums.OrderStatus;
             query = "SELECT o FROM Orders o WHERE o.status = model.Enums.OrderStatus.Delivering"),
     @NamedQuery(name = "Orders.GetDeliveredOrders",
             query = "SELECT o FROM Orders o WHERE o.status = model.Enums.OrderStatus.Delivered"),
-    @NamedQuery(name = "Orders.GetRecentOrders",
-            query = "SELECT TOP 3 o FROM Orders o WHERE o.customer = :customer SORT BY o.submittedTime DESC"),
     @NamedQuery(name = "Orders.GetCustomerOrders",
-            query = "SELECT o FROM Orders o WHERE o.customer = :customer SORT BY o.submittedTime DESC"),
+            query = "SELECT o FROM Orders o WHERE o.customer = :customer"),
+    @NamedQuery(name = "Orders.GetCustomerOrdersFilteredByStatus",
+            query = "SELECT o FROM Orders o WHERE o.customer = :customer AND o.status = :status"),
     @NamedQuery(name = "Orders.GetAssignedDeliveries",
             query = "SELECT o FROM Orders o WHERE o.deliveryStaff = :deliveryStaff"),
-    @NamedQuery(name = "Orders.GetRecentlyAssignedDeliveries",
-            query = "SELECT TOP 3 o FROM Orders o WHERE o.deliveryStaff = :deliveryStaff SORT BY o.assignedTime DESC"),
+    @NamedQuery(name = "Orders.GetAssignedDeliveriesFilteredByStatus",
+            query = "SELECT o FROM Orders o WHERE o.deliveryStaff = :deliveryStaff AND o.status = :status"),
 })
 public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    public Long id;
     @OneToOne
     private Users customer;
     @OneToOne

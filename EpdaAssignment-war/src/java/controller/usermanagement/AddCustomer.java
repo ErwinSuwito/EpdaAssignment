@@ -56,7 +56,7 @@ public class AddCustomer extends HttpServlet {
         HttpSession newSession = request.getSession();
         
         // Checks for duplicate account
-        if (customer != null ) {
+        if (customer == null ) {
             // Checks if entered password is the same, then register user
             if (password1.equals(password2)) {
                 customer = new Users(email, password1, customerName, phoneNumber);

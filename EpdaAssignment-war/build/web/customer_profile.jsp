@@ -1,3 +1,4 @@
+<%@page import="model.Enums.OrderStatus"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="model.Enums"%>
@@ -36,7 +37,7 @@
     %>
     <body>
         <%@include file="/WEB-INF/jspf/customer_navbar.jspf" %>
-        <div class="container mt-5">
+        <div class="container mt-5 mb-5">
             <h2><% out.print(user.getName()); %></h2>
             <h6><% out.print(user.getRole()); %></h6>
             <div class="row mt-4">
@@ -89,11 +90,11 @@
                     </div>
                     <div class="accordion-item">
                         <div class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#purchasesPanel">
-                                <i class="bi bi-cart"></i><span class="ms-2">Order history</span>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pendingOrders">
+                                <i class="bi bi-cart"></i><span class="ms-2">Pending Orders</span>
                             </button>
                         </div>
-                        <div class="accordion-collapse collapse" id="purchasesPanel">
+                        <div class="accordion-collapse collapse" id="pendingOrders">
                             <div class="accordion-body ms-4">
                                 <table class="table">
                                     <thead>
@@ -103,8 +104,98 @@
                                     </thead>
                                     <tbody>
                                         <%
-                                            List<Orders> recentOrders = ordersFacade.getRecentOrders(user);
-                                            for (Orders order : recentOrders) {
+                                            List<Orders> pendingOrders = ordersFacade.getCustomerOrdersFilteredByStatus(user, OrderStatus.Pending);
+                                            for (Orders order : pendingOrders) {
+                                                out.println("<tr>");
+                                                out.println("<td>" + order.getId() + "</td>");
+                                                out.println("<td>" + order.getSubmittedTime() + "</td>");
+                                                out.println("<td>" + order.getTotalAmount() + "</td>");
+                                                out.println("</tr>");
+                                            }
+                                        %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#assignedOrders">
+                                <i class="bi bi-cart"></i><span class="ms-2">Assigned Orders</span>
+                            </button>
+                        </div>
+                        <div class="accordion-collapse collapse" id="assignedOrders">
+                            <div class="accordion-body ms-4">
+                                <table class="table">
+                                    <thead>
+                                    <th>Order ID</th>
+                                    <th>Ordered Date</th>
+                                    <th>Amount</th>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                            List<Orders> assignedOrders = ordersFacade.getCustomerOrdersFilteredByStatus(user, OrderStatus.Assigned);
+                                            for (Orders order : assignedOrders) {
+                                                out.println("<tr>");
+                                                out.println("<td>" + order.getId() + "</td>");
+                                                out.println("<td>" + order.getSubmittedTime() + "</td>");
+                                                out.println("<td>" + order.getTotalAmount() + "</td>");
+                                                out.println("</tr>");
+                                            }
+                                        %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#deliveringOrders">
+                                <i class="bi bi-cart"></i><span class="ms-2">Delivering Orders</span>
+                            </button>
+                        </div>
+                        <div class="accordion-collapse collapse" id="deliveringOrders">
+                            <div class="accordion-body ms-4">
+                                <table class="table">
+                                    <thead>
+                                    <th>Order ID</th>
+                                    <th>Ordered Date</th>
+                                    <th>Amount</th>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                            List<Orders> deliveringOrders = ordersFacade.getCustomerOrdersFilteredByStatus(user, OrderStatus.Delivering);
+                                            for (Orders order : deliveringOrders) {
+                                                out.println("<tr>");
+                                                out.println("<td>" + order.getId() + "</td>");
+                                                out.println("<td>" + order.getSubmittedTime() + "</td>");
+                                                out.println("<td>" + order.getTotalAmount() + "</td>");
+                                                out.println("</tr>");
+                                            }
+                                        %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#completedOrders">
+                                <i class="bi bi-cart"></i><span class="ms-2">Completed Orders</span>
+                            </button>
+                        </div>
+                        <div class="accordion-collapse collapse" id="completedOrders">
+                            <div class="accordion-body ms-4">
+                                <table class="table">
+                                    <thead>
+                                    <th>Order ID</th>
+                                    <th>Ordered Date</th>
+                                    <th>Amount</th>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                            List<Orders> deliveredOrders = ordersFacade.getCustomerOrdersFilteredByStatus(user, OrderStatus.Delivered);
+                                            for (Orders order : deliveredOrders) {
                                                 out.println("<tr>");
                                                 out.println("<td>" + order.getId() + "</td>");
                                                 out.println("<td>" + order.getSubmittedTime() + "</td>");

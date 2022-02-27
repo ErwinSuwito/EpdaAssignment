@@ -5,11 +5,14 @@
  */
 package model;
 
+import helpers.SortOrdersById;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import model.Enums.OrderStatus;
 
 /**
  *
@@ -62,15 +65,23 @@ public class OrdersFacade extends AbstractFacade<Orders> {
                 .getResultList();
     }
     
-    public List<Orders> getAssignedDeliveries(Users customer) {
-        return em.createNamedQuery("Orders.GetAssignedDeliveries")
-                .setParameter("deliveryStaff", customer)
+    public List<Orders> getCustomerOrdersFilteredByStatus(Users customer, OrderStatus status) {
+        return em.createNamedQuery("Orders.GetCustomerOrdersFilteredByStatus")
+                .setParameter("customer", customer)
+                .setParameter("status", status)
                 .getResultList();
     }
 
-    public List<Orders> getRecentlyAssignedDeliveries(Users customer) {
-        return em.createNamedQuery("Orders.GetRecentlyAssignedDeliveries")
-                .setParameter("deliveryStaff", customer)
+    public List<Orders> getAssignedDeliveries(Users staff) {
+        return em.createNamedQuery("Orders.GetAssignedDeliveries")
+                .setParameter("deliveryStaff", staff)
+                .getResultList();
+    }
+    
+    public List<Orders> getAssignedDeliveriesFilteredByStatus(Users staff, OrderStatus status) {
+        return em.createNamedQuery("Orders.GetAssignedDeliveriesFilteredByStatus")
+                .setParameter("deliveryStaff", staff)
+                .setParameter("status", status)
                 .getResultList();
     }
 
