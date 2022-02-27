@@ -53,6 +53,12 @@ public class AddItemToCart extends HttpServlet {
         // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
         Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state == Enums.LoginStateRole.LoggedOut) {
+            session.setAttribute("notice", "Please login before adding items to the shopping cart.");
+            session.setAttribute("noticeBg", "warning");
+            response.sendRedirect("login.jsp");
+            return;
+        }
         if (state != Enums.LoginStateRole.Customer) {
             response.sendRedirect("unauthorized.jsp");
             return;
