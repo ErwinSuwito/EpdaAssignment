@@ -58,6 +58,7 @@
                     <div class="tab-pane fade show active" id="pending">
                         <table id="pendingTable" class="table table-stripped" style="width:100%">
                             <thead>
+                                <th>Order Id</th>
                                 <th>Customer Name</th>
                                 <th>Address</th>
                                 <th>Amount</th>
@@ -69,6 +70,7 @@
                                     
                                     for (Orders order : pendingOrders) {
                                         out.println("<tr>");
+                                        out.println("<td>" + order.getId() + "</td>");
                                         out.println("<td>" + order.getCustomer().getName()+ "</td>");
                                         out.println("<td>" + order.getAddress() + "</td>");
                                         out.println("<td>RM " + order.getTotalAmount()+ "</td>");
@@ -85,11 +87,12 @@
                     <div class="tab-pane fade" id="assigned" role="tabpanel" aria-labelledby="assigned-tab">
                         <table id="assignedTable" class="table table-stripped" style="width:100%">
                             <thead>
-                            <th>Customer Name</th>
-                            <th>Address</th>
-                            <th>Amount</th>
-                            <th>Assigned To</th>
-                            <th></th>
+                                <th>Order Id</th>
+                                <th>Customer Name</th>
+                                <th>Address</th>
+                                <th>Amount</th>
+                                <th>Assigned To</th>
+                                <th></th>
                             </thead>
                             <tbody>
                                 <%
@@ -97,6 +100,7 @@
 
                                     for (Orders order : assignedOrders) {
                                         out.println("<tr>");
+                                        out.println("<td>" + order.getId() + "</td>");
                                         out.println("<td>" + order.getCustomer().getName() + "</td>");
                                         out.println("<td>" + order.getAddress() + "</td>");
                                         out.println("<td>RM " + order.getTotalAmount() + "</td>");
@@ -114,11 +118,12 @@
                     <div class="tab-pane fade" id="delivering">
                         <table id="deliveringTable" class="table table-stripped" style="width:100%">
                             <thead>
-                            <th>Customer Name</th>
-                            <th>Address</th>
-                            <th>Amount</th>
-                            <th>Assigned To</th>
-                            <th></th>
+                                <th>Order Id</th>
+                                <th>Customer Name</th>
+                                <th>Address</th>
+                                <th>Amount</th>
+                                <th>Assigned To</th>
+                                <th></th>
                             </thead>
                             <tbody>
                                 <%
@@ -126,6 +131,7 @@
 
                                     for (Orders order : deliveringOrders) {
                                         out.println("<tr>");
+                                        out.println("<td>" + order.getId() + "</td>");
                                         out.println("<td>" + order.getCustomer().getName() + "</td>");
                                         out.println("<td>" + order.getAddress() + "</td>");
                                         out.println("<td>RM " + order.getTotalAmount() + "</td>");
@@ -142,12 +148,13 @@
                     <div class="tab-pane fade" id="delivered">
                         <table id="deliveredTable" class="table table-stripped" style="width:100%">
                             <thead>
-                            <th>Customer Name</th>
-                            <th>Address</th>
-                            <th>Amount</th>
-                            <th>Assigned To</th>
-                            <th>Delivered Time</th>
-                            <th></th>
+                                <th>Order Id</th>
+                                <th>Customer Name</th>
+                                <th>Address</th>
+                                <th>Amount</th>
+                                <th>Assigned To</th>
+                                <th>Delivered Time</th>
+                                <th></th>
                             </thead>
                             <tbody>
                                 <%
@@ -155,6 +162,7 @@
 
                                     for (Orders order : deliveredOrders) {
                                         out.println("<tr>");
+                                        out.println("<td>" + order.getId() + "</td>");
                                         out.println("<td>" + order.getCustomer().getName() + "</td>");
                                         out.println("<td>" + order.getAddress() + "</td>");
                                         out.println("<td>RM " + order.getTotalAmount() + "</td>");
