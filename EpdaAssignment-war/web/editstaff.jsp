@@ -105,7 +105,7 @@
                         <div class="col-sm-10">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="staffType" id="delivery" value="delivery"<%
-                                    if (staffToEdit.getRole() == Enums.StaffRole.DeliveryStaff) {
+                                    if (staffToEdit.getRole() == Enums.LoginStateRole.DeliveryStaff) {
                                         out.println("checked");
                                     }
                                        %>>
@@ -115,7 +115,7 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="staffType" id="managing" value="managing"<%
-                                    if (staffToEdit.getRole() == Enums.StaffRole.ManagingStaff) {
+                                    if (staffToEdit.getRole() == Enums.LoginStateRole.ManagingStaff) {
                                         out.println("checked");
                                     }
                                        %>>
