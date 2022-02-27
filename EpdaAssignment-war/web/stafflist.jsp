@@ -26,6 +26,7 @@
             response.sendRedirect("unauthorized.jsp");
             return;
         }
+        Users user = (Users)session.getAttribute("login");
     %>
     <body>
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
@@ -61,7 +62,9 @@
                                 out.println("<td>" + staff.getRole().toString() + "</td>");
                                 out.println("<td>");
                                 out.println("<a href=\"editstaff.jsp?id=" + staff.getId() + "\"> <span class=\"btn btn-secondary btn-sm\">Edit</span></a>");
-                                out.println("<a href=\"deleteuser.jsp?id=" + staff.getId() + "\"> <span class=\"btn btn-danger btn-sm\">Delete</span></a>");
+                                if (!staff.getId().equals(user.getId())) {
+                                    out.println("<a href=\"deleteuser.jsp?id=" + staff.getId() + "\"> <span class=\"btn btn-danger btn-sm\">Delete</span></a>");
+                                }
                                 out.println("</td>");
                                 out.println("</tr>");
                             }
