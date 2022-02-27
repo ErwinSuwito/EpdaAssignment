@@ -24,7 +24,7 @@
     <%
         // Gets the current session to check if user is logged in
         Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
-        if (state == Enums.LoginStateRole.Customer || state == Enums.LoginStateRole.LoggedOut) {
+        if (state != Enums.LoginStateRole.Customer) {
             response.sendRedirect("login.jsp");
             return;
         }
@@ -47,9 +47,6 @@
             <div class="row">
                 <form action="EditCustomer" method="POST">
                     <input type="hidden" name="id" id="id" value="<% out.print(user.getId()); %>">
-                    <div class="alert alert-warning">
-                        Entering something on the password field will change the customer's password. <b>Leave it blank to keep the customer's password.</b>
-                    </div>
                     <div class="row mb-3">
                         <label for="name" class="col-sm-2 col-form-label">Full Name</label>
                         <div class="col-sm-10">
@@ -59,7 +56,7 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email" id="email" value="<% out.print(user.getId()); %>" maxlength="255" disabled readonly>
+                            <input type="email" class="form-control" name="email" id="email" value="<% out.print(user.getEmail()); %>" maxlength="255">
                         </div>
                     </div>
                     <div class="row mb-3">

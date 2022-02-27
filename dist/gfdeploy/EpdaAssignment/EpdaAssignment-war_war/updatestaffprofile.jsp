@@ -24,7 +24,7 @@
     <%
         // Gets the current session to check if user is logged in
         Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
-        if (state != Enums.LoginStateRole.Customer) {
+        if (state == Enums.LoginStateRole.Customer || state == Enums.LoginStateRole.LoggedOut) {
             response.sendRedirect("login.jsp");
             return;
         }
@@ -45,7 +45,7 @@
                 %>
             </div>
             <div class="row">
-                <form action="EditCustomer" method="POST">
+                <form action="EditStaffInfo" method="POST">
                     <input type="hidden" name="id" id="id" value="<% out.print(user.getId()); %>">
                     <div class="row mb-3">
                         <label for="name" class="col-sm-2 col-form-label">Full Name</label>
@@ -56,13 +56,25 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email" id="email" value="<% out.print(user.getEmail()); %>" maxlength="255">
+                            <input type="email" class="form-control" name="email" id="email" maxlength="255" value="<% out.print(user.getId()); %>" disabled readonly>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="password" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" name="password" id="password" maxlength="255">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="phoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
                         <div class="col-sm-10">
-                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" maxlength="255" value="<% out.print(user.getPhoneNumber()); %>" required></input>
+                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" value="<% out.println(user.getPhoneNumber()); %>" maxlength="255" required></input>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="icNumber" class="col-sm-2 col-form-label">IC Number</label>
+                        <div class="col-sm-10">
+                            <input type="text" class ="form-control" name="icNumber" id="icNumber" value="<% out.println(user.getIcNumber()); %>" maxlength="255" required></input>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-primary">Save Changes</button>

@@ -51,16 +51,7 @@ public class EditCustomer extends HttpServlet {
         }
         
         Users customer;
-        String id = request.getParameter("id");
-        
-        // Checks if the customer editing the customer is the customer itself
-        if (state == Enums.LoginStateRole.Customer) {
-            customer = (Users)session.getAttribute("customerLogin");
-            if (!customer.getId().equals(id)) {
-                response.sendRedirect("unauthorized.jsp");
-                return;
-            }
-        }
+        Long id = Long.parseLong(request.getParameter("id"));
         
         Users customerToEdit = usersFacade.find(id);
         
@@ -94,8 +85,9 @@ public class EditCustomer extends HttpServlet {
         customerToEdit.setEmail(email);
         customerToEdit.setPhoneNumber(phoneNumber);
         
-        if (request.getParameter("password") != null || !request.getParameter("password").isEmpty()) {
-            customerToEdit.setPassword(request.getParameter("password"));
+        if (request.getParameter("password") != null) {
+            if (!request.getParameter("password").isEmpty())
+                customerToEdit.setPassword(request.getParameter("password"));
         }
 
         usersFacade.edit(customerToEdit);

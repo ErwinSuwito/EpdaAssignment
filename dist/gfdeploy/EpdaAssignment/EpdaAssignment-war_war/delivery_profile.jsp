@@ -1,6 +1,6 @@
+<%@page import="java.util.List"%>
 <%@page import="model.Enums"%>
-<%@page import="model.UsersFacade"%>
-<%@page import="model.Users"%>
+<%@page import="model.*"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
 <%
@@ -31,7 +31,7 @@
         Users user = (Users) request.getSession(false).getAttribute("login");
     %>
     <body>
-        <%@include file="/WEB-INF/jspf/profile_navbar.jspf" %>
+        <%@include file="/WEB-INF/jspf/delivery_navbar.jspf" %>
         <div class="container mt-5">
             <h2><% out.print(user.getName()); %></h2>
             <h6><% out.print(user.getRole()); %></h6>
@@ -67,7 +67,7 @@
                                     <span class="col-9 col-sm-10"><% out.print(user.getPhoneNumber()); %></span>
                                 </div>
                                 <div class="d-grid gap-2 d-md-block mt-3 mb-2">
-                                    <a href="editprofile.jsp">
+                                    <a href="updatestaffprofile.jsp">
                                         <button class="btn btn-primary btn-sm">
                                             <i class="bi bi-pencil"></i>
                                             <span class="">Update Profile</span>
@@ -96,6 +96,7 @@
                                     <th>Order ID</th>
                                     <th>Ordered Date</th>
                                     <th>Amount</th>
+                                    <th></th>
                                     </thead>
                                     <tbody>
                                         <%
@@ -105,6 +106,10 @@
                                                 out.println("<td>" + order.getId() + "</td>");
                                                 out.println("<td>" + order.getSubmittedTime() + "</td>");
                                                 out.println("<td>" + order.getTotalAmount() + "</td>");
+                                                if (order.getStatus() != Enums.OrderStatus.Delivered) {
+                                                    out.println("<td><a href=\"updateorderstatus.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-primary\">Update status</span></a></td>");
+                                                }
+                                                out.println("<td><a href=\"viewdeliverydetails.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-primary\">View Details</span></a></td>");
                                                 out.println("</tr>");
                                             }
                                         %>

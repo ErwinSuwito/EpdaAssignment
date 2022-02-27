@@ -72,7 +72,7 @@
                                     <span class="col-9 col-sm-10"><% out.print(user.getPhoneNumber()); %></span>
                                 </div>
                                 <div class="d-grid gap-2 d-md-block mt-3 mb-2">
-                                    <a href="editprofile.jsp">
+                                    <a href="updatecustomerprofile.jsp">
                                         <button class="btn btn-primary btn-sm">
                                             <i class="bi bi-pencil"></i>
                                             <span class="">Update Profile</span>

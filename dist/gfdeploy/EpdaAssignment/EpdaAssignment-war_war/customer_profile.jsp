@@ -72,7 +72,7 @@
                                     <span class="col-9 col-sm-10"><% out.print(user.getPhoneNumber()); %></span>
                                 </div>
                                 <div class="d-grid gap-2 d-md-block mt-3 mb-2">
-                                    <a href="editprofile.jsp">
+                                    <a href="updatecustomerprofile.jsp">
                                         <button class="btn btn-primary btn-sm">
                                             <i class="bi bi-pencil"></i>
                                             <span class="">Update Profile</span>
@@ -101,6 +101,7 @@
                                     <th>Order ID</th>
                                     <th>Ordered Date</th>
                                     <th>Amount</th>
+                                    <th></th>
                                     </thead>
                                     <tbody>
                                         <%
@@ -110,6 +111,7 @@
                                                 out.println("<td>" + order.getId() + "</td>");
                                                 out.println("<td>" + order.getSubmittedTime() + "</td>");
                                                 out.println("<td>" + order.getTotalAmount() + "</td>");
+                                                out.println("<td><a href=\"vieworderdetails.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-primary\">View Details</span></a></td>");
                                                 out.println("</tr>");
                                             }
                                         %>
@@ -131,6 +133,7 @@
                                     <th>Order ID</th>
                                     <th>Ordered Date</th>
                                     <th>Amount</th>
+                                    <th></th>
                                     </thead>
                                     <tbody>
                                         <%
@@ -140,6 +143,7 @@
                                                 out.println("<td>" + order.getId() + "</td>");
                                                 out.println("<td>" + order.getSubmittedTime() + "</td>");
                                                 out.println("<td>" + order.getTotalAmount() + "</td>");
+                                                out.println("<td><a href=\"vieworderdetails.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-primary\">View Details</span></a></td>");
                                                 out.println("</tr>");
                                             }
                                         %>
@@ -161,6 +165,7 @@
                                     <th>Order ID</th>
                                     <th>Ordered Date</th>
                                     <th>Amount</th>
+                                    <th></th>
                                     </thead>
                                     <tbody>
                                         <%
@@ -170,6 +175,7 @@
                                                 out.println("<td>" + order.getId() + "</td>");
                                                 out.println("<td>" + order.getSubmittedTime() + "</td>");
                                                 out.println("<td>" + order.getTotalAmount() + "</td>");
+                                                out.println("<td><a href=\"vieworderdetails.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-primary\">View Details</span></a></td>");
                                                 out.println("</tr>");
                                             }
                                         %>
@@ -191,6 +197,7 @@
                                     <th>Order ID</th>
                                     <th>Ordered Date</th>
                                     <th>Amount</th>
+                                    <th></th>
                                     </thead>
                                     <tbody>
                                         <%
@@ -200,6 +207,7 @@
                                                 out.println("<td>" + order.getId() + "</td>");
                                                 out.println("<td>" + order.getSubmittedTime() + "</td>");
                                                 out.println("<td>" + order.getTotalAmount() + "</td>");
+                                                out.println("<td><a href=\"vieworderdetails.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-primary\">View Details</span></a></td>");
                                                 out.println("</tr>");
                                             }
                                         %>
