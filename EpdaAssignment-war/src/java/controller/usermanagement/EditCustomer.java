@@ -62,11 +62,6 @@ public class EditCustomer extends HttpServlet {
             }
         }
         
-        String email = request.getParameter("email");
-        String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        String phoneNumber = request.getParameter("phoneNumber");
-
         Users customerToEdit = usersFacade.find(id);
         
         // Re-checks if the customer to edit is available on the database
@@ -74,6 +69,10 @@ public class EditCustomer extends HttpServlet {
             response.sendRedirect("notfound.jsp");
             return;
         }
+        
+        String email = request.getParameter("email");
+        String name = request.getParameter("name");
+        String phoneNumber = request.getParameter("phoneNumber");
         
         if (!email.equals(customerToEdit.getEmail())) {
             Users duplicateUser = usersFacade.findByEmail(email);
@@ -83,7 +82,7 @@ public class EditCustomer extends HttpServlet {
                 session.setAttribute("noticeBg", "danger");
                 
                 if (state == Enums.LoginStateRole.Customer) {
-                    response.sendRedirect("customerprofile.jsp");
+                    response.sendRedirect("updatecustomerprofile.jsp");
                     return;
                 } else {
                     response.sendRedirect("customerlist.jsp");
@@ -93,9 +92,11 @@ public class EditCustomer extends HttpServlet {
         }
         
         customerToEdit.setEmail(email);
-        customerToEdit.setName(name);
-        customerToEdit.setPassword(password);
         customerToEdit.setPhoneNumber(phoneNumber);
+        
+        if (request.getParameter("password") != null || !request.getParameter("password").isEmpty()) {
+            customerToEdit.setPassword(request.getParameter("password"));
+        }
 
         usersFacade.edit(customerToEdit);
         
