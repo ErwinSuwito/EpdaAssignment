@@ -5,9 +5,12 @@
  */
 package helpers;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import model.*;
 import model.Enums.*;
+import viewmodels.CartCheckResultViewModel;
 
 /**
  *
@@ -36,11 +39,37 @@ public class Helpers {
     public static LoginStateRole checkLoginState(HttpSession session) {
         if (session != null) {
             if (session.getAttribute("login") != null) {
-                Users user = (Users)session.getAttribute("login");
+                Users user = (Users) session.getAttribute("login");
                 return user.getRole();
             }
         }
 
         return LoginStateRole.LoggedOut;
+    }
+
+    public static CartCheckResultViewModel CheckCart(Orders order, ProductFacade productFacade) {
+        List<OrderProduct> cart = order.getProductBasket();
+        List<OrderProduct> fixedCart = order.getProductBasket();
+        Boolean anyChanges = false;
+
+        for (OrderProduct cartItem : cart) {
+            Product product = productFacade.find(cartItem.getProduct().getId());
+            if (product == null) {
+                anyChanges = true;
+                continue;
+            }
+            
+            if (product.getQuantity() >= cartItem.getQuantityPurchased()) {
+                fixedCart.add(cartItem);
+            } else {
+                if (product.getQuantity() == 0) {
+                    anyChanges = true;
+                } else {
+                    cartItem.setQuantityPurchased(product.getQuantity());
+                }
+            }
+        }
+
+        return new CartCheckResultViewModel(fixedCart, anyChanges);
     }
 }

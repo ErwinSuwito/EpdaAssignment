@@ -26,7 +26,7 @@
                         <button class="btn btn-primary" type="button">Browse Items</button>
                     </a>
                     <a href="cart.jsp">
-                        <button class="btn btn-primary" type="button">Check Out</button>
+                        <button class="btn btn-secondary" type="button">Check Out</button>
                     </a>
                 </div>
             </div>
