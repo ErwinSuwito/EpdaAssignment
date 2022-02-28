@@ -70,7 +70,7 @@ public class Login extends HttpServlet {
                         break;
                         
                     case DeliveryStaff:
-                        redirectTo = "deliveryhome.jsp";
+                        redirectTo = "delivery_profile.jsp";
                         break;
                 }
                 
