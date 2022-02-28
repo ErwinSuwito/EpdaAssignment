@@ -7,6 +7,7 @@ package controller.deliveries;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,6 +55,11 @@ public class AssignDeliveryStaff extends HttpServlet {
             return;
         }
         
+        if (request.getParameter("orderId") == null || request.getParameter("staffId") == null) {
+            response.sendRedirect("notfound.jsp");
+            return;
+        }
+        
         Long orderId = Long.parseLong(request.getParameter("orderId"));
         Orders order = ordersFacade.find(orderId);
         
@@ -61,14 +67,17 @@ public class AssignDeliveryStaff extends HttpServlet {
             response.sendRedirect("notfound.jsp");
             return;
         } else {
-            String deliveryStaffId = request.getParameter("deliveryStaffId");
+            Long deliveryStaffId = Long.parseLong(request.getParameter("staffId"));
             Users deliveryStaff = usersFacade.find(deliveryStaffId);
             order.setDeliveryStaff(deliveryStaff);
+            order.setAssignedTime(LocalDateTime.now());
             order.setStatus(Enums.OrderStatus.Assigned);
             ordersFacade.edit(order);
         }
         
-        response.sendRedirect("orders.jsp");
+        session.setAttribute("notice", "Delivery staff has been assigned to the order.");
+        session.setAttribute("noticeBg", "success");
+        response.sendRedirect("orderslist.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

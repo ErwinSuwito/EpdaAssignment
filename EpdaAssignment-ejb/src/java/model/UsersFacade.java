@@ -49,4 +49,9 @@ public class UsersFacade extends AbstractFacade<Users> {
         return em.createNamedQuery("Users.FindStaffs")
                 .getResultList();
     }
+    
+    public List<Users> findDeliveryStaffs() {
+        return em.createNamedQuery("Users.FindDeliveryStaffs")
+                .getResultList();
+    }
 }

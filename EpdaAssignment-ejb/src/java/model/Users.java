@@ -25,7 +25,9 @@ import model.Enums.LoginStateRole;
     @NamedQuery(name = "Users.FindCustomers",
             query = "SELECT u FROM Users u WHERE u.role = model.Enums.LoginStateRole.Customer"),
     @NamedQuery(name = "Users.FindStaffs",
-            query = "SELECT u FROM Users u WHERE u.role != model.Enums.LoginStateRole.Customer")
+            query = "SELECT u FROM Users u WHERE u.role != model.Enums.LoginStateRole.Customer"),
+    @NamedQuery(name = "Users.FindDeliveryStaffs",
+            query = "SELECT u FROM Users u WHERE u.role = model.Enums.LoginStateRole.DeliveryStaff")
 })
 public class Users implements Serializable {
 
