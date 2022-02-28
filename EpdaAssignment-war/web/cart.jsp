@@ -67,7 +67,7 @@
                             out.println("<div class=\"col\">");
                             out.println("<h4>" + cartItem.getProduct().getProductName() + "</h4>");
                             out.println("<h5>RM " + cartItem.getProduct().getPrice()+ " per unit</h5>");
-                            out.println("<a href=\"removeitem?id=" + cartItem.getProduct().getId() + "\">Remove</a>");
+                            out.println("<a href=\"DeleteItemFromCart?productId=" + cartItem.getProduct().getId() + "\">Remove</a>");
                             out.println("</div>");
                             out.println("<div class=\"col-2\">");
                             out.println("Quantity <span class=\"ms-2\">" + cartItem.getQuantityPurchased() + "</span>");
