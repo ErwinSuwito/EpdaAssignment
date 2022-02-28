@@ -39,6 +39,7 @@
         <div class="container mt-5">
             <h2>Cart</h2>
             <div class="row justify-content-between mt-4">
+                <div class="col-8">
                 <%
                     String notice = (String) request.getSession(false).getAttribute("notice");
                     String noticeBg = (String) request.getSession(false).getAttribute("noticeBg");
@@ -52,17 +53,18 @@
                     } else {
                         Orders order = (Orders) request.getSession(false).getAttribute("cart");
                         List<OrderProduct> cart = order.getProductBasket();
+                        double totalAmount = 0.0;
 
                         if (cart.isEmpty()) {
                             out.println("<h2>Your cart is empty</h2>");
                             out.println("<a href=\"index.jsp\"><button class=\"btn btn-primary mt-3\" type=\"button\">Browse Items</button></a>");
                         } else {
-                            out.println("<div class=\"row mb-5\">");
                             out.println("<p>");
                             out.println("Shown prices and quantity purchased not final until confirmed. Purchase quantity and total price will be adjusted if stocks are not enough.");
                             out.println("</p>");
 
                             for (OrderProduct cartItem : cart) {
+                                totalAmount += cartItem.getProduct().getPrice() * cartItem.getQuantityPurchased();
                                 out.println("<div class=\"row mb-5\">");
                                 out.println("<div class=\"col-2\">");
                                 out.println("<img class=\"img-fluid\" height=\"152px\" width=\"152px\" src=\"" + cartItem.getProduct().getProductImage() + "\">");
@@ -70,13 +72,21 @@
                                 out.println("<div class=\"col\">");
                                 out.println("<h4>" + cartItem.getProduct().getProductName() + "</h4>");
                                 out.println("<h5>RM " + cartItem.getProduct().getPrice() + " per unit</h5>");
-                                out.println("<a href=\"DeleteItemFromCart?productId=" + cartItem.getProduct().getId() + "\">Remove</a>");
+                                out.println("<span class=\"btn btn-danger btn-sm mt-3\"><a href=\"DeleteItemFromCart?productId=" + cartItem.getProduct().getId() + "\">Remove</a></span>");
                                 out.println("</div>");
                                 out.println("<div class=\"col-2\">");
                                 out.println("Quantity <span class=\"ms-2\">" + cartItem.getQuantityPurchased() + "</span>");
                                 out.println("</div>");
                                 out.println("</div>");
                             }
+                            
+                            out.println("</div>");
+                            out.println("<div class=\"col-3\">");
+                            out.println("<h4>Total</h4>");
+                            out.println("<h5>RM " + totalAmount + "</h5>");
+                            out.println("<span class=\"btn btn-primary btn-sm\"><a href=\"checkout.jsp\">Check out</a</span>");
+                            out.println("</div>");
+                            out.println("</div>");
                         }
                     }
                 %>

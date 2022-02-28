@@ -20,13 +20,13 @@
         <div class="container mt-5">
             <div class="row">
                 <h1>Item added to cart!</h1>
-                <p>Click on the button below to browser for more items or check out.</p>
+                <p>The product has been added to your cart. You can check out now or continue shopping.</p>
                 <div class="d-grid gap-2 d-md-block">
                     <a href="index.jsp">
                         <button class="btn btn-primary" type="button">Browse Items</button>
                     </a>
                     <a href="cart.jsp">
-                        <button class="btn btn-primary" type="button">Check Out</button>
+                        <button class="btn btn-secondary" type="button">Check Out</button>
                     </a>
                 </div>
             </div>

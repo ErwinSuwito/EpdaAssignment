@@ -6,6 +6,7 @@
 <%@page import="java.util.List"%>
 <%@page import="model.Product"%>
 <%@page import="model.ProductFacade"%>
+<%@page import="viewmodels.CartCheckResultViewModel"%>
 <%
     Context context = new InitialContext();
     ProductFacade productFacade = (ProductFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/ProductFacade");
@@ -39,30 +40,32 @@
         <div class="container mt-5">
             <h2>Cart</h2>
             <div class="row justify-content-between mt-4">
+                Review your order and fill in the delivery address to submit your order
                 <%
-                    String notice = (String) request.getSession(false).getAttribute("notice");
-                    String noticeBg = (String) request.getSession(false).getAttribute("noticeBg");
-                    if (notice != null) {
-                        out.println("<div class=\"alert alert-" + noticeBg + "\" role=\"alert\">" + notice + "</div>");
-                    }
-
                     if (request.getSession(false).getAttribute("cart") == null) {
-                        out.println("<h2>Your cart is empty</h2>");
-                        out.println("<a href=\"index.jsp\"><button class=\"btn btn-primary mt-3\" type=\"button\">Browse Items</button></a>");
+                        response.sendRedirect("cart.jsp");
+                        return;
                     } else {
                         Orders order = (Orders) request.getSession(false).getAttribute("cart");
                         List<OrderProduct> cart = order.getProductBasket();
+                        CartCheckResultViewModel cartCheckResult = helpers.Helpers.CheckCart(order, productFacade);
+                        Boolean anyModifications = cartCheckResult.getAnyModifications();
+                        double totalAmount = 0.0;
 
-                        if (cart.isEmpty()) {
-                            out.println("<h2>Your cart is empty</h2>");
-                            out.println("<a href=\"index.jsp\"><button class=\"btn btn-primary mt-3\" type=\"button\">Browse Items</button></a>");
+                        if (anyModifications) {
+                            out.println("<div class=\"alert alert-warning\" role=\"alert\">");
+                            out.println("Modifications to your cart have been made reflecting product stock.");
+                            out.println("</div>");
+                        }
+
+                        if (cartCheckResult.getCart().isEmpty()) {
+                            response.sendRedirect("cart.jsp");
+                            return;
                         } else {
                             out.println("<div class=\"row mb-5\">");
-                            out.println("<p>");
-                            out.println("Shown prices and quantity purchased not final until confirmed. Purchase quantity and total price will be adjusted if stocks are not enough.");
-                            out.println("</p>");
 
-                            for (OrderProduct cartItem : cart) {
+                            for (OrderProduct cartItem : cartCheckResult.getCart()) {
+                                totalAmount += cartItem.getProduct().getPrice() * cartItem.getQuantityPurchased();
                                 out.println("<div class=\"row mb-5\">");
                                 out.println("<div class=\"col-2\">");
                                 out.println("<img class=\"img-fluid\" height=\"152px\" width=\"152px\" src=\"" + cartItem.getProduct().getProductImage() + "\">");
@@ -82,20 +85,5 @@
                 %>
             </div>
         </div>
-
-        <%
-            // Removes notice and noticeBg from session
-            session.removeAttribute("noticeBg");
-            session.removeAttribute("notice");
-        %>
-
-        <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#productTable').DataTable();
-            });
-        </script>
     </body>
 </html>
