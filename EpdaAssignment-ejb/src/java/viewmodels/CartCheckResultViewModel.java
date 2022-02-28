@@ -20,4 +20,21 @@ public class CartCheckResultViewModel {
         this.cart = cart;
         this.anyModifications = anyModifications;
     }
+
+    public List<OrderProduct> getCart() {
+        return cart;
+    }
+
+    public void setCart(List<OrderProduct> cart) {
+        this.cart = cart;
+    }
+
+    public Boolean getAnyModifications() {
+        return anyModifications;
+    }
+
+    public void setAnyModifications(Boolean anyModifications) {
+        this.anyModifications = anyModifications;
+    }
+    
 }
