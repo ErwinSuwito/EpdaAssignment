@@ -46,11 +46,11 @@
                         out.println("<div class=\"alert alert-" + noticeBg + "\" role=\"alert\">" + notice + "</div>");
                     }
 
-                    if (request.getAttribute("cart") == null) {
+                    if (request.getSession(false).getAttribute("cart") == null) {
                         out.println("<h2>Your cart is empty</h2>");
                         out.println("<a href=\"index.jsp\"><button class=\"btn btn-primary mt-3\" type=\"button\">Browse Items</button></a>");
                     } else {
-                        Orders order = (Orders) request.getAttribute("cart");
+                        Orders order = (Orders) request.getSession(false).getAttribute("cart");
                         List<OrderProduct> cart = order.getProductBasket();
 
                         out.println("<div class=\"row mb-5\">");
@@ -67,7 +67,7 @@
                             out.println("<div class=\"col\">");
                             out.println("<h4>" + cartItem.getProduct().getProductName() + "</h4>");
                             out.println("<h5>RM " + cartItem.getProduct().getPrice()+ " per unit</h5>");
-                            out.println("<a href=\"removeitem?id=" + cartItem.getProduct().getId() + "\">Remove</a>");
+                            out.println("<a href=\"DeleteItemFromCart?productId=" + cartItem.getProduct().getId() + "\">Remove</a>");
                             out.println("</div>");
                             out.println("<div class=\"col-2\">");
                             out.println("Quantity <span class=\"ms-2\">" + cartItem.getQuantityPurchased() + "</span>");

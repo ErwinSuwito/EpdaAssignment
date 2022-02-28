@@ -75,14 +75,14 @@ public class AddItemToCart extends HttpServlet {
             order = (Orders)session.getAttribute("cart");
         }
 
-        String productId = request.getParameter("productId");
+        Long productId = Long.parseLong(request.getParameter("productId"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         Product product = productFacade.find(productId);
         OrderProduct orderProduct = new OrderProduct(order, product, quantity);
 
         order.getProductBasket().add(orderProduct);
 
-        request.setAttribute("cart", order);
+        session.setAttribute("cart", order);
         response.sendRedirect("productadded.jsp");
     }
 
