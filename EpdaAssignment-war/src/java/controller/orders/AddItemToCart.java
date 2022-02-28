@@ -83,7 +83,7 @@ public class AddItemToCart extends HttpServlet {
         order.getProductBasket().add(orderProduct);
 
         session.setAttribute("cart", order);
-        response.sendRedirect("productadded.jsp");
+        response.sendRedirect("added_to_cart.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
