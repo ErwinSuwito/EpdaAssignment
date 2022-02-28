@@ -245,12 +245,16 @@
                                         }
                                         
                                         if (order.getStatus() == OrderStatus.Delivered) {
-                                            out.println("<span class=\"btn btn-danger btn-sm\"><a href=\"submitrateandfeedback.jsp?id=" + order.getId() + "\">Cancel Order</a></span>");
+                                            out.println("<span class=\"btn btn-primary btn-sm\"><a href=\"submitrateandfeedback.jsp?id=" + order.getId() + "\">Cancel Order</a></span>");
                                         }
                                     }
 
                                     if (user.getRole() == LoginStateRole.DeliveryStaff) {
-                                        out.println("<span class=\"btn btn-danger btn-sm\"><a href=\"updatestatus.jsp?id=" + order.getId() + "\">Update Status</a></span>");
+                                        out.println("<span class=\"btn btn-primary btn-sm\"><a href=\"updatestatus.jsp?id=" + order.getId() + "\">Update Status</a></span>");
+                                    }
+                                    
+                                    if (order.getStatus() == OrderStatus.Delivered) {
+                                        out.println("<span class=\"btn btn-primary btn-sm\"><a href=\"receipt.jsp?id=" + order.getId() + "\">View Receipt</a></span>");
                                     }
                                 %>
                             </div>
