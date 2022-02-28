@@ -53,26 +53,30 @@
                         Orders order = (Orders) request.getSession(false).getAttribute("cart");
                         List<OrderProduct> cart = order.getProductBasket();
 
-                        out.println("<div class=\"row mb-5\">");
-                        out.println("<p>");
-                        out.println("Shown prices and quantity purchased not final until confirmed. Purchase quantity and total price will be adjusted if stocks are not enough.");
-                        out.println("</p>");
-                        
-                        
-                        for(OrderProduct cartItem : cart) {
+                        if (cart.isEmpty()) {
+                            out.println("<h2>Your cart is empty</h2>");
+                            out.println("<a href=\"index.jsp\"><button class=\"btn btn-primary mt-3\" type=\"button\">Browse Items</button></a>");
+                        } else {
                             out.println("<div class=\"row mb-5\">");
-                            out.println("<div class=\"col-2\">");
-                            out.println("<img class=\"img-fluid\" height=\"152px\" width=\"152px\" src=\"" + cartItem.getProduct().getProductImage() + "\">");
-                            out.println("</div>");
-                            out.println("<div class=\"col\">");
-                            out.println("<h4>" + cartItem.getProduct().getProductName() + "</h4>");
-                            out.println("<h5>RM " + cartItem.getProduct().getPrice()+ " per unit</h5>");
-                            out.println("<a href=\"DeleteItemFromCart?productId=" + cartItem.getProduct().getId() + "\">Remove</a>");
-                            out.println("</div>");
-                            out.println("<div class=\"col-2\">");
-                            out.println("Quantity <span class=\"ms-2\">" + cartItem.getQuantityPurchased() + "</span>");
-                            out.println("</div>");
-                            out.println("</div>");
+                            out.println("<p>");
+                            out.println("Shown prices and quantity purchased not final until confirmed. Purchase quantity and total price will be adjusted if stocks are not enough.");
+                            out.println("</p>");
+
+                            for (OrderProduct cartItem : cart) {
+                                out.println("<div class=\"row mb-5\">");
+                                out.println("<div class=\"col-2\">");
+                                out.println("<img class=\"img-fluid\" height=\"152px\" width=\"152px\" src=\"" + cartItem.getProduct().getProductImage() + "\">");
+                                out.println("</div>");
+                                out.println("<div class=\"col\">");
+                                out.println("<h4>" + cartItem.getProduct().getProductName() + "</h4>");
+                                out.println("<h5>RM " + cartItem.getProduct().getPrice() + " per unit</h5>");
+                                out.println("<a href=\"DeleteItemFromCart?productId=" + cartItem.getProduct().getId() + "\">Remove</a>");
+                                out.println("</div>");
+                                out.println("<div class=\"col-2\">");
+                                out.println("Quantity <span class=\"ms-2\">" + cartItem.getQuantityPurchased() + "</span>");
+                                out.println("</div>");
+                                out.println("</div>");
+                            }
                         }
                     }
                 %>
