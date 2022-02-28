@@ -76,7 +76,7 @@
                                         out.println("<td>RM " + order.getTotalAmount()+ "</td>");
                                         out.println("<td>");
                                         out.println("<a href=\"orderdetails.jsp?id=" + order.getId() + "\"> <span class=\"btn btn-secondary btn-sm\">View Details</span></a>");
-                                        out.println("<a href=\"assigndelivery.jsp?id=" + order.getId() + "\"> <span class=\"btn btn-danger btn-sm\">Assign Delivery Staff</span></a>");
+                                        out.println("<a href=\"assigndelivery.jsp?id=" + order.getId() + "\"> <span class=\"btn btn-primary btn-sm\">Assign Delivery Staff</span></a>");
                                         out.println("</td>");
                                         out.println("</tr>");
                                     }
@@ -107,7 +107,7 @@
                                         out.println("<td>" + order.getDeliveryStaff().getName() + "</td>");
                                         out.println("<td>");
                                         out.println("<a href=\"orderdetails.jsp?id=" + order.getId() + "\"> <span class=\"btn btn-secondary btn-sm\">View Details</span></a>");
-                                        out.println("<a href=\"assigndelivery.jsp?id=" + order.getId() + "\"> <span class=\"btn btn-danger btn-sm\">Assign Delivery Staff</span></a>");
+                                        out.println("<a href=\"assigndelivery.jsp?id=" + order.getId() + "\"> <span class=\"btn btn-primary btn-sm\">Assign Delivery Staff</span></a>");
                                         out.println("</td>");
                                         out.println("</tr>");
                                     }
