@@ -87,15 +87,15 @@
                                                         break;
 
                                                     case Assigned:
-                                                        out.print("bi-bi-box-seam");
+                                                        out.print("bi-box-seam");
                                                         break;
 
                                                     case Delivering:
-                                                        out.print("bi-bi-truck");
+                                                        out.print("bi-truck");
                                                         break;
 
                                                     case Delivered:
-                                                        out.print("bi-bi-check2");
+                                                        out.print("bi-check2");
                                                         break;
                                                 };
                                                %>"></i>
@@ -216,7 +216,7 @@
                                             if (order.getDeliveredTime() == null) {
                                                 out.print(" - ");
                                             } else {
-                                                out.print(order.getAssignedTime().toString());
+                                                out.print(order.getDeliveredTime().toString());
                                             }
                                         %>
                                     </span>
