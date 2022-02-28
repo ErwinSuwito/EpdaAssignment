@@ -49,7 +49,7 @@ public class Helpers {
 
     public static CartCheckResultViewModel CheckCart(Orders order, ProductFacade productFacade) {
         List<OrderProduct> cart = order.getProductBasket();
-        List<OrderProduct> fixedCart = new ArrayList<>();
+        ArrayList<OrderProduct> fixedCart = new ArrayList<>();
         Boolean anyChanges = false;
 
         for (OrderProduct cartItem : cart) {

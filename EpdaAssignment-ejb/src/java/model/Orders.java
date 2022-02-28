@@ -52,7 +52,7 @@ public class Orders implements Serializable {
     private Users customer;
     @OneToOne
     private Users deliveryStaff;
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.PERSIST)
     private ArrayList<OrderProduct> basket;
     private String address;
     private OrderStatus status;

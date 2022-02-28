@@ -7,11 +7,23 @@ package controller.orders;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Enums;
+import model.Enums.LoginStateRole;
+import model.OrderProduct;
+import model.Orders;
+import model.OrdersFacade;
+import model.Product;
+import model.ProductFacade;
+import model.Users;
+import viewmodels.CartCheckResultViewModel;
 
 /**
  *
@@ -19,6 +31,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AddOrder", urlPatterns = {"/AddOrder"})
 public class AddOrder extends HttpServlet {
+
+    @EJB
+    private OrdersFacade ordersFacade;
+
+    @EJB
+    private ProductFacade productFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,18 +50,49 @@ public class AddOrder extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddOrder</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddOrder at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        // Gets the current session to check if user is logged in
+        HttpSession session = request.getSession(false);
+        LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state == LoginStateRole.LoggedOut) {
+            session.setAttribute("notice", "Please login before adding items to the shopping cart.");
+            session.setAttribute("noticeBg", "warning");
+            response.sendRedirect("login.jsp");
+            return;
         }
+        
+        if (state != LoginStateRole.Customer) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
+        }
+        
+        if (session.getAttribute("cart") == null || request.getParameter("address") == null) {
+            session.setAttribute("notice", "Not enough information is submitted to process the order. Please try again.");
+            session.setAttribute("noticeBg", "danger");
+            response.sendRedirect("cart.jsp");
+            return;
+        }
+        
+        Orders order = (Orders)session.getAttribute("cart");
+        order.setAddress(request.getParameter("address"));
+        order.setSubmittedTime(LocalDateTime.now());
+        order.setStatus(Enums.OrderStatus.Pending);
+        
+        CartCheckResultViewModel cartCheckResult = helpers.Helpers.CheckCart(order, productFacade);
+        order.setProductBasket(cartCheckResult.getCart());
+        double totalAmount = 0.0;
+        for (OrderProduct item : cartCheckResult.getCart()) {
+            totalAmount += item.getProduct().getPrice() * item.getQuantityPurchased();
+            Product product  = productFacade.find(item.getProduct().getId());
+            int newQuantity = product.getQuantity() - item.getQuantityPurchased();
+            productFacade.edit(product);
+        }
+        
+        order.setTotalAmount(totalAmount);
+        ordersFacade.create(order);
+        
+        session.removeAttribute("cart");
+        response.sendRedirect("customer_profile.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

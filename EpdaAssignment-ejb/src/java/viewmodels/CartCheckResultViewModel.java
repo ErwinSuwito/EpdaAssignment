@@ -5,6 +5,7 @@
  */
 package viewmodels;
 
+import java.util.ArrayList;
 import java.util.List;
 import model.OrderProduct;
 
@@ -13,19 +14,19 @@ import model.OrderProduct;
  * @author erwin
  */
 public class CartCheckResultViewModel {
-    private List<OrderProduct> cart;
+    private ArrayList<OrderProduct> cart;
     private Boolean anyModifications = false;
     
-    public CartCheckResultViewModel(List<OrderProduct> cart, Boolean anyModifications) {
+    public CartCheckResultViewModel(ArrayList<OrderProduct> cart, Boolean anyModifications) {
         this.cart = cart;
         this.anyModifications = anyModifications;
     }
 
-    public List<OrderProduct> getCart() {
+    public ArrayList<OrderProduct> getCart() {
         return cart;
     }
 
-    public void setCart(List<OrderProduct> cart) {
+    public void setCart(ArrayList<OrderProduct> cart) {
         this.cart = cart;
     }
 
