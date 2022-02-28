@@ -9,6 +9,7 @@
 <%
     Context context = new InitialContext();
     OrdersFacade ordersFacade = (OrdersFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/OrdersFacade");
+    OrderProductFacade orderProductFacade = (OrderProductFacade)context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/OrderProductFacade");
 %>
 <!doctype html>
 <html lang="en">
@@ -44,6 +45,8 @@
             return;
         }
         
+        List<OrderProduct> basket = orderProductFacade.findByOrder(order);
+        
         if ((state == LoginStateRole.Customer && !order.getCustomer().getId().equals(user.getId())) || 
                 (state == LoginStateRole.DeliveryStaff && !order.getDeliveryStaff().getId().equals(user.getId()))) {
             response.sendRedirect("unauthorized.jsp");
@@ -54,7 +57,7 @@
         <%@include file="/WEB-INF/jspf/empty_navbar.jspf" %>
         <div class="container mt-5">
             <h2>Order Details</h2>
-            <h6><% out.print(order.getId()); %></h6>
+            <h6>Order ID <% out.print(order.getId()); %></h6>
             <div class="row mt-4">
                 <%
                     String notice = (String) request.getSession(false).getAttribute("notice");
@@ -144,7 +147,7 @@
                                     </thead>
                                     <tbody>
                                         <%
-                                            for (OrderProduct orderProduct : order.getProductBasket()) {
+                                            for (OrderProduct orderProduct : basket) {
                                                 out.println("<tr>");
                                                 out.println("<td>" + orderProduct.getProduct().getProductName() + "</td>");
                                                 out.println("<td>" + orderProduct.getQuantityPurchased() + "</td>");
@@ -180,7 +183,7 @@
                                 </div>
                                 <div class="row">
                                     <span class="col-3 col-sm-2">Total Amount</span>
-                                    <span class="col-9 col-sm-10"><% out.print(order.getTotalAmount()); %></span>
+                                    <span class="col-9 col-sm-10">RM <% out.print(order.getTotalAmount()); %></span>
                                 </div>
                                 <div class="row">
                                     <span class="col-3 col-sm-2">Delivery By</span>
@@ -193,13 +196,12 @@
                                             }
                                         %>
                                     </span>
-                                    <span class="col-9 col-sm-10"><% out.print(order.getDeliveryStaff().getName()); %></span>
                                 </div>
                                 <div class="row">
                                     <span class="col-3 col-sm-2">Assigned Delivery On</span>
                                     <span class="col-9 col-sm-10">
                                         <%
-                                            if (order.getAssignedTime() == LocalDateTime.MIN) {
+                                            if (order.getAssignedTime() == null) {
                                                 out.print(" - ");
                                             } else {
                                                 out.print(order.getAssignedTime().toString());
@@ -211,7 +213,7 @@
                                     <span class="col-3 col-sm-2">Delivered Time</span>
                                     <span class="col-9 col-sm-10">
                                         <%
-                                            if (order.getDeliveredTime() == LocalDateTime.MIN) {
+                                            if (order.getDeliveredTime() == null) {
                                                 out.print(" - ");
                                             } else {
                                                 out.print(order.getAssignedTime().toString());

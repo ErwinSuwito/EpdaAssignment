@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,4 +29,9 @@ public class OrderProductFacade extends AbstractFacade<OrderProduct> {
         super(OrderProduct.class);
     }
     
+    public List<OrderProduct> findByOrder(Orders order) {
+        return em.createNamedQuery("OrderProduct.GetOrderProductByOrder")
+                    .setParameter("order", order)
+                    .getResultList();
+    }
 }

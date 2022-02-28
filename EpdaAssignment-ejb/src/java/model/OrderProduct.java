@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 /**
@@ -17,6 +19,10 @@ import javax.persistence.OneToOne;
  * @author erwin
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "OrderProduct.GetOrderProductByOrder",
+                query = "SELECT op FROM OrderProduct op WHERE op.order = :order")
+})
 public class OrderProduct implements Serializable {
 
     private static final long serialVersionUID = 1L;
