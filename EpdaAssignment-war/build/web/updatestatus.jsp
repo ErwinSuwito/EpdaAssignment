@@ -66,7 +66,7 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">Status</label>
                         <div class="col-sm-10">
-                            <select name="staffId" class="form-select">
+                            <select name="orderStatus" class="form-select">
                                 <option selected>Select status</option>
                                 <option value="Assigned">Assigned</option>
                                 <option value="Delivering">Delivering</option>
