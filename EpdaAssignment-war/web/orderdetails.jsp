@@ -250,7 +250,9 @@
                                     }
 
                                     if (user.getRole() == LoginStateRole.DeliveryStaff) {
-                                        out.println("<span class=\"btn btn-primary btn-sm\"><a href=\"updatestatus.jsp?id=" + order.getId() + "\">Update Status</a></span>");
+                                        if (order.getStatus() != OrderStatus.Delivered) {
+                                            out.println("<span class=\"btn btn-primary btn-sm\"><a href=\"updatestatus.jsp?id=" + order.getId() + "\">Update Status</a></span>");
+                                        }
                                     }
                                     
                                     if (order.getStatus() == OrderStatus.Delivered) {

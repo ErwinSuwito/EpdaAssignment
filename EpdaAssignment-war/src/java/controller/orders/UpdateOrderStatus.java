@@ -71,6 +71,10 @@ public class UpdateOrderStatus extends HttpServlet {
                 break;
         }
         
+        if (status == OrderStatus.Delivered) {
+            order.setDeliveredTime(LocalDateTime.now());
+        }
+        
         order.setStatus(status);
         ordersFacade.edit(order);
         response.sendRedirect("orderdetails.jsp?id=" + order.getId());

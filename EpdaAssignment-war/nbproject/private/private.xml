@@ -5,9 +5,8 @@
         <group>
             <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/orderdetails.jsp</file>
             <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/updatestatus.jsp</file>
+            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/receipt.jsp</file>
             <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/orders/UpdateOrder.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/delivery_profile.jsp</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/orders/UpdateOrderStatus.java</file>
         </group>
     </open-files>
 </project-private>
