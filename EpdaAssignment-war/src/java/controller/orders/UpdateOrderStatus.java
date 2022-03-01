@@ -59,10 +59,19 @@ public class UpdateOrderStatus extends HttpServlet {
         
         Users staff = (Users)session.getAttribute("login");
         Orders order = ordersFacade.find(Long.parseLong(request.getParameter("orderId")));
-        OrderStatus status = request.getParameter("orderStatus").equals("Assigned") ? OrderStatus.Assigned : OrderStatus.Delivering;
-        if (status == OrderStatus.Assigned) 
-            order.setAssignedTime(LocalDateTime.now());
+        OrderStatus status = OrderStatus.Assigned;
         
+        switch (request.getParameter("orderStatus")) {
+            case "Delivering":
+                status = OrderStatus.Delivering;
+                break;
+                
+            case "Delivered":
+                status = OrderStatus.Delivered;
+                break;
+        }
+        
+        order.setStatus(status);
         ordersFacade.edit(order);
         response.sendRedirect("orderdetails.jsp?id=" + order.getId());
     }
