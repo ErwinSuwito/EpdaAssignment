@@ -245,7 +245,7 @@
                                         }
                                         
                                         if (order.getStatus() == OrderStatus.Delivered) {
-                                            out.println("<span class=\"btn btn-primary btn-sm\"><a href=\"submitrateandfeedback.jsp?id=" + order.getId() + "\">Cancel Order</a></span>");
+                                            out.println("<span class=\"btn btn-primary btn-sm\"><a href=\"submitrateandfeedback.jsp?id=" + order.getId() + "\">Rate and Submit Feedback</a></span>");
                                         }
                                     }
 
@@ -256,7 +256,7 @@
                                     }
                                     
                                     if (order.getStatus() == OrderStatus.Delivered) {
-                                        out.println("<span class=\"btn btn-primary btn-sm\"><a href=\"receipt.jsp?id=" + order.getId() + "\">View Receipt</a></span>");
+                                        out.println("<span class=\"btn btn-secondary btn-sm\"><a href=\"receipt.jsp?id=" + order.getId() + "\">View Receipt</a></span>");
                                     }
                                 %>
                             </div>
