@@ -20,7 +20,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Product.GetAvailableProducts",
-            query = "SELECT p FROM Product p WHERE p.quantity > 0"),
+            query = "SELECT p FROM Product p WHERE p.quantity > 0 AND p.isDeleted = false"),
 })
 public class Product implements Serializable {
 
