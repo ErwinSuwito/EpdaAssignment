@@ -68,57 +68,61 @@
                         <hr>
                         <h4>Order Receipt</h4>
                         <div class="row justify-content-between">
-                            <div class="col-3">
+                            <div class="col-4">
                                 <p class="fw-light mb-0">Order ID</p>
                                 <% out.println(order.getId()); %>
-                                <p class="fw-light mb-0">Date and Time</p>
-                                <% out.println(order.getDeliveredTime().toString());%>
+                                <p class="fw-light mb-0">Date</p>
+                                <% out.println(order.getDeliveredTime().getDayOfMonth() + "/" + order.getDeliveredTime().getMonthValue() + "/" + order.getDeliveredTime().getYear());%>
                             </div>
-                            <div class="col-3">
+                            <div class="col-4">
                                 <p class="fw-light mb-0">Billed to</p>
                                 <p class="mb-0"><% out.print(order.getCustomer().getName()); %></p>
                                 <p class="mb-0"><% out.print(order.getAddress()); %></p>
+                                <button class="btn btn-outline-primary btn-sm mt-2 d-print-none" onclick="printReceipt()"><i class="bi bi-printer"></i>    Print</button>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <table class="table">
-                                <thead>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th>Unit Price</th>
-                                <th>Total Price</th>
-                                </thead>
-                                <tbody>
-                                    <%
-                                        for (OrderProduct cartItem : order.getProductBasket()) {
-                                            out.println("<tr>");
-                                            out.println("<td>" + cartItem.getProduct().getProductName() + "</td>");
-                                            out.println("<td>" + cartItem.getQuantityPurchased() + "</td>");
-                                            out.println("<td>RM " + cartItem.getProduct().getPrice() + "</td>");
-                                            out.println("<td>RM " + cartItem.getProduct().getPrice() * cartItem.getQuantityPurchased() + "</td>");
-                                            out.println("</tr>");
-                                        }
-                                    %>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="row justify-content-between">
-                            <div class="col-4">
-                                <span class="fw-bold">Total</span>
+                            <hr class="mt-3">
+                            <div class="row">
+                                <table class="table">
+                                    <thead>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Total Price</th>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                            for (OrderProduct cartItem : order.getProductBasket()) {
+                                                out.println("<tr>");
+                                                out.println("<td>" + cartItem.getProduct().getProductName() + "</td>");
+                                                out.println("<td>" + cartItem.getQuantityPurchased() + "</td>");
+                                                out.println("<td>RM " + cartItem.getProduct().getPrice() + "</td>");
+                                                out.println("<td>RM " + cartItem.getProduct().getPrice() * cartItem.getQuantityPurchased() + "</td>");
+                                                out.println("</tr>");
+                                            }
+                                        %>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="col-2">
-                                <span class="fw-bold">RM <% out.print(order.getTotalAmount());%></span>
+                            <div class="row justify-content-between">
+                                <div class="col-4">
+                                    <span class="fw-bold">Total</span>
+                                </div>
+                                <div class="col-2">
+                                    <span class="fw-bold">RM <% out.print(order.getTotalAmount());%></span>
+                                </div>
                             </div>
-                        </div>
                             <hr>
                             <p class="mb-0">Thank you for shopping with us.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+            <script>
+                function printReceipt() {
+                    window.print();
+                }
+            </script>
+            <!-- Bootstrap JS -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>
