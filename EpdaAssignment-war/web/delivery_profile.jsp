@@ -1,3 +1,4 @@
+<%@page import="model.Enums.OrderStatus"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Enums"%>
 <%@page import="model.*"%>
@@ -86,16 +87,17 @@
                     </div>
                     <div class="accordion-item">
                         <div class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#deliverisPanel">
-                                <i class="bi bi-truck"></i><span class="ms-2">Deliveries</span>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pendingDeliveries">
+                                <i class="bi bi-exclamation-triangle"></i><span class="ms-2">Deliveries Needing Attention</span>
                             </button>
                         </div>
-                        <div class="accordion-collapse collapse" id="deliverisPanel">
+                        <div class="accordion-collapse collapse" id="pendingDeliveries">
                             <div class="accordion-body ms-4">
-                                <table class="table" id="deliveriesTable">
+                                <table class="table" id="pendingDeliveriesTable">
                                     <thead>
                                     <th>Order ID</th>
                                     <th>Ordered Date</th>
+                                    <th>Status</th>
                                     <th>Amount</th>
                                     <th></th>
                                     </thead>
@@ -103,14 +105,46 @@
                                         <%
                                             List<Orders> allDeliveries = ordersFacade.getAssignedDeliveries(user);
                                             for (Orders order : allDeliveries) {
+                                                if (order.getStatus() == OrderStatus.Delivering || order.getStatus() == OrderStatus.Assigned)
                                                 out.println("<tr>");
                                                 out.println("<td>" + order.getId() + "</td>");
                                                 out.println("<td>" + order.getSubmittedTime() + "</td>");
+                                                out.println("<td>" + order.getStatus() + "</td>");
                                                 out.println("<td>" + order.getTotalAmount() + "</td>");
-                                                if (order.getStatus() != Enums.OrderStatus.Delivered) {
-                                                    out.println("<td><a href=\"updateorderstatus.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-primary\">Update status</span></a></td>");
-                                                }
-                                                out.println("<td><a href=\"viewdeliverydetails.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-primary\">View Details</span></a></td>");
+                                                out.println("<td><a href=\"orderdetails.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-secondary\">View Details</span></a></td>");
+                                                out.println("</tr>");
+                                            }
+                                        %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#allDeliveries">
+                                <i class="bi bi-truck"></i><span class="ms-2">All Deliveries</span>
+                            </button>
+                        </div>
+                        <div class="accordion-collapse collapse" id="allDeliveries">
+                            <div class="accordion-body ms-4">
+                                <table class="table" id="allDeliveriesTable">
+                                    <thead>
+                                    <th>Order ID</th>
+                                    <th>Ordered Date</th>
+                                    <th>Status</th>
+                                    <th>Amount</th>
+                                    <th></th>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                            for (Orders order : allDeliveries) {
+                                                out.println("<tr>");
+                                                out.println("<td>" + order.getId() + "</td>");
+                                                out.println("<td>" + order.getSubmittedTime() + "</td>");
+                                                out.println("<td>" + order.getStatus() + "</td>");
+                                                out.println("<td>" + order.getTotalAmount() + "</td>");
+                                                out.println("<td><a href=\"orderdetails.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-secondary\">View Details</span></a></td>");
                                                 out.println("</tr>");
                                             }
                                         %>
@@ -122,14 +156,15 @@
                 </div>
             </div>
         </div>
-                                    
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
         <script>
             $(document).ready(function () {
-                $('#deliveriesTable').DataTable();
+                $('#pendingDeliveriesTable').DataTable();
+                $('#allDeliveriesTable').DataTable();
             });
         </script>
 

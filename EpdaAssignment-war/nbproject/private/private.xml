@@ -3,14 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/addproduct.jsp</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/orderdetails.jsp</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/authentication/Login.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/deliveries/AssignDeliveryStaff.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/orders/UpdateOrder.java</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/WEB-INF/jspf/delivery_navbar.jspf</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/orderslist.jsp</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/assigndelivery.jsp</file>
+            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/adminhome.jsp</file>
         </group>
     </open-files>
 </project-private>
