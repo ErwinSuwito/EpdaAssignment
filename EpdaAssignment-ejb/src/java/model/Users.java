@@ -21,13 +21,13 @@ import model.Enums.LoginStateRole;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Users.FindByEmail",
-            query = "SELECT u FROM Users u WHERE u.email = :email"),
+            query = "SELECT u FROM Users u WHERE u.email = :email AND u.isDeleted = false"),
     @NamedQuery(name = "Users.FindCustomers",
-            query = "SELECT u FROM Users u WHERE u.role = model.Enums.LoginStateRole.Customer"),
+            query = "SELECT u FROM Users u WHERE u.role = model.Enums.LoginStateRole.Customer AND u.isDeleted = false"),
     @NamedQuery(name = "Users.FindStaffs",
-            query = "SELECT u FROM Users u WHERE u.role != model.Enums.LoginStateRole.Customer"),
+            query = "SELECT u FROM Users u WHERE u.role != model.Enums.LoginStateRole.Customer AND u.isDeleted = false"),
     @NamedQuery(name = "Users.FindDeliveryStaffs",
-            query = "SELECT u FROM Users u WHERE u.role = model.Enums.LoginStateRole.DeliveryStaff")
+            query = "SELECT u FROM Users u WHERE u.role = model.Enums.LoginStateRole.DeliveryStaff AND u.isDeleted = false")
 })
 public class Users implements Serializable {
 
