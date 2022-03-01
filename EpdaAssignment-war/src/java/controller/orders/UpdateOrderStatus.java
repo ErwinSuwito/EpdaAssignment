@@ -15,17 +15,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Users;
 import model.Enums;
+import model.Enums.OrderStatus;
 import model.Orders;
 import model.OrdersFacade;
+import model.Users;
 
 /**
  *
  * @author erwin
  */
-@WebServlet(name = "UpdateOrder", urlPatterns = {"/UpdateOrder"})
-public class UpdateOrder extends HttpServlet {
+@WebServlet(name = "UpdateOrderStatus", urlPatterns = {"/UpdateOrderStatus"})
+public class UpdateOrderStatus extends HttpServlet {
 
     @EJB
     private OrdersFacade ordersFacade;
@@ -46,40 +47,24 @@ public class UpdateOrder extends HttpServlet {
         // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
         Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
-        if (state != Enums.LoginStateRole.Customer) {
+        if (state != Enums.LoginStateRole.DeliveryStaff) {
             response.sendRedirect("unauthorized.jsp");
             return;
         }
         
-        if (request.getParameter("orderId") == null) {
+        if (request.getParameter("orderId") == null || request.getParameter("orderStatus") == null) {
             response.sendRedirect("notfound.jsp");
             return;
         }
         
-        Users customer = (Users)session.getAttribute("login");
-        
+        Users staff = (Users)session.getAttribute("login");
         Orders order = ordersFacade.find(Long.parseLong(request.getParameter("orderId")));
+        OrderStatus status = request.getParameter("orderStatus").equals("Assigned") ? OrderStatus.Assigned : OrderStatus.Delivering;
+        if (status == OrderStatus.Assigned) 
+            order.setAssignedTime(LocalDateTime.now());
         
-        if (order == null) {
-            response.sendRedirect("notfound.jsp");
-            return;
-        }
-        
-        if (!order.getCustomer().getId().equals(customer.getId())) {
-            response.sendRedirect("unauthorized.jsp");
-            return;
-        }
-        
-        if (order.getStatus() != Enums.OrderStatus.Pending ||
-                order.getStatus() != Enums.OrderStatus.Assigned) {
-            String address = request.getParameter("address");
-            order.setAddress(address);
-            ordersFacade.edit(order);
-        }
-        
-        session.setAttribute("notice", "We can't modify your order at this time. ");
-        session.setAttribute("noticeBg", "warning");
-        response.sendRedirect("myorders.jsp");
+        ordersFacade.edit(order);
+        response.sendRedirect("orderdetails.jsp?id=" + order.getId());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
