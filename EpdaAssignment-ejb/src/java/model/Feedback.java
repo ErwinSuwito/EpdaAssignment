@@ -29,13 +29,15 @@ public class Feedback implements Serializable {
     private LocalDateTime submittedOn;
     private int starCount;
     private String comment;
+    private Boolean isDeleted;
 
-    public Feedback(Long id, Orders order, LocalDateTime submittedOn, int starCount, String comment) {
+    public Feedback(Long id, Orders order, LocalDateTime submittedOn, int starCount, String comment, Boolean isDeleted) {
         this.id = id;
         this.order = order;
         this.submittedOn = submittedOn;
         this.starCount = starCount;
         this.comment = comment;
+        this.isDeleted = isDeleted;
     }
 
     public Feedback(Orders order, LocalDateTime submittedOn, int starCount, String comment) {
@@ -43,9 +45,18 @@ public class Feedback implements Serializable {
         this.submittedOn = submittedOn;
         this.starCount = starCount;
         this.comment = comment;
+        this.isDeleted = false;
     }
 
     public Feedback() {
+    }
+
+    public Boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
     public Orders getOrder() {

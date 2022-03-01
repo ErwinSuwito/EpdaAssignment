@@ -42,8 +42,9 @@ public class Users implements Serializable {
     private String phoneNumber;
     private String icNumber;
     private LoginStateRole role;
+    private Boolean isDeleted;
 
-    public Users(Long id, String email, String password, String name, Boolean isMale, String phoneNumber, String icNumber, LoginStateRole role) {
+    public Users(Long id, String email, String password, String name, Boolean isMale, String phoneNumber, String icNumber, LoginStateRole role, Boolean isDeleted) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -52,6 +53,7 @@ public class Users implements Serializable {
         this.phoneNumber = phoneNumber;
         this.icNumber = icNumber;
         this.role = role;
+        this.isDeleted = isDeleted;
     }
 
     public Users(String email, String password, String name, Boolean isMale, String phoneNumber, String icNumber, LoginStateRole role) {
@@ -62,6 +64,7 @@ public class Users implements Serializable {
         this.phoneNumber = phoneNumber;
         this.icNumber = icNumber;
         this.role = role;
+        this.isDeleted = false;
     }
 
     public Users(String email, String password, String name, String phoneNumber) {
@@ -70,9 +73,18 @@ public class Users implements Serializable {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.role = LoginStateRole.Customer;
+        this.isDeleted = false;
     }
 
     public Users() {
+    }
+
+    public Boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
     public String getEmail() {

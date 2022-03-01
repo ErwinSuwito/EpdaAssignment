@@ -33,14 +33,16 @@ public class Product implements Serializable {
     private int quantity;
     private double price;
     private String productImage;
+    private Boolean isDeleted;
 
-    public Product(Long id, String productName, String description, int quantity, double price, String productImage) {
+    public Product(Long id, String productName, String description, int quantity, double price, String productImage, Boolean isDeleted) {
         this.id = id;
         this.productName = productName;
         this.description = description;
         this.quantity = quantity;
         this.price = price;
         this.productImage = productImage;
+        this.isDeleted = isDeleted;
     }
 
     public Product(String productName, String description, int quantity, double price, String productImage) {
@@ -49,9 +51,18 @@ public class Product implements Serializable {
         this.quantity = quantity;
         this.price = price;
         this.productImage = productImage;
+        this.isDeleted = false;
     }
 
     public Product() {
+    }
+
+    public Boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
     public String getProductImage() {
