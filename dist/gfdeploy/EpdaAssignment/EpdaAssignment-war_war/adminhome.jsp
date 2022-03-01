@@ -91,7 +91,7 @@
                         </a>
                     </div>
                     <div class="col">
-                        <a href="orderlist.jsp">
+                        <a href="orderslist.jsp">
                             <div class="card border-primary">
                                 <div class="card-body">
                                     <i class="bi bi-arrow-right text-success"></i><span class="ms-3">View Orders</span>
