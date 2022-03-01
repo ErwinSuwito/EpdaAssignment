@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,8 +35,9 @@ public class Product implements Serializable {
     private double price;
     private String productImage;
     private Boolean isDeleted;
+    private LocalDateTime createdTime;
 
-    public Product(Long id, String productName, String description, int quantity, double price, String productImage, Boolean isDeleted) {
+    public Product(Long id, String productName, String description, int quantity, double price, String productImage, Boolean isDeleted, LocalDateTime createdTime) {
         this.id = id;
         this.productName = productName;
         this.description = description;
@@ -43,6 +45,7 @@ public class Product implements Serializable {
         this.price = price;
         this.productImage = productImage;
         this.isDeleted = isDeleted;
+        this.createdTime = createdTime;
     }
 
     public Product(String productName, String description, int quantity, double price, String productImage) {
@@ -52,6 +55,7 @@ public class Product implements Serializable {
         this.price = price;
         this.productImage = productImage;
         this.isDeleted = false;
+        this.createdTime = LocalDateTime.now();
     }
 
     public Product() {
