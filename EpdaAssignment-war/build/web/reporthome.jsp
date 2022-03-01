@@ -43,7 +43,7 @@
                     </a>
                 </div>
                 <div class="col mb-3">
-                    <a href="addproduct.jsp">
+                    <a href="delivery_workload.jsp">
                         <div class="card border-primary">
                             <div class="card-body">
                                 <i class="bi bi-arrow-right text-success"></i><span class="ms-3">Monthly Delivery Workload</span>
@@ -52,7 +52,7 @@
                     </a>
                 </div>
                 <div class="col mb-3">
-                    <a href="addproduct.jsp">
+                    <a href="new_products.jsp">
                         <div class="card border-primary">
                             <div class="card-body">
                                 <i class="bi bi-arrow-right text-success"></i><span class="ms-3">Monthly New Products</span>
@@ -61,7 +61,7 @@
                     </a>
                 </div>
                 <div class="col mb-3">
-                    <a href="addproduct.jsp">
+                    <a href="new_customers.jsp">
                         <div class="card border-primary">
                             <div class="card-body">
                                 <i class="bi bi-arrow-right text-success"></i><span class="ms-3">Monthly New Customers</span>
