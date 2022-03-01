@@ -1,3 +1,4 @@
+<%@page import="model.Enums.OrderStatus"%>
 <%@page import="java.time.format.TextStyle"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.time.LocalDateTime"%>
@@ -9,7 +10,7 @@
 <%
     Context context = new InitialContext();
     UsersFacade usersFacade = (UsersFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/UsersFacade");
-    ProductFacade productFacade = (ProductFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/ProductFacade");
+    OrdersFacade ordersFacade = (OrdersFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/OrdersFacade");
 %>
 <!doctype html>
 <html lang="en">
@@ -40,22 +41,26 @@
             <div class="col mt-4">
                 <table class="table">
                     <thead>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Created Date</th>
+                    <th>Staff Name</th>
+                    <th>Number of Deliveries Made</th>
                     </thead>
                     <tbody>
                         <%
-                            List<Users> users = usersFacade.findAllCustomers();
+                            List<Users> users = usersFacade.findAllStaffs();
                             for (Users user : users) {
                                 if ((user.getCreatedDate().getYear() == LocalDateTime.now().getYear())
                                         && (user.getCreatedDate().getMonth() == LocalDateTime.now().getMonth())) {
                                     out.println("<tr>");
                                     out.println("<td>" + user.getName() + "</td>");
-                                    out.println("<td>" + user.getEmail() + "</td>");
-                                    out.println("<td>" + user.getPhoneNumber() + "</td>");
-                                    out.println("<td>" + user.getCreatedDate() + "</td>");
+                                    int numberOfDeliveries = 0;
+                                    List<Orders> orders = ordersFacade.getAssignedDeliveriesFilteredByStatus(user, OrderStatus.Delivered);
+                                    for (Orders order : orders) {
+                                        if ((order.getDeliveredTime().getYear() == LocalDateTime.now().getYear()) 
+                                                && (order.getDeliveredTime().getMonth() == LocalDateTime.now().getMonth())) {
+                                            numberOfDeliveries++;
+                                        }
+                                    }
+                                    out.println("<td>" + numberOfDeliveries + " deliveries</td>");
                                     out.println("</tr>");
                                 }
                             }
