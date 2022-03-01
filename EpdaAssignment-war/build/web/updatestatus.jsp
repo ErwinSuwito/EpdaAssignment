@@ -51,6 +51,9 @@
             <h2>Update Order Status</h2>
             <h6>Order ID <% out.print(order.getId()); %></h6>
             <div class="row mt-4">
+                <div class="alert alert-warning">
+                    Updating the status to Delivered will automatically generate the receipt.
+                </div>
                 <%
                     String notice = (String) request.getSession(false).getAttribute("notice");
                     String noticeBg = (String) request.getSession(false).getAttribute("noticeBg");

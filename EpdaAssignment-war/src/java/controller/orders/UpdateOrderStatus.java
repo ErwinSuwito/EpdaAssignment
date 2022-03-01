@@ -77,7 +77,12 @@ public class UpdateOrderStatus extends HttpServlet {
         
         order.setStatus(status);
         ordersFacade.edit(order);
-        response.sendRedirect("orderdetails.jsp?id=" + order.getId());
+        
+        if (status == OrderStatus.Delivered) {
+            response.sendRedirect("receipt.jsp?id=" + order.getId());
+        } else {
+            response.sendRedirect("orderdetails.jsp?id=" + order.getId());
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
