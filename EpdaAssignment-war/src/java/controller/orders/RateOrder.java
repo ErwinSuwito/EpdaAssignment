@@ -15,12 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Users;
-import model.Enums;
-import model.Feedback;
-import model.FeedbackFacade;
-import model.Orders;
-import model.OrdersFacade;
+import model.*;
 
 /**
  *
@@ -70,14 +65,19 @@ public class RateOrder extends HttpServlet {
             return;
         }
         
+        if (request.getParameter("comment") == null || request.getParameter("starCount") == null) {
+            response.sendRedirect("submitrateandfeedback.jsp?id" + order.getId());
+            return;
+        }
+        
         int starCount = Integer.parseInt(request.getParameter("stars"));
         String comment = request.getParameter("comment");
         LocalDateTime submittedOn = LocalDateTime.now();
         
-        Feedback feedback = new Feedback(order, submittedOn, starCount, comment);
+        Feedback feedback = new Feedback(order, starCount, comment);
         feedbackFacade.create(feedback);
         
-        response.sendRedirect("myorders.jsp");
+        response.sendRedirect("orderdetails.jsp?id=" + order.getId());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
