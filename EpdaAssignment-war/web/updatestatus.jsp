@@ -70,6 +70,7 @@
                                 <option selected>Select status</option>
                                 <option value="Assigned">Assigned</option>
                                 <option value="Delivering">Delivering</option>
+                                <option value="Delivered">Delivered</option>
                             </select>
                         </div>
                     </div>
