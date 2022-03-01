@@ -40,9 +40,9 @@ public class Feedback implements Serializable {
         this.isDeleted = isDeleted;
     }
 
-    public Feedback(Orders order, LocalDateTime submittedOn, int starCount, String comment) {
+    public Feedback(Orders order, int starCount, String comment) {
         this.order = order;
-        this.submittedOn = submittedOn;
+        this.submittedOn = LocalDateTime.now();
         this.starCount = starCount;
         this.comment = comment;
         this.isDeleted = false;
