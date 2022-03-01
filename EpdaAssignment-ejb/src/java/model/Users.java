@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -43,8 +44,9 @@ public class Users implements Serializable {
     private String icNumber;
     private LoginStateRole role;
     private Boolean isDeleted;
+    private LocalDateTime createdDate;
 
-    public Users(Long id, String email, String password, String name, Boolean isMale, String phoneNumber, String icNumber, LoginStateRole role, Boolean isDeleted) {
+    public Users(Long id, String email, String password, String name, Boolean isMale, String phoneNumber, String icNumber, LoginStateRole role, Boolean isDeleted, LocalDateTime createdDate) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -54,6 +56,7 @@ public class Users implements Serializable {
         this.icNumber = icNumber;
         this.role = role;
         this.isDeleted = isDeleted;
+        this.createdDate = createdDate;
     }
 
     public Users(String email, String password, String name, Boolean isMale, String phoneNumber, String icNumber, LoginStateRole role) {
@@ -65,6 +68,7 @@ public class Users implements Serializable {
         this.icNumber = icNumber;
         this.role = role;
         this.isDeleted = false;
+        this.createdDate = LocalDateTime.now();
     }
 
     public Users(String email, String password, String name, String phoneNumber) {
@@ -74,6 +78,7 @@ public class Users implements Serializable {
         this.phoneNumber = phoneNumber;
         this.role = LoginStateRole.Customer;
         this.isDeleted = false;
+        this.createdDate = LocalDateTime.now();
     }
 
     public Users() {
