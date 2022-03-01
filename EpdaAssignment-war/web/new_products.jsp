@@ -41,7 +41,7 @@
                     <thead>
                     <th>Product Name</th>
                     <th>Price</th>
-                    <th>Quantity</th>
+                    <th>Description</th>
                     </thead>
                     <tbody>
                         <%
@@ -50,15 +50,16 @@
                                 if ((product.getCreatedTime().getYear() == LocalDateTime.now().getYear())
                                         && (product.getCreatedTime().getMonth() == LocalDateTime.now().getMonth())) {
                                     out.println("<tr>");
-                                    out.println("<td>" + product.getProductName()+ "</td>");
+                                    out.println("<td>" + product.getProductName() + "</td>");
                                     out.println("<td>" + product.getPrice() + "</td>");
-                                    out.println("<td>" + product.getQuantity() + "</td>");
+                                    out.println("<td>" + product.getDescription() + "</td>");
                                     out.println("</tr>");
                                 }
                             }
                         %>
                     </tbody>
                 </table>
+                <p>Report generated on: <% out.print(LocalDateTime.now().toString());%></p>
             </div>
         </div>
         <script>

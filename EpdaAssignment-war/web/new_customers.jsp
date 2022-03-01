@@ -61,6 +61,7 @@
                         %>
                     </tbody>
                 </table>
+                <p>Report generated on: <% out.print(LocalDateTime.now().toString());%></p>
             </div>
         </div>
         <script>
