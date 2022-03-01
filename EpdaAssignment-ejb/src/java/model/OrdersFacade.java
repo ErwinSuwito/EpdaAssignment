@@ -7,6 +7,7 @@ package model;
 
 import helpers.SortOrdersById;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -30,9 +31,17 @@ public class OrdersFacade extends AbstractFacade<Orders> {
     }
     
     @Override
-    public void remove(Orders order) {
-        order.setStatus(OrderStatus.Deleted);
-        this.edit(order);
+    public List<Orders> findAll() {
+        List<Orders> allRecords = super.findAll();
+        List<Orders> allOrders = new ArrayList<>();
+        
+        for (Orders order : allRecords) {
+            if (order.getStatus() != OrderStatus.Deleted) {
+                allOrders.add(order);
+            }
+        }
+        
+        return allOrders;
     }
 
     public OrdersFacade() {
