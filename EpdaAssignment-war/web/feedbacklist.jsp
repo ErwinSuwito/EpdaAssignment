@@ -30,10 +30,6 @@
         <div class="container mt-5">
             <h2>Feedbacks</h2>
             <div class="col-12 mt-4">
-                <a href="addproduct.jsp">
-                    <span class="btn btn-primary mb-3">Add Product</span>
-                </a>
-
                 <table id="feedbackTable" class="table table-stripped" style="width:100%">
                     <thead>
                     <th>Submitted On</th>

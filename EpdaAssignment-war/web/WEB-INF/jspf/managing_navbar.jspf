@@ -23,7 +23,7 @@
           <a class="nav-link" href="feedbacklist.jsp">Feedbacks</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="reports.jsp">Reports</a>
+          <a class="nav-link" href="reporthome.jsp">Reports</a>
         </li>
       </ul>
       <%@include file="navbar_account.jspf"%>

@@ -5,7 +5,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import model.Enums.LoginStateRole;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2022-03-01T18:40:46")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2022-03-01T19:03:15")
 @StaticMetamodel(Users.class)
 public class Users_ { 
 
