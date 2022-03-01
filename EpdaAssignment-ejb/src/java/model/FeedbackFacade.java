@@ -23,7 +23,13 @@ public class FeedbackFacade extends AbstractFacade<Feedback> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
+    @Override
+    public void remove(Feedback feedback) {
+        feedback.setIsDeleted(true);
+        this.edit(feedback);
+    }
+    
     public FeedbackFacade() {
         super(Feedback.class);
     }

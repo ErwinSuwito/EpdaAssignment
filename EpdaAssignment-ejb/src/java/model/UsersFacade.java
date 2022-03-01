@@ -24,6 +24,12 @@ public class UsersFacade extends AbstractFacade<Users> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    @Override
+    public void remove(Users user) {
+        user.setIsDeleted(true);
+        this.edit(user);
+    }
 
     public UsersFacade() {
         super(Users.class);

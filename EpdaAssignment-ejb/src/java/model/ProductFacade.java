@@ -24,6 +24,12 @@ public class ProductFacade extends AbstractFacade<Product> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    @Override
+    public void remove(Product product) {
+        product.setIsDeleted(true);
+        this.edit(product);
+    }
 
     public ProductFacade() {
         super(Product.class);

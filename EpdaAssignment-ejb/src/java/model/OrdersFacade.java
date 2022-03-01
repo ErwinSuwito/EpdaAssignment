@@ -28,6 +28,12 @@ public class OrdersFacade extends AbstractFacade<Orders> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    @Override
+    public void remove(Orders order) {
+        order.setStatus(OrderStatus.Deleted);
+        this.edit(order);
+    }
 
     public OrdersFacade() {
         super(Orders.class);
