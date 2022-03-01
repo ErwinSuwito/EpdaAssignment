@@ -25,7 +25,7 @@
             <p>Select the type of report to view</p>
             <div class="col-5 mt-4">
                 <div class="col mb-3">
-                    <a href="addproduct.jsp">
+                    <a href="monthly_purchases_revenue.jsp">
                         <div class="card border-primary">
                             <div class="card-body">
                                 <i class="bi bi-arrow-right text-success"></i><span class="ms-3">Monthly Purchases and Revenue</span>

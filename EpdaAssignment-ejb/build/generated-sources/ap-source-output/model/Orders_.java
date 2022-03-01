@@ -9,7 +9,7 @@ import model.Enums.OrderStatus;
 import model.OrderProduct;
 import model.Users;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2022-03-01T19:03:15")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2022-03-01T19:37:08")
 @StaticMetamodel(Orders.class)
 public class Orders_ { 
 
