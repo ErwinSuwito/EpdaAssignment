@@ -234,7 +234,7 @@
                             <div class="accordion-body ms-4">
                                 <%
                                     if (user.getRole() == LoginStateRole.ManagingStaff) {
-                                        if (order.getStatus() == OrderStatus.Pending || order.getStatus() == OrderStatus.Assigned) {
+                                    if (order.getStatus() == OrderStatus.Pending || order.getStatus() == OrderStatus.Assigned) {
                                             out.println("<span class=\"btn btn-warning btn-sm\"><a href=\"assigndelivery.jsp?id=" + order.getId() + "\">Assign Delivery</a></span>");
                                         }
                                     }

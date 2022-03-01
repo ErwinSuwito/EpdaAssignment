@@ -84,6 +84,7 @@ public class EditCustomer extends HttpServlet {
         
         customerToEdit.setEmail(email);
         customerToEdit.setPhoneNumber(phoneNumber);
+        customerToEdit.setName(name);
         
         if (request.getParameter("password") != null) {
             if (!request.getParameter("password").isEmpty())
