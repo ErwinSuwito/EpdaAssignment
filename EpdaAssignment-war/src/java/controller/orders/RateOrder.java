@@ -53,7 +53,12 @@ public class RateOrder extends HttpServlet {
         
         Users customer = (Users)session.getAttribute("login");
         
-        Orders order = ordersFacade.find(request.getParameter("orderId"));
+        if (request.getParameter("id") == null) {
+            response.sendRedirect("customer_profile.jsp");
+            return;
+        }
+        
+        Orders order = ordersFacade.find(Long.parseLong(request.getParameter("id")));
         
         if (order == null) {
             response.sendRedirect("notfound.jsp");
@@ -65,8 +70,8 @@ public class RateOrder extends HttpServlet {
             return;
         }
         
-        if (request.getParameter("comment") == null || request.getParameter("starCount") == null) {
-            response.sendRedirect("submitrateandfeedback.jsp?id" + order.getId());
+        if (request.getParameter("comment") == null || request.getParameter("stars") == null) {
+            response.sendRedirect("rateservice.jsp?=id" + order.getId());
             return;
         }
         

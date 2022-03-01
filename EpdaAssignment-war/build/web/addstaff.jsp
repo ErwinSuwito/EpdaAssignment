@@ -15,8 +15,8 @@
         // Gets the current session to check if user is logged in
         Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
         if (state != Enums.LoginStateRole.ManagingStaff) {
-            //response.sendRedirect("unauthorized.jsp");
-            //return;
+            response.sendRedirect("unauthorized.jsp");
+            return;
         }
     %>
     <body>
