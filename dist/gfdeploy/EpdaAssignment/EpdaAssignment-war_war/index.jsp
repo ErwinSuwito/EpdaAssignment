@@ -23,12 +23,12 @@
         // Redirects user to proper home pages for staffs
         LoginStateRole state = helpers.Helpers.checkLoginState(session);
         if (state == LoginStateRole.DeliveryStaff) {
-            response.sendRedirect("adminhome.jsp");
+            response.sendRedirect("delivery_profile.jsp");
             return;
         }
 
         if (state == Enums.LoginStateRole.ManagingStaff) {
-            response.sendRedirect("adminhome.jsp");
+            response.sendRedirect("admin_profile.jsp");
             return;
         }
     %>

@@ -66,7 +66,7 @@ public class Login extends HttpServlet {
                         break;
                         
                     case ManagingStaff: 
-                        redirectTo = "adminhome.jsp";
+                        redirectTo = "admin_profile.jsp";
                         break;
                         
                     case DeliveryStaff:
