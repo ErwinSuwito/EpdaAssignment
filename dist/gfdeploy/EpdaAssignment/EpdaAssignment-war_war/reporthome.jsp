@@ -34,10 +34,10 @@
                     </a>
                 </div>
                 <div class="col mb-3">
-                    <a href="addproduct.jsp">
+                    <a href="monthly_completion_time.jsp">
                         <div class="card border-primary">
                             <div class="card-body">
-                                <i class="bi bi-arrow-right text-success"></i><span class="ms-3">Monthly Delivery Times</span>
+                                <i class="bi bi-arrow-right text-success"></i><span class="ms-3">Monthly Order Completion Times</span>
                             </div>
                         </div>
                     </a>
