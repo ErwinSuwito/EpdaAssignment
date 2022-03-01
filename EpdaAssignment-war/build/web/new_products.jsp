@@ -33,7 +33,7 @@
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
             <h6 class="text-uppercase">report</h6>
-            <h2>Monthly New Customers </h2>
+            <h2>Monthly New Products</h2>
             <p><% out.print(LocalDateTime.now().getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + LocalDateTime.now().getYear()); %></p>
             <button class="btn btn-outline-primary btn-sm mt-2 d-print-none" onclick="printReport()"><i class="bi bi-printer"></i>    Print</button>
             <div class="col mt-4">

@@ -8,6 +8,7 @@
 <%@page import="javax.naming.Context"%>
 <%
     Context context = new InitialContext();
+    UsersFacade usersFacade = (UsersFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/UsersFacade");
     ProductFacade productFacade = (ProductFacade) context.lookup("java:global/EpdaAssignment/EpdaAssignment-ejb/ProductFacade");
 %>
 <!doctype html>
@@ -19,7 +20,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
         <link href="site.css" rel="stylesheet">
-        <title>Monthly New Products | APStore </title>
+        <title>Monthly Delivery Workload | APStore </title>
     </head>
     <%
         // Gets the current session to check if user is logged in
@@ -33,26 +34,28 @@
         <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
         <div class="container mt-5">
             <h6 class="text-uppercase">report</h6>
-            <h2>Monthly New Products</h2>
+            <h2>Monthly Delivery Workload</h2>
             <p><% out.print(LocalDateTime.now().getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + LocalDateTime.now().getYear()); %></p>
             <button class="btn btn-outline-primary btn-sm mt-2 d-print-none" onclick="printReport()"><i class="bi bi-printer"></i>    Print</button>
             <div class="col mt-4">
                 <table class="table">
                     <thead>
-                    <th>Product Name</th>
-                    <th>Price</th>
-                    <th>Description</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Created Date</th>
                     </thead>
                     <tbody>
                         <%
-                            List<Product> products = productFacade.findAll();
-                            for (Product product : products) {
-                                if ((product.getCreatedTime().getYear() == LocalDateTime.now().getYear())
-                                        && (product.getCreatedTime().getMonth() == LocalDateTime.now().getMonth())) {
+                            List<Users> users = usersFacade.findAllCustomers();
+                            for (Users user : users) {
+                                if ((user.getCreatedDate().getYear() == LocalDateTime.now().getYear())
+                                        && (user.getCreatedDate().getMonth() == LocalDateTime.now().getMonth())) {
                                     out.println("<tr>");
-                                    out.println("<td>" + product.getProductName() + "</td>");
-                                    out.println("<td>" + product.getPrice() + "</td>");
-                                    out.println("<td>" + product.getDescription() + "</td>");
+                                    out.println("<td>" + user.getName() + "</td>");
+                                    out.println("<td>" + user.getEmail() + "</td>");
+                                    out.println("<td>" + user.getPhoneNumber() + "</td>");
+                                    out.println("<td>" + user.getCreatedDate() + "</td>");
                                     out.println("</tr>");
                                 }
                             }
