@@ -55,7 +55,7 @@
                                 <option selected>Select delivery staff</option>
                                 <%
                                     for (Users staff : deliveryStaffs) {
-                                        out.println("<option value=\"" + staff.getId() + "\">" + staff.getName() + "");
+                                        out.println("<option value=\"" + staff.getId() + "\">" + staff.getName() + "</option>");
                                     }
                                 %>
                             </select>
