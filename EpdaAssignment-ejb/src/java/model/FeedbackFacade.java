@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,6 +30,20 @@ public class FeedbackFacade extends AbstractFacade<Feedback> {
     public void remove(Feedback feedback) {
         feedback.setIsDeleted(true);
         this.edit(feedback);
+    }
+    
+    @Override
+    public List<Feedback> findAll() {
+        List<Feedback> allRecords = super.findAll();
+        List<Feedback> allFeedbacks = new ArrayList<>();
+        
+        for (Feedback feedback : allRecords) {
+            if (feedback.getIsDeleted() == false) {
+                allFeedbacks.add(feedback);
+            }
+        }
+        
+        return allFeedbacks;
     }
     
     public FeedbackFacade() {

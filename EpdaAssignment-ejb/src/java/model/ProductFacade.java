@@ -5,10 +5,12 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import model.Enums.OrderStatus;
 
 /**
  *
@@ -29,6 +31,20 @@ public class ProductFacade extends AbstractFacade<Product> {
     public void remove(Product product) {
         product.setIsDeleted(true);
         this.edit(product);
+    }
+    
+    @Override
+    public List<Product> findAll() {
+        List<Product> allRecords = super.findAll();
+        List<Product> allProducts = new ArrayList<>();
+        
+        for (Product product : allRecords) {
+            if (product.getIsDeleted() == false) {
+                allProducts.add(product);
+            }
+        }
+        
+        return allProducts;
     }
 
     public ProductFacade() {
