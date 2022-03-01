@@ -29,20 +29,6 @@ public class OrdersFacade extends AbstractFacade<Orders> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
-    @Override
-    public List<Orders> findAll() {
-        List<Orders> allRecords = super.findAll();
-        List<Orders> allOrders = new ArrayList<>();
-        
-        for (Orders order : allRecords) {
-            if (order.getStatus() != OrderStatus.Deleted) {
-                allOrders.add(order);
-            }
-        }
-        
-        return allOrders;
-    }
 
     public OrdersFacade() {
         super(Orders.class);
