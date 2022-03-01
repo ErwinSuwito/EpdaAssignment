@@ -61,6 +61,14 @@ public class Product implements Serializable {
     public Product() {
     }
 
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
+    }
+
     public Boolean getIsDeleted() {
         return isDeleted;
     }
