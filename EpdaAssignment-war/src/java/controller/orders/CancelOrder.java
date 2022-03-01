@@ -17,9 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Users;
 import model.Enums;
+import model.Enums.OrderStatus;
 import model.OrderProduct;
 import model.Orders;
 import model.OrdersFacade;
+import model.Product;
 import model.ProductFacade;
 
 /**
@@ -56,22 +58,34 @@ public class CancelOrder extends HttpServlet {
             return;
         }
         
-        Users customer = (Users)session.getAttribute("customerLogin");
+        Users customer = (Users)session.getAttribute("login");
         
         Orders order = ordersFacade.find(request.getParameter("orderId"));
-
-        if (order.getCustomer().getId().equals(customer.getId())) {
+        
+        if (!order.getCustomer().getId().equals(customer.getId())) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
+        }
+        
+        if (order.getStatus() == OrderStatus.Delivering 
+                || order.getStatus() == OrderStatus.Deleted) {
+            session.setAttribute("notice", "Sorry. We can't delete your order at this time.");
+            session.setAttribute("noticeBg", "danger");
+            
+            return;
+        }
+        
+        if (order.getStatus() == OrderStatus.Assigned || order.getStatus() == OrderStatus.Pending) {
             // Re-add the number of quantity for each products purchased
             for(OrderProduct orderProduct : order.getProductBasket()) {
-                orderProduct.getProduct().incrementQuantity(orderProduct.getQuantityPurchased());
-                productFacade.edit(orderProduct.getProduct());
+                Product product = orderProduct.getProduct();
+                product.incrementQuantity(orderProduct.getQuantityPurchased());
+                productFacade.edit(product);
             }
-            
-            ordersFacade.remove(order);
-            response.sendRedirect("myorders.jsp");
-        } else {
-            response.sendRedirect("unauthorized.jsp");
         }
+        
+        ordersFacade.remove(order);
+        response.sendRedirect("customer_profile.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -44,8 +44,8 @@
                 }
             %>
             <div class="col-8 mt-4">
-                <form action="DeleteProduct" method="POST">
-                    <input type="hidden" name="id" id="id" value="<% out.print(order.getId()); %>">
+                <form action="CancelOrder" method="POST">
+                    <input type="hidden" name="orderId" id="orderId" value="<% out.print(order.getId()); %>">
                     <button type="submit" value="submit" class="btn btn-danger">Cancel Order and Delete</button>
                     <a href="customer_profile.jsp"><span class="btn btn-primary">Go Back</span></a>
                 </form>
