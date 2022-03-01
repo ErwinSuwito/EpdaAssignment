@@ -84,6 +84,14 @@ public class Users implements Serializable {
     public Users() {
     }
 
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
     public Boolean getIsDeleted() {
         return isDeleted;
     }
