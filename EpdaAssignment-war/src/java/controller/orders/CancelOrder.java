@@ -58,9 +58,14 @@ public class CancelOrder extends HttpServlet {
             return;
         }
         
+        if (request.getParameter("orderId") == null) {
+            response.sendRedirect("notfound.jsp");
+            return;
+        }
+        
         Users customer = (Users)session.getAttribute("login");
         
-        Orders order = ordersFacade.find(request.getParameter("orderId"));
+        Orders order = ordersFacade.find(Long.parseLong(request.getParameter("orderId")));
         
         if (!order.getCustomer().getId().equals(customer.getId())) {
             response.sendRedirect("unauthorized.jsp");
