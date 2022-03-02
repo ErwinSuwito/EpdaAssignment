@@ -79,7 +79,7 @@
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <span class="input-group-text">RM</span>
-                                <input type="number" class="form-control" id="totalAmount" name="totalAmount" step="0.01" required>
+                                <input type="number" class="form-control" id="totalAmount" name="totalAmount" step="0.01" value="<% out.print(order.getTotalAmount()); %>" disabled readodnly>
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <span class="input-group-text">RM</span>
-                                <input type="number" class="form-control" id="amountTendered" name="amountTendered" step="0.01" required>
+                                <input type="number" class="form-control" id="amountTendered" name="amountTendered" step="0.01" min="<% out.print(order.getTotalAmount()); %>" required>
                             </div>
                         </div>
                     </div>
