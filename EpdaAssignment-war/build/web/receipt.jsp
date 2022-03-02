@@ -111,6 +111,8 @@
                                 </div>
                                 <div class="col-2">
                                     <span class="fw-bold">RM <% out.print(order.getTotalAmount());%></span>
+                                    <span class="fw-bold">RM <% out.print(order.getAmountTendered());%></span>
+                                    <span class="fw-bold">RM <% out.print(order.getAmountTendered() - order.getTotalAmount());%></span>
                                 </div>
                             </div>
                             <hr>

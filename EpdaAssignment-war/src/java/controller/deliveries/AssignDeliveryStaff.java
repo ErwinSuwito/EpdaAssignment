@@ -60,6 +60,13 @@ public class AssignDeliveryStaff extends HttpServlet {
             return;
         }
         
+        if (request.getParameter("staffId").equals("Select delivery staff")) {
+            session.setAttribute("notice", "Please select a delivery staff.");
+            session.setAttribute("noticeBg", "danger");
+            response.sendRedirect("assigndelivery.jsp?id=" + request.getParameter("orderId"));
+            return;
+        }
+        
         Long orderId = Long.parseLong(request.getParameter("orderId"));
         Orders order = ordersFacade.find(orderId);
         
