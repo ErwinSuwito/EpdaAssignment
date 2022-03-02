@@ -42,7 +42,7 @@ public class OrdersFacade extends AbstractFacade<Orders> {
         ArrayList<Orders> filteredOrders = new ArrayList<>();
         
         for (Orders order : allOrders) {
-            if (order.getStatus() == OrderStatus.Deleted) {
+            if (order.getStatus() != OrderStatus.Deleted) {
                 filteredOrders.add(order);
             }
         }
