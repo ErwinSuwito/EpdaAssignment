@@ -52,7 +52,7 @@
             <h6>Order ID <% out.print(order.getId()); %></h6>
             <div class="row mt-4">
                 <div class="alert alert-warning">
-                    Updating the status to Delivered will automatically generate the receipt.
+                    <a href="completeorder.jsp?id=<% out.print(order.getId()); %>">Click here</a> to mark the order as completed and generate a receipt.
                 </div>
                 <%
                     String notice = (String) request.getSession(false).getAttribute("notice");
@@ -73,7 +73,6 @@
                                 <option selected>Select status</option>
                                 <option value="Assigned">Assigned</option>
                                 <option value="Delivering">Delivering</option>
-                                <option value="Delivered">Delivered</option>
                             </select>
                         </div>
                     </div>
