@@ -61,6 +61,15 @@
                     </a>
                 </div>
                 <div class="col mb-3">
+                    <a href="low_stock_report.jsp">
+                        <div class="card border-primary">
+                            <div class="card-body">
+                                <i class="bi bi-arrow-right text-success"></i><span class="ms-3">Low Stock Report</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col mb-3">
                     <a href="new_customers.jsp">
                         <div class="card border-primary">
                             <div class="card-body">
