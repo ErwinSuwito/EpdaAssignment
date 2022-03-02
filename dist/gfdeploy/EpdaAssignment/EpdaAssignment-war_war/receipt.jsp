@@ -103,16 +103,16 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row justify-content-between">
+                            <div class="row justify-content-between mb-3">
                                 <div class="col-4">
-                                    <span class="fw-bold">Total Amount</span>
-                                    <span class="fw-bold">Amount Tendered</span>
-                                    <span class="fw-bold">Change</span>
+                                    <p class="fw-bold mb-0">Total Amount</p>
+                                    <p class="fw-bold mb-0">Amount Tendered</p>
+                                    <p class="fw-bold mb-0">Change</p>
                                 </div>
                                 <div class="col-2">
-                                    <span class="fw-bold">RM <% out.print(order.getTotalAmount());%></span>
-                                    <span class="fw-bold">RM <% out.print(order.getAmountTendered());%></span>
-                                    <span class="fw-bold">RM <% out.print(order.getAmountTendered() - order.getTotalAmount());%></span>
+                                    <p class="fw-bold mb-0">RM <% out.print(order.getTotalAmount());%></p>
+                                    <p class="fw-bold mb-0">RM <% out.print(order.getAmountTendered());%></p>
+                                    <p class="fw-bold mb-0">RM <% out.print(order.getAmountTendered() - order.getTotalAmount());%></p>
                                 </div>
                             </div>
                             <hr>
