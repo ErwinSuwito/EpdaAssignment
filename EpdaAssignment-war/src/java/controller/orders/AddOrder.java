@@ -85,6 +85,7 @@ public class AddOrder extends HttpServlet {
             totalAmount += item.getProduct().getPrice() * item.getQuantityPurchased();
             Product product  = productFacade.find(item.getProduct().getId());
             int newQuantity = product.getQuantity() - item.getQuantityPurchased();
+            product.setQuantity(newQuantity);
             productFacade.edit(product);
         }
         
