@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/customer_profile.jsp</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/cancelorder.jsp</file>
-            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/src/java/controller/orders/CancelOrder.java</file>
+            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/delivery_workload.jsp</file>
+            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/new_products.jsp</file>
+            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/reporthome.jsp</file>
+            <file>file:/C:/Users/erwin/Documents/Repos/EpdaAssignment/EpdaAssignment-war/web/new_customers.jsp</file>
         </group>
     </open-files>
 </project-private>
