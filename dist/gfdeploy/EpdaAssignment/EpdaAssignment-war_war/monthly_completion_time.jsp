@@ -56,7 +56,7 @@
                             List<Orders> orders = ordersFacade.findAll();
                             for (Orders order : orders) {
                                 if ((order.getSubmittedTime().getMonthValue() == LocalDateTime.now().getMonthValue())
-                                        && (order.getSubmittedTime().getYear() == LocalDateTime.now().getYear()) 
+                                        && (order.getSubmittedTime().getYear() == LocalDateTime.now().getYear())
                                         && (order.getStatus() == OrderStatus.Delivered)) {
                                     numberOfDeliveries++;
                                     Duration diff = Duration.between(order.getAssignedTime(), order.getDeliveredTime());
@@ -74,7 +74,7 @@
                     </tbody>
                 </table>
 
-                <p>Average order completion time: <% out.print(totalCompletionTime / numberOfDeliveries);%> minutes</p>
+                <p>Average order completion time: <% out.print(Math.round(totalCompletionTime / numberOfDeliveries));%> minutes</p>
                 <p>Report generated on: <% out.print(LocalDateTime.now().toString()); %></p>
             </div>
         </div>
