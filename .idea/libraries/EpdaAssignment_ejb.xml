@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="EpdaAssignment-ejb">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/EpdaAssignment-ejb/dist/EpdaAssignment-ejb.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
