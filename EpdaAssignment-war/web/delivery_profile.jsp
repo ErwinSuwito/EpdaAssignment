@@ -105,14 +105,15 @@
                                         <%
                                             List<Orders> allDeliveries = ordersFacade.getAssignedDeliveries(user);
                                             for (Orders order : allDeliveries) {
-                                                if (order.getStatus() == OrderStatus.Delivering || order.getStatus() == OrderStatus.Assigned)
-                                                out.println("<tr>");
-                                                out.println("<td>" + order.getId() + "</td>");
-                                                out.println("<td>" + order.getSubmittedTime() + "</td>");
-                                                out.println("<td>" + order.getStatus() + "</td>");
-                                                out.println("<td>" + order.getTotalAmount() + "</td>");
-                                                out.println("<td><a href=\"orderdetails.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-secondary\">View Details</span></a></td>");
-                                                out.println("</tr>");
+                                                if (order.getStatus() == OrderStatus.Delivering || order.getStatus() == OrderStatus.Assigned) {
+                                                    out.println("<tr>");
+                                                    out.println("<td>" + order.getId() + "</td>");
+                                                    out.println("<td>" + order.getSubmittedTime() + "</td>");
+                                                    out.println("<td>" + order.getStatus() + "</td>");
+                                                    out.println("<td>" + order.getTotalAmount() + "</td>");
+                                                    out.println("<td><a href=\"orderdetails.jsp?id=" + order.getId() + "\"><span class=\"btn btn-sm btn-secondary\">View Details</span></a></td>");
+                                                    out.println("</tr>");
+                                                }
                                             }
                                         %>
                                     </tbody>
