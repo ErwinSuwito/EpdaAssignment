@@ -60,8 +60,9 @@ public class Orders implements Serializable {
     private LocalDateTime deliveredTime;
     private LocalDateTime assignedTime;
     private double totalAmount;
+    private double amountTendered;
 
-    public Orders(Long id, Users customer, Users deliveryStaff, ArrayList<OrderProduct> basket, String address, OrderStatus status, LocalDateTime submittedTime, LocalDateTime deliveredTime, double totalAmount) {
+    public Orders(Long id, Users customer, Users deliveryStaff, ArrayList<OrderProduct> basket, String address, OrderStatus status, LocalDateTime submittedTime, LocalDateTime deliveredTime, LocalDateTime assignedTime, double totalAmount, double amountTendered) {
         this.id = id;
         this.customer = customer;
         this.deliveryStaff = deliveryStaff;
@@ -70,7 +71,9 @@ public class Orders implements Serializable {
         this.status = status;
         this.submittedTime = submittedTime;
         this.deliveredTime = deliveredTime;
+        this.assignedTime = assignedTime;
         this.totalAmount = totalAmount;
+        this.amountTendered = amountTendered;
     }
 
     public Orders(Users customer, ArrayList<OrderProduct> basket, String address, OrderStatus status, LocalDateTime submittedTime, double totalAmount) {
@@ -80,6 +83,22 @@ public class Orders implements Serializable {
         this.status = status;
         this.submittedTime = submittedTime;
         this.totalAmount = totalAmount;
+    }
+
+    public ArrayList<OrderProduct> getBasket() {
+        return basket;
+    }
+
+    public void setBasket(ArrayList<OrderProduct> basket) {
+        this.basket = basket;
+    }
+
+    public double getAmountTendered() {
+        return amountTendered;
+    }
+
+    public void setAmountTendered(double amountTendered) {
+        this.amountTendered = amountTendered;
     }
 
     public Orders() {

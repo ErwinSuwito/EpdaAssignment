@@ -105,7 +105,9 @@
                             </div>
                             <div class="row justify-content-between">
                                 <div class="col-4">
-                                    <span class="fw-bold">Total</span>
+                                    <span class="fw-bold">Total Amount</span>
+                                    <span class="fw-bold">Amount Tendered</span>
+                                    <span class="fw-bold">Change</span>
                                 </div>
                                 <div class="col-2">
                                     <span class="fw-bold">RM <% out.print(order.getTotalAmount());%></span>
