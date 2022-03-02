@@ -45,7 +45,7 @@
                     <thead>
                     <th>Order ID</th>
                     <th>Assigned To</th>
-                    <th>Assigned Time</th>
+                    <th>Order Submitted Time</th>
                     <th>Delivered Time</th>
                     <th>Total Time</th>
                     </thead>
@@ -64,7 +64,7 @@
                                     out.println("<tr>");
                                     out.println("<td>" + order.getId() + "</td>");
                                     out.println("<td>" + order.getDeliveryStaff().getName() + "</td>");
-                                    out.println("<td>" + order.getAssignedTime().toString() + "</td>");
+                                    out.println("<td>" + order.getSubmittedTime().toString() + "</td>");
                                     out.println("<td>" + order.getDeliveredTime().toString() + "</td>");
                                     out.println("<td>RM " + diff.toMinutes() + " minutes</td>");
                                     out.println("</tr>");
