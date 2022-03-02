@@ -32,7 +32,7 @@
         Users user = (Users) request.getSession(false).getAttribute("login");
     %>
     <body>
-        <%@include file="/WEB-INF/jspf/managing_navbar.jspf" %>
+        <%@include file="/WEB-INF/jspf/empty_navbar.jspf" %>
         <div class="container mt-5">
             <h2>Edit Profile</h2>
             <div class="row mt-4">
