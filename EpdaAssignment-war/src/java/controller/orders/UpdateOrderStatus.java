@@ -19,8 +19,6 @@ import model.Enums;
 import model.Enums.OrderStatus;
 import model.Orders;
 import model.OrdersFacade;
-import model.Receipt;
-import model.ReceiptFacade;
 import model.Users;
 
 /**
@@ -29,9 +27,6 @@ import model.Users;
  */
 @WebServlet(name = "UpdateOrderStatus", urlPatterns = {"/UpdateOrderStatus"})
 public class UpdateOrderStatus extends HttpServlet {
-
-    @EJB
-    private ReceiptFacade receiptFacade;
 
     @EJB
     private OrdersFacade ordersFacade;
@@ -86,8 +81,7 @@ public class UpdateOrderStatus extends HttpServlet {
             
             double amountTendered = Double.parseDouble(request.getParameter("amountTendered"));
             order.setDeliveredTime(LocalDateTime.now());
-            Receipt receipt = new Receipt(order, amountTendered);
-            receiptFacade.create(receipt);
+            order.setAmountTendered(amountTendered);
         }
         
         order.setStatus(status);
