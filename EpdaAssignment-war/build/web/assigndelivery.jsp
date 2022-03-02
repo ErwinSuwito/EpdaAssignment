@@ -46,6 +46,13 @@
         <div class="container mt-5">
             <h2>Assign Delivery</h2>
             <div class="col-8 mt-4">
+                <%
+                    String notice = (String) request.getSession(false).getAttribute("notice");
+                    String noticeBg = (String) request.getSession(false).getAttribute("noticeBg");
+                    if (notice != null) {
+                        out.println("<div class=\"alert alert-" + noticeBg + "\" role=\"alert\">" + notice + "</div>");
+                    }
+                %>
                 <form action="AssignDeliveryStaff" method="POST">
                     <input type="hidden" id="orderId" name="orderId" value="<% out.print(order.getId()); %>">
                     <div class="row mb-3">
@@ -71,18 +78,5 @@
             session.removeAttribute("noticeBg");
             session.removeAttribute("notice");
         %>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#pendingTable').DataTable();
-                $('#assignedTable').DataTable();
-                $('#deliveringTable').DataTable();
-                $('#deliveredTable').DataTable();
-            });
-        </script>
     </body>
 </html>
