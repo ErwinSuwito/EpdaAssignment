@@ -66,7 +66,7 @@
                                     out.println("<td>" + order.getDeliveryStaff().getName() + "</td>");
                                     out.println("<td>" + order.getSubmittedTime().toString() + "</td>");
                                     out.println("<td>" + order.getDeliveredTime().toString() + "</td>");
-                                    out.println("<td>RM " + diff.toMinutes() + " minutes</td>");
+                                    out.println("<td>" + diff.toMinutes() + " minutes</td>");
                                     out.println("</tr>");
                                 }
                             }
