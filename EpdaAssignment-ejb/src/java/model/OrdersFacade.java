@@ -94,9 +94,17 @@ public class OrdersFacade extends AbstractFacade<Orders> {
     }
 
     public List<Orders> getAssignedDeliveries(Users staff) {
-        return em.createNamedQuery("Orders.GetAssignedDeliveries")
+        List<Orders> allAssignedDeliveries = em.createNamedQuery("Orders.GetAssignedDeliveries")
                 .setParameter("deliveryStaff", staff)
                 .getResultList();
+        List<Orders> filteredDeliveries = new ArrayList<>();
+        for (Orders order : allAssignedDeliveries) {
+            if (order.getStatus() != OrderStatus.Deleted) {
+                filteredDeliveries.add(order);
+            }
+        }
+        
+        return filteredDeliveries;
     }
     
     public List<Orders> getAssignedDeliveriesFilteredByStatus(Users staff, OrderStatus status) {
