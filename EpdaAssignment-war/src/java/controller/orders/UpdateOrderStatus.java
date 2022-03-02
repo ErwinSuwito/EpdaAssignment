@@ -19,6 +19,8 @@ import model.Enums;
 import model.Enums.OrderStatus;
 import model.Orders;
 import model.OrdersFacade;
+import model.Receipt;
+import model.ReceiptFacade;
 import model.Users;
 
 /**
@@ -27,6 +29,9 @@ import model.Users;
  */
 @WebServlet(name = "UpdateOrderStatus", urlPatterns = {"/UpdateOrderStatus"})
 public class UpdateOrderStatus extends HttpServlet {
+
+    @EJB
+    private ReceiptFacade receiptFacade;
 
     @EJB
     private OrdersFacade ordersFacade;
@@ -72,7 +77,17 @@ public class UpdateOrderStatus extends HttpServlet {
         }
         
         if (status == OrderStatus.Delivered) {
+            if (request.getParameter("amountTendered") == null) {
+                request.setAttribute("notice", "Please enter all required information");
+                request.setAttribute("noticeBg", "warning");
+                response.sendRedirect("completeorder.jsp?id=" + order.getId());
+                return;
+            }
+            
+            double amountTendered = Double.parseDouble(request.getParameter("amountTendered"));
             order.setDeliveredTime(LocalDateTime.now());
+            Receipt receipt = new Receipt(order, amountTendered);
+            receiptFacade.create(receipt);
         }
         
         order.setStatus(status);
