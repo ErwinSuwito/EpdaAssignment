@@ -46,7 +46,7 @@
                     </thead>
                     <tbody>
                         <%
-                            List<Users> users = usersFacade.findAllStaffs();
+                            List<Users> users = usersFacade.findDeliveryStaffs();
                             for (Users user : users) {
                                 if ((user.getCreatedDate().getYear() == LocalDateTime.now().getYear())
                                         && (user.getCreatedDate().getMonth() == LocalDateTime.now().getMonth())) {
