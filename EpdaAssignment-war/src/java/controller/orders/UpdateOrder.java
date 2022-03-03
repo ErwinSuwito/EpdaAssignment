@@ -70,16 +70,19 @@ public class UpdateOrder extends HttpServlet {
             return;
         }
         
-        if (order.getStatus() != Enums.OrderStatus.Pending ||
-                order.getStatus() != Enums.OrderStatus.Assigned) {
+        if (order.getStatus() == Enums.OrderStatus.Pending ||
+                order.getStatus() == Enums.OrderStatus.Assigned) {
             String address = request.getParameter("address");
             order.setAddress(address);
             ordersFacade.edit(order);
+            session.setAttribute("notice", "Address has been updated");
+            session.setAttribute("noticeBg", "success");
+        } else {
+            session.setAttribute("notice", "We can't modify your order at this time.");
+            session.setAttribute("noticeBg", "warning");
         }
         
-        session.setAttribute("notice", "We can't modify your order at this time. ");
-        session.setAttribute("noticeBg", "warning");
-        response.sendRedirect("myorders.jsp");
+        response.sendRedirect("orderdetails.jsp?id=" + order.getId());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
