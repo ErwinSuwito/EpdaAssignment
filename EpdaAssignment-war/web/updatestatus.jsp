@@ -63,7 +63,7 @@
                 %>
             </div>
             <div class="row">
-                <div class="col-8 mt-5">
+                <div class="col-8 mt-2">
                     <form action="UpdateOrderStatus" method="POST">
                     <input type="hidden" id="orderId" name="orderId" value="<% out.print(order.getId()); %>">
                     <div class="row mb-3">
