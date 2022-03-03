@@ -242,6 +242,7 @@
                                     if (user.getRole() == LoginStateRole.Customer) {
                                         if (order.getStatus() == OrderStatus.Pending || order.getStatus() == OrderStatus.Assigned) {
                                             out.println("<span class=\"btn btn-danger btn-sm\"><a href=\"cancelorder.jsp?id=" + order.getId() + "\">Cancel Order</a></span>");
+                                            out.println("<span class=\"btn btn-warning btn-sm\"><a href=\"editorder.jsp?orderId=" + order.getId() + "\">Edit Address</a></span>");
                                         }
                                         
                                         if (order.getStatus() == OrderStatus.Delivered) {
