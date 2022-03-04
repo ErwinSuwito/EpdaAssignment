@@ -47,7 +47,11 @@
                 <table id="staffTable" class="table table-stripped" style="width:100%">
                     <thead>
                     <th>Name</th>
+                    <th>Gender</th>
                     <th>Email</th>
+                    <th>Address</th>
+                    <th>Phone Number</th>
+                    <th>IC Number</th>
                     <th>Staff Type</th>
                     <th></th>
                     </thead>
@@ -58,7 +62,15 @@
                             for (Users staff : staffs) {
                                 out.println("<tr>");
                                 out.println("<td>" + staff.getName() + "</td>");
+                                if (staff.getIsMale()) {
+                                    out.println("<td>Male</td>");
+                                } else {
+                                    out.println("<td>Female</td>");
+                                }
                                 out.println("<td>" + staff.getEmail() + "</td>");
+                                out.println("<td>" + staff.getAddress() + "</td>");
+                                out.println("<td>" + staff.getPhoneNumber() + "</td>");
+                                out.println("<td>" + staff.getIcNumber() + "</td>");
                                 out.println("<td>" + staff.getRole().toString() + "</td>");
                                 out.println("<td>");
                                 out.println("<a href=\"editstaff.jsp?id=" + staff.getId() + "\"> <span class=\"btn btn-secondary btn-sm\">Edit</span></a>");
