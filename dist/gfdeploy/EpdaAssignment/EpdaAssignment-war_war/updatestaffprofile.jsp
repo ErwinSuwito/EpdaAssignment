@@ -60,6 +60,12 @@
                         </div>
                     </div>
                     <div class="row mb-3">
+                        <label for="address" class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-10">
+                            <input type="text" class ="form-control" name="address" id="address" maxlength="255" required></input>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
                         <label for="phoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
                         <div class="col-sm-10">
                             <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" value="<% out.println(user.getPhoneNumber()); %>" maxlength="255" required></input>

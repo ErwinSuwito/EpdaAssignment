@@ -69,6 +69,7 @@ public class EditStaffInfo extends HttpServlet {
         staffToEdit.setIcNumber(request.getParameter("icNumber"));
         staffToEdit.setName(request.getParameter("name"));
         staffToEdit.setEmail(request.getParameter("email"));
+        staffToEdit.setEmail(request.getParameter("address"));
 
         if (staff.getRole() == Enums.LoginStateRole.ManagingStaff) {
             if (request.getParameter("gender") != null) {
