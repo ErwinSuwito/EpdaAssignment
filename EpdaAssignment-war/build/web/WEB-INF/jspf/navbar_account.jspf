@@ -1,0 +1,9 @@
+<div class="col-md-3 text-end">
+    <%
+        if (helpers.Helpers.checkLoginState(request.getSession(false)) == model.Enums.LoginStateRole.LoggedOut) {
+            out.println("<a href=\"login.jsp\"><span class=\"btn btn-primary\">Login</span></a>");
+        } else {
+            out.println("<a href=\"Logout\"><span class=\"btn btn-outline-secondary\">Logout</span></a>");
+        }
+    %>
+</div>
