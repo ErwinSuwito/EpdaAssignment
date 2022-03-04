@@ -91,7 +91,7 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email" id="email" maxlength="255" value="<% out.print(staffToEdit.getEmail()); %>">
+                            <input type="email" class="form-control" name="email" id="email" maxlength="255" value="<% out.print(staffToEdit.getEmail()); %>" required>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -128,19 +128,19 @@
                     <div class="row mb-3">
                         <label for="address" class="col-sm-2 col-form-label">Address</label>
                         <div class="col-sm-10">
-                            <input type="text" class ="form-control" name="address" id="address" maxlength="255" required></input>
+                            <input type="text" class ="form-control" name="address" id="address" maxlength="255" value="<% out.print(staffToEdit.getAddress()); %>" required></input>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="phoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
                         <div class="col-sm-10">
-                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" value="<% out.println(staffToEdit.getPhoneNumber()); %>" maxlength="255" required></input>
+                            <input type="tel" class ="form-control" name="phoneNumber" id="phoneNumber" value="<% out.print(staffToEdit.getPhoneNumber()); %>" maxlength="255" required></input>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="icNumber" class="col-sm-2 col-form-label">IC Number</label>
                         <div class="col-sm-10">
-                            <input type="text" class ="form-control" name="icNumber" id="icNumber" value="<% out.println(staffToEdit.getIcNumber()); %>" maxlength="255" required></input>
+                            <input type="text" class ="form-control" name="icNumber" id="icNumber" value="<% out.print(staffToEdit.getIcNumber()); %>" maxlength="255" required></input>
                         </div>
                     </div>
                     <button type="submit" value="submit" class="btn btn-primary">Save Changes</button>

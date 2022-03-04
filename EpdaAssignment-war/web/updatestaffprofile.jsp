@@ -56,13 +56,13 @@
                     <div class="row mb-3">
                         <label for="id" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email" id="email" maxlength="255" value="<% out.print(user.getEmail()); %>">
+                            <input type="email" class="form-control" name="email" id="email" maxlength="255" value="<% out.print(user.getEmail()); %>" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="address" class="col-sm-2 col-form-label">Address</label>
                         <div class="col-sm-10">
-                            <input type="text" class ="form-control" name="address" id="address" maxlength="255" required></input>
+                            <input type="text" class ="form-control" name="address" id="address" maxlength="255" value="<% out.print(user.getAddress()); %>" required></input>
                         </div>
                     </div>
                     <div class="row mb-3">
