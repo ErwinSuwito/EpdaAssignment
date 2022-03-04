@@ -45,8 +45,9 @@ public class Users implements Serializable {
     private LoginStateRole role;
     private Boolean isDeleted;
     private LocalDateTime createdDate;
+    private String address;
 
-    public Users(Long id, String email, String password, String name, Boolean isMale, String phoneNumber, String icNumber, LoginStateRole role, Boolean isDeleted, LocalDateTime createdDate) {
+    public Users(Long id, String email, String password, String name, Boolean isMale, String phoneNumber, String icNumber, LoginStateRole role, Boolean isDeleted, LocalDateTime createdDate, String address) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -57,9 +58,10 @@ public class Users implements Serializable {
         this.role = role;
         this.isDeleted = isDeleted;
         this.createdDate = createdDate;
+        this.address = address;
     }
 
-    public Users(String email, String password, String name, Boolean isMale, String phoneNumber, String icNumber, LoginStateRole role) {
+    public Users(String email, String password, String name, Boolean isMale, String phoneNumber, String icNumber, LoginStateRole role, String address) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -69,6 +71,7 @@ public class Users implements Serializable {
         this.role = role;
         this.isDeleted = false;
         this.createdDate = LocalDateTime.now();
+        this.address = address;
     }
 
     public Users(String email, String password, String name, String phoneNumber) {
@@ -82,6 +85,14 @@ public class Users implements Serializable {
     }
 
     public Users() {
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public LocalDateTime getCreatedDate() {

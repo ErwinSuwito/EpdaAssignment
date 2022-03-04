@@ -51,9 +51,6 @@
             <h2>Complete Order</h2>
             <h6>Order ID <% out.print(order.getId()); %></h6>
             <div class="row mt-4">
-                <div class="alert alert-warning">
-                    Updating the status to Delivered will automatically generate the receipt.
-                </div>
                 <%
                     String notice = (String) request.getSession(false).getAttribute("notice");
                     String noticeBg = (String) request.getSession(false).getAttribute("noticeBg");
@@ -63,7 +60,7 @@
                 %>
             </div>
             <div class="row">
-                <div class="col-8 mt-5">
+                <div class="col-8 mt-2">
                     <form action="UpdateOrderStatus" method="POST">
                     <input type="hidden" id="orderId" name="orderId" value="<% out.print(order.getId()); %>">
                     <div class="row mb-3">

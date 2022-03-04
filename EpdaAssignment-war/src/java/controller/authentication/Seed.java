@@ -43,7 +43,7 @@ public class Seed extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         if (usersFacade.findAllStaffs().isEmpty()) {
-            Users admin = new Users("admin@apstore.com", "apstore", "Administrator", true, "", "", LoginStateRole.ManagingStaff);
+            Users admin = new Users("admin@apstore.com", "apstore", "Administrator", true, "", "", LoginStateRole.ManagingStaff, "");
             usersFacade.create(admin);
             
             HttpSession session = request.getSession(true);

@@ -45,11 +45,11 @@ public class AddStaff extends HttpServlet {
         
         // Gets the current session to check if user is logged in
         HttpSession session = request.getSession(false);
-//        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
-//        if (state != Enums.LoginStateRole.ManagingStaff) {
-//            response.sendRedirect("unauthorized.jsp");
-//            return;
-//        }
+        Enums.LoginStateRole state = helpers.Helpers.checkLoginState(session);
+        if (state != Enums.LoginStateRole.ManagingStaff) {
+            response.sendRedirect("unauthorized.jsp");
+            return;
+        }
         
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -58,6 +58,7 @@ public class AddStaff extends HttpServlet {
         Enums.LoginStateRole role;
         String phoneNumber = request.getParameter("phoneNumber");
         String icNumber = request.getParameter("icNumber");
+        String address = request.getParameter("address");
         
         if (request.getParameter("gender") == null || request.getParameter("staffType") == null) {
             session.setAttribute("notice", "Please fill in all fields in the form!");
@@ -83,7 +84,7 @@ public class AddStaff extends HttpServlet {
             return;
         }
         
-        Users newStaff = new Users(email, password, name, isMale, phoneNumber, icNumber, role);
+        Users newStaff = new Users(email, password, name, isMale, phoneNumber, icNumber, role, address);
         usersFacade.create(newStaff);
         
         response.sendRedirect("stafflist.jsp");
