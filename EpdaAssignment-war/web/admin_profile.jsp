@@ -64,8 +64,16 @@
                                     <span class="col-9 col-sm-10"><% out.print(user.getEmail()); %></span>
                                 </div>
                                 <div class="row">
+                                    <span class="col-3 col-sm-2">Address</span>
+                                    <span class="col-9 col-sm-10"><% out.print(user.getAddress()); %></span>
+                                </div>
+                                <div class="row">
                                     <span class="col-3 col-sm-2">Phone Number</span>
                                     <span class="col-9 col-sm-10"><% out.print(user.getPhoneNumber()); %></span>
+                                </div>
+                                <div class="row">
+                                    <span class="col-3 col-sm-2">IC Number</span>
+                                    <span class="col-9 col-sm-10"><% out.print(user.getIcNumber()); %></span>
                                 </div>
                                 <div class="d-grid gap-2 d-md-block mt-3 mb-2">
                                     <a href="updatestaffprofile.jsp">
